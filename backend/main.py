@@ -29,13 +29,13 @@ app.add_middleware(
 DATA_PATH = Path(__file__).parent / "data" / "pekerjaan.json"
 PEKERJAAN = json.loads(DATA_PATH.read_text(encoding="utf-8"))
 
-# Coba muat dari MySQL bila DATABASE_URL tersedia; fallback ke JSON
+# Coba muat dari PostgreSQL bila DATABASE_URL tersedia; fallback ke JSON
 try:
     from db import muat_dari_db
     _dari_db = muat_dari_db()
     if _dari_db:
         PEKERJAAN = _dari_db
-        print(f"[main] Memakai data dari MySQL ({len(PEKERJAAN)} pekerjaan)")
+        print(f"[main] Memakai data dari PostgreSQL ({len(PEKERJAAN)} pekerjaan)")
     else:
         print(f"[main] Memakai data dari pekerjaan.json ({len(PEKERJAAN)} pekerjaan)")
 except Exception as e:
