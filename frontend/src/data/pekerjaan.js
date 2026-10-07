@@ -1,0 +1,234 @@
+export const PEKERJAAN = [
+  {
+    "demand": 5,
+    "gaji_max": 12,
+    "gaji_min": 6,
+    "id": "frontend-dev",
+    "kategori": "Web",
+    "nama": "Frontend Developer",
+    "roadmap": [
+      "Kuasai HTML & CSS dasar (struktur dan styling halaman)",
+      "Pelajari JavaScript (DOM, fetch, ES6+)",
+      "Pelajari React (komponen, hooks, routing)",
+      "Pelajari Tailwind CSS untuk styling cepat",
+      "Pelajari Git & deployment (Vercel/Netlify)",
+      "Bangun 3-4 project portofolio"
+    ],
+    "skills": [
+      "HTML",
+      "CSS",
+      "JavaScript",
+      "React",
+      "Tailwind CSS",
+      "Git"
+    ]
+  },
+  {
+    "demand": 5,
+    "gaji_max": 14,
+    "gaji_min": 7,
+    "id": "backend-dev",
+    "kategori": "Web",
+    "nama": "Backend Developer",
+    "roadmap": [
+      "Pilih satu bahasa (Node.js atau Python) dan kuasai dasarnya",
+      "Pelajari REST API & HTTP",
+      "Pelajari database SQL (MySQL/PostgreSQL)",
+      "Pelajari autentikasi (JWT, OAuth)",
+      "Pelajari Docker dasar",
+      "Bangun API lengkap dengan dokumentasi"
+    ],
+    "skills": [
+      "Node.js",
+      "Python",
+      "SQL",
+      "REST API",
+      "Git",
+      "Docker"
+    ]
+  },
+  {
+    "demand": 4,
+    "gaji_max": 13,
+    "gaji_min": 7,
+    "id": "mobile-dev",
+    "kategori": "Mobile",
+    "nama": "Mobile Developer",
+    "roadmap": [
+      "Pelajari Dart (bahasa dasar Flutter)",
+      "Pelajari Flutter (widget, layout, navigasi)",
+      "Pelajari konsumsi REST API",
+      "Pelajari Firebase (auth, database)",
+      "Pelajari publish ke Play Store / App Store",
+      "Bangun 2 aplikasi portofolio"
+    ],
+    "skills": [
+      "Dart",
+      "Flutter",
+      "REST API",
+      "Git",
+      "Firebase"
+    ]
+  },
+  {
+    "demand": 5,
+    "gaji_max": 11,
+    "gaji_min": 6,
+    "id": "data-analyst",
+    "kategori": "Data & AI",
+    "nama": "Data Analyst",
+    "roadmap": [
+      "Kuasai Excel / Google Sheets",
+      "Pelajari SQL (query, join, agregasi)",
+      "Pelajari Python (pandas, matplotlib)",
+      "Pelajari dasar Statistik",
+      "Pelajari Tableau / Power BI",
+      "Bangun dashboard portofolio dari dataset publik"
+    ],
+    "skills": [
+      "SQL",
+      "Python",
+      "Excel",
+      "Tableau",
+      "Statistik"
+    ]
+  },
+  {
+    "demand": 4,
+    "gaji_max": 25,
+    "gaji_min": 12,
+    "id": "ml-engineer",
+    "kategori": "Data & AI",
+    "nama": "Machine Learning Engineer",
+    "roadmap": [
+      "Kuatkan Python & matematika (aljabar linear, peluang)",
+      "Pelajari machine learning klasik (scikit-learn)",
+      "Pelajari deep learning (TensorFlow / PyTorch)",
+      "Pelajari MLOps dasar (deployment model)",
+      "Ikuti kompetisi (Kaggle) untuk portofolio",
+      "Bangun end-to-end ML project"
+    ],
+    "skills": [
+      "Python",
+      "TensorFlow",
+      "PyTorch",
+      "Statistik",
+      "SQL"
+    ]
+  },
+  {
+    "demand": 4,
+    "gaji_max": 12,
+    "gaji_min": 6,
+    "id": "uiux-designer",
+    "kategori": "Desain & Manajemen",
+    "nama": "UI/UX Designer",
+    "roadmap": [
+      "Pelajari prinsip desain & hierarki visual",
+      "Kuasai Figma (auto layout, komponen)",
+      "Pelajari UX research (interview, usability testing)",
+      "Pelajari prototyping & wireframing",
+      "Bangun studi kasus portofolio",
+      "Pelajari design system"
+    ],
+    "skills": [
+      "Figma",
+      "Riset Pengguna",
+      "Prototyping",
+      "Adobe XD"
+    ]
+  },
+  {
+    "demand": 4,
+    "gaji_max": 20,
+    "gaji_min": 10,
+    "id": "devops-engineer",
+    "kategori": "Infrastruktur & Keamanan",
+    "nama": "DevOps Engineer",
+    "roadmap": [
+      "Kuasai Linux & scripting (bash)",
+      "Pelajari Git & CI/CD (GitHub Actions)",
+      "Pelajari Docker (container, image)",
+      "Pelajari Kubernetes dasar",
+      "Pelajari cloud (AWS/GCP)",
+      "Bangun pipeline deployment otomatis"
+    ],
+    "skills": [
+      "Docker",
+      "Kubernetes",
+      "CI/CD",
+      "Linux",
+      "AWS"
+    ]
+  },
+  {
+    "demand": 4,
+    "gaji_max": 16,
+    "gaji_min": 8,
+    "id": "security-analyst",
+    "kategori": "Infrastruktur & Keamanan",
+    "nama": "Cyber Security Analyst",
+    "roadmap": [
+      "Pelajari dasar jaringan komputer (TCP/IP, DNS)",
+      "Kuasai Linux untuk keamanan",
+      "Pelajari Python untuk scripting keamanan",
+      "Pelajari SIEM & analisis log",
+      "Ikuti CTF & dapatkan sertifikasi (Security+)",
+      "Bangun lab keamanan pribadi"
+    ],
+    "skills": [
+      "Jaringan Komputer",
+      "Linux",
+      "Python",
+      "SIEM"
+    ]
+  },
+  {
+    "demand": 3,
+    "gaji_max": 10,
+    "gaji_min": 5,
+    "id": "qa-engineer",
+    "kategori": "Web",
+    "nama": "QA Engineer",
+    "roadmap": [
+      "Pelajari konsep software testing (SDLC, test case)",
+      "Praktik testing manual & bug reporting",
+      "Pelajari SQL untuk validasi data",
+      "Pelajari automation (Selenium)",
+      "Pelajari API testing (Postman)",
+      "Bangun portofolio test plan & automation"
+    ],
+    "skills": [
+      "Testing Manual",
+      "Selenium",
+      "SQL",
+      "Git"
+    ]
+  },
+  {
+    "demand": 3,
+    "gaji_max": 22,
+    "gaji_min": 12,
+    "id": "it-pm",
+    "kategori": "Desain & Manajemen",
+    "nama": "IT Project Manager",
+    "roadmap": [
+      "Pahami SDLC & metodologi Agile/Scrum",
+      "Pelajari tools (Jira, Trello)",
+      "Asah komunikasi & leadership",
+      "Pelajari manajemen risiko & estimasi",
+      "Ambil sertifikasi (PSM / PMP)",
+      "Pimpin project kecil sebagai portofolio"
+    ],
+    "skills": [
+      "Agile/Scrum",
+      "Komunikasi",
+      "Manajemen Risiko",
+      "Jira"
+    ]
+  }
+];
+
+export const KATEGORI = ["Data & AI", "Desain & Manajemen", "Infrastruktur & Keamanan", "Mobile", "Web"];
+
+export const SEMUA_SKILL = ["AWS", "Adobe XD", "Agile/Scrum", "CI/CD", "CSS", "Dart", "Docker", "Excel", "Figma", "Firebase", "Flutter", "Git", "HTML", "Jaringan Komputer", "JavaScript", "Jira", "Komunikasi", "Kubernetes", "Linux", "Manajemen Risiko", "Node.js", "Prototyping", "PyTorch", "Python", "REST API", "React", "Riset Pengguna", "SIEM", "SQL", "Selenium", "Statistik", "Tableau", "Tailwind CSS", "TensorFlow", "Testing Manual"];
