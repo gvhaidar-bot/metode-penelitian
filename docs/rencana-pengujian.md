@@ -32,7 +32,7 @@ Status tiap TC diisi saat pengujian: Lolos / Gagal + catatan.
 | TC-06 | Lolos | Detail + 6 langkah roadmap |
 | TC-07 | Lolos | 404 sesuai harapan |
 | TC-08 | Lolos | 6 langkah roadmap |
-| TC-09 – TC-13 | Belum | Butuh browser (frontend); dijalankan manual |
+| TC-09 – TC-13 | Verifikasi statis (bukan browser) | Semua link sidebar mengarah ke route yang terdefinisi di App.jsx (tidak ada halaman kosong); production build sukses; engine rekomendasi JS diuji via node (Python+SQL → Data Analyst teratas). Uji klik manual tetap disarankan di laptop. |
 
 ## B. Kuesioner Kepuasan Pengguna (Skala Likert 1–5)
 
