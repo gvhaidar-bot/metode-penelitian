@@ -39,7 +39,7 @@ try:
     else:
         print(f"[main] Memakai data dari pekerjaan.json ({len(PEKERJAAN)} pekerjaan)")
 except Exception as e:
-    print(f"[main] Lewati MySQL ({e}); memakai pekerjaan.json")
+    print(f"[main] Lewati PostgreSQL ({e}); memakai pekerjaan.json")
 
 # Bobot SAW: skill 45%, minat 25%, gaji 15%, demand 15%
 BOBOT = {"skill": 0.45, "minat": 0.25, "gaji": 0.15, "demand": 0.15}

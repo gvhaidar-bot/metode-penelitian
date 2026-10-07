@@ -26,7 +26,7 @@ Judul usulan: *"Sistem Rekomendasi Bidang Karier Berbasis Content-Based Filterin
 ## 4. Tech Stack
 - Frontend: React JS
 - Backend: Python + FastAPI (REST API, JSON)
-- Database: MySQL
+- Database: PostgreSQL
 - Alur: React → POST /rekomendasi → FastAPI hitung cosine similarity → kembalikan ranking + roadmap + prospek.
 
 Endpoint usulan: `POST /rekomendasi`, `GET /pekerjaan`, `GET /pekerjaan/{id}/roadmap`.

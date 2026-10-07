@@ -39,22 +39,23 @@ Contoh body `POST /rekomendasi`:
 Data profil pekerjaan: `data/pekerjaan.json` (10 karier IT, data contoh untuk
 pengembangan — nanti diganti hasil olahan dataset Kaggle).
 
-## Database MySQL (opsional)
+## Database PostgreSQL (opsional)
 
 1. Buat database lalu jalankan `schema.sql`:
    ```sql
-   CREATE DATABASE karier_it CHARACTER SET utf8mb4;
-   -- lalu import backend/schema.sql
+   CREATE DATABASE karier_it;
+   -- lalu: psql -d karier_it -f backend/schema.sql
    ```
 2. Isi environment variable:
    ```bash
-   export DATABASE_URL="mysql+pymysql://root:@localhost/karier_it"
+   export DATABASE_URL="postgresql+psycopg2://postgres:password@localhost/karier_it"
    ```
+   (ganti `postgres:password` dengan user & password PostgreSQL-mu)
 3. Seed data awal dari JSON:
    ```bash
    python3 db.py
    ```
-4. Jalankan API seperti biasa — bila `DATABASE_URL` terisi dan MySQL
+4. Jalankan API seperti biasa — bila `DATABASE_URL` terisi dan PostgreSQL
    terjangkau, data diambil dari database; bila tidak, otomatis fallback
    ke `pekerjaan.json`.
 

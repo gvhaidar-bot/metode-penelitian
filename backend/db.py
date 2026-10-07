@@ -1,10 +1,10 @@
-"""Lapisan database (MySQL via SQLAlchemy).
+"""Lapisan database (PostgreSQL via SQLAlchemy).
 
 Aktif bila environment variable DATABASE_URL diisi, contoh:
-    mysql+pymysql://root:@localhost/karier_it
+    postgresql+psycopg2://postgres:password@localhost/karier_it
 
 Bila tidak diisi / koneksi gagal, backend otomatis memakai pekerjaan.json
-(mode fallback) sehingga tetap bisa jalan tanpa MySQL.
+(mode fallback) sehingga tetap bisa jalan tanpa PostgreSQL.
 """
 import json
 import os
@@ -70,7 +70,7 @@ def muat_dari_db():
                 "demand": int(p.demand),
             } for p in rows]
     except Exception as e:
-        print(f"[db] MySQL tidak terjangkau ({e}); pakai pekerjaan.json")
+        print(f"[db] PostgreSQL tidak terjangkau ({e}); pakai pekerjaan.json")
         return None
 
 

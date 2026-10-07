@@ -16,7 +16,7 @@ Pengumpulan data (dataset Kaggle: lowongan IT Asia-Pasifik + gaji JobStreet 2024
         |
 Pra-pemrosesan data (filter Indonesia → pemetaan 10 karier → agregasi skill → join gaji)
         |
-Perancangan sistem (arsitektur React–FastAPI–MySQL, skema DB, endpoint API)
+Perancangan sistem (arsitektur React–FastAPI–PostgreSQL, skema DB, endpoint API)
         |
 Implementasi (CBF + Cosine Similarity, SAW, halaman web)
         |
@@ -39,7 +39,7 @@ Analisis hasil & penarikan kesimpulan
    Informatika (lihat `rencana-pengujian.md` bagian B).
 
 ## 3.4 Perancangan Sistem
-- **Arsitektur:** frontend React (Vite) → REST API FastAPI → MySQL
+- **Arsitektur:** frontend React (Vite) → REST API FastAPI → PostgreSQL
   (fallback JSON bila DB tidak tersedia).
 - **Basis data:** tabel `pekerjaan`, `pekerjaan_skill`, `roadmap`
   (lihat `backend/schema.sql`).
