@@ -1,1 +1,302 @@
-[{"demand":5,"gaji_max":12,"gaji_min":6,"id":"frontend-dev","kategori":"Web","nama":"Frontend Developer","roadmap":["Kuasai HTML & CSS dasar (struktur dan styling halaman)","Pelajari JavaScript (DOM, fetch, ES6+)","Pelajari React (komponen, hooks, routing)","Pelajari Tailwind CSS untuk styling cepat","Pelajari Git & deployment (Vercel/Netlify)","Bangun 3-4 project portofolio"],"skills":["HTML","CSS","JavaScript","React","Tailwind CSS","Git"]},{"demand":5,"gaji_max":14,"gaji_min":7,"id":"backend-dev","kategori":"Web","nama":"Backend Developer","roadmap":["Pilih satu bahasa (Node.js atau Python) dan kuasai dasarnya","Pelajari REST API & HTTP","Pelajari database SQL (MySQL/PostgreSQL)","Pelajari autentikasi (JWT, OAuth)","Pelajari Docker dasar","Bangun API lengkap dengan dokumentasi"],"skills":["Node.js","Python","SQL","REST API","Git","Docker"]},{"demand":4,"gaji_max":13,"gaji_min":7,"id":"mobile-dev","kategori":"Mobile","nama":"Mobile Developer","roadmap":["Pelajari Dart (bahasa dasar Flutter)","Pelajari Flutter (widget, layout, navigasi)","Pelajari konsumsi REST API","Pelajari Firebase (auth, database)","Pelajari publish ke Play Store / App Store","Bangun 2 aplikasi portofolio"],"skills":["Dart","Flutter","REST API","Git","Firebase"]},{"demand":5,"gaji_max":11,"gaji_min":6,"id":"data-analyst","kategori":"Data & AI","nama":"Data Analyst","roadmap":["Kuasai Excel / Google Sheets","Pelajari SQL (query, join, agregasi)","Pelajari Python (pandas, matplotlib)","Pelajari dasar Statistik","Pelajari Tableau / Power BI","Bangun dashboard portofolio dari dataset publik"],"skills":["SQL","Python","Excel","Tableau","Statistik"]},{"demand":4,"gaji_max":25,"gaji_min":12,"id":"ml-engineer","kategori":"Data & AI","nama":"Machine Learning Engineer","roadmap":["Kuatkan Python & matematika (aljabar linear, peluang)","Pelajari machine learning klasik (scikit-learn)","Pelajari deep learning (TensorFlow / PyTorch)","Pelajari MLOps dasar (deployment model)","Ikuti kompetisi (Kaggle) untuk portofolio","Bangun end-to-end ML project"],"skills":["Python","TensorFlow","PyTorch","Statistik","SQL"]},{"demand":4,"gaji_max":12,"gaji_min":6,"id":"uiux-designer","kategori":"Desain & Manajemen","nama":"UI/UX Designer","roadmap":["Pelajari prinsip desain & hierarki visual","Kuasai Figma (auto layout, komponen)","Pelajari UX research (interview, usability testing)","Pelajari prototyping & wireframing","Bangun studi kasus portofolio","Pelajari design system"],"skills":["Figma","Riset Pengguna","Prototyping","Adobe XD"]},{"demand":4,"gaji_max":20,"gaji_min":10,"id":"devops-engineer","kategori":"Infrastruktur & Keamanan","nama":"DevOps Engineer","roadmap":["Kuasai Linux & scripting (bash)","Pelajari Git & CI/CD (GitHub Actions)","Pelajari Docker (container, image)","Pelajari Kubernetes dasar","Pelajari cloud (AWS/GCP)","Bangun pipeline deployment otomatis"],"skills":["Docker","Kubernetes","CI/CD","Linux","AWS"]},{"demand":4,"gaji_max":16,"gaji_min":8,"id":"security-analyst","kategori":"Infrastruktur & Keamanan","nama":"Cyber Security Analyst","roadmap":["Pelajari dasar jaringan komputer (TCP/IP, DNS)","Kuasai Linux untuk keamanan","Pelajari Python untuk scripting keamanan","Pelajari SIEM & analisis log","Ikuti CTF & dapatkan sertifikasi (Security+)","Bangun lab keamanan pribadi"],"skills":["Jaringan Komputer","Linux","Python","SIEM"]},{"demand":3,"gaji_max":10,"gaji_min":5,"id":"qa-engineer","kategori":"Web","nama":"QA Engineer","roadmap":["Pelajari konsep software testing (SDLC, test case)","Praktik testing manual & bug reporting","Pelajari SQL untuk validasi data","Pelajari automation (Selenium)","Pelajari API testing (Postman)","Bangun portofolio test plan & automation"],"skills":["Testing Manual","Selenium","SQL","Git"]},{"demand":3,"gaji_max":22,"gaji_min":12,"id":"it-pm","kategori":"Desain & Manajemen","nama":"IT Project Manager","roadmap":["Pahami SDLC & metodologi Agile/Scrum","Pelajari tools (Jira, Trello)","Asah komunikasi & leadership","Pelajari manajemen risiko & estimasi","Ambil sertifikasi (PSM / PMP)","Pimpin project kecil sebagai portofolio"],"skills":["Agile/Scrum","Komunikasi","Manajemen Risiko","Jira"]}]
+[
+  {
+    "id": "frontend-dev",
+    "nama": "Frontend Developer",
+    "kategori": "Web",
+    "skills": [
+      "React",
+      "JavaScript",
+      "Git",
+      "HTML",
+      "CSS",
+      "PHP",
+      "API",
+      "Angular",
+      "Vue.js",
+      "MySQL",
+      "Java",
+      "Laravel"
+    ],
+    "roadmap": [
+      "Kuasai HTML & CSS dasar",
+      "Pelajari JavaScript (DOM, fetch, ES6+)",
+      "Pelajari React",
+      "Pelajari Tailwind CSS",
+      "Pelajari Git & deployment",
+      "Bangun portofolio"
+    ],
+    "gaji_min": 7.1,
+    "gaji_max": 9.1,
+    "demand": 2
+  },
+  {
+    "id": "backend-dev",
+    "nama": "Backend Developer",
+    "kategori": "Web",
+    "skills": [
+      "Java",
+      "PHP",
+      "MySQL",
+      "JavaScript",
+      "API",
+      "SQL Server",
+      "C#",
+      "PostgreSQL",
+      ".NET",
+      "Python",
+      "Git",
+      "HTML/CSS"
+    ],
+    "roadmap": [
+      "Kuasai Node.js atau Python",
+      "Pelajari REST API & HTTP",
+      "Pelajari database SQL",
+      "Pelajari autentikasi (JWT)",
+      "Pelajari Docker dasar",
+      "Bangun API lengkap"
+    ],
+    "gaji_min": 7.2,
+    "gaji_max": 9.5,
+    "demand": 4
+  },
+  {
+    "id": "mobile-dev",
+    "nama": "Mobile Developer",
+    "kategori": "Mobile",
+    "skills": [
+      "Flutter",
+      "API",
+      "Kotlin",
+      "Git",
+      "Java",
+      "Swift",
+      "PHP",
+      "Android Studio",
+      "MySQL",
+      "C#",
+      "SQL Server",
+      "Laravel"
+    ],
+    "roadmap": [
+      "Pelajari Dart",
+      "Pelajari Flutter",
+      "Pelajari konsumsi REST API",
+      "Pelajari Firebase",
+      "Pelajari publish ke Play Store",
+      "Bangun aplikasi portofolio"
+    ],
+    "gaji_min": 4.8,
+    "gaji_max": 4.8,
+    "demand": 1
+  },
+  {
+    "id": "data-analyst",
+    "nama": "Data Analyst",
+    "kategori": "Data & AI",
+    "skills": [
+      "SQL",
+      "Python",
+      "Power BI",
+      "Tableau",
+      "MS Excel",
+      "AWS",
+      "Azure",
+      "Java",
+      "SQL Server",
+      "Kafka",
+      "Spark",
+      "Google Cloud"
+    ],
+    "roadmap": [
+      "Kuasai Excel/Sheets",
+      "Pelajari SQL",
+      "Pelajari Python (pandas)",
+      "Pelajari dasar Statistik",
+      "Pelajari Tableau/Power BI",
+      "Bangun dashboard portofolio"
+    ],
+    "gaji_min": 5.9,
+    "gaji_max": 6.8,
+    "demand": 1
+  },
+  {
+    "id": "ml-engineer",
+    "nama": "Machine Learning Engineer",
+    "kategori": "Data & AI",
+    "skills": [
+      "Python",
+      "TensorFlow",
+      "AWS",
+      "PyTorch",
+      "Google Cloud",
+      "Spark",
+      "R",
+      "Git",
+      "Hadoop",
+      "API",
+      "Docker",
+      "Azure"
+    ],
+    "roadmap": [
+      "Kuatkan Python & matematika",
+      "Pelajari ML klasik (scikit-learn)",
+      "Pelajari deep learning",
+      "Pelajari MLOps dasar",
+      "Ikuti kompetisi Kaggle",
+      "Bangun project ML end-to-end"
+    ],
+    "gaji_min": 6.5,
+    "gaji_max": 7.9,
+    "demand": 1
+  },
+  {
+    "id": "uiux-designer",
+    "nama": "UI/UX Designer",
+    "kategori": "Desain & Manajemen",
+    "skills": [
+      "Figma",
+      "HTML",
+      "Sketch",
+      "Adobe XD",
+      "CSS",
+      "JavaScript",
+      "Webflow",
+      "Elementor",
+      "Canva",
+      "Photoshop",
+      "Adobe Creative Suite",
+      "Adobe Illustrator"
+    ],
+    "roadmap": [
+      "Pelajari prinsip desain",
+      "Kuasai Figma",
+      "Pelajari UX research",
+      "Pelajari prototyping",
+      "Bangun studi kasus",
+      "Pelajari design system"
+    ],
+    "gaji_min": 5.2,
+    "gaji_max": 6.0,
+    "demand": 1
+  },
+  {
+    "id": "devops-engineer",
+    "nama": "DevOps Engineer",
+    "kategori": "Infrastruktur & Keamanan",
+    "skills": [
+      "AWS",
+      "Azure",
+      "Docker",
+      "Python",
+      "Google Cloud",
+      "Kubernetes",
+      "Java",
+      "Terraform",
+      "Jenkins",
+      "Git",
+      "Ansible",
+      "MySQL"
+    ],
+    "roadmap": [
+      "Kuasai Linux & bash",
+      "Pelajari Git & CI/CD",
+      "Pelajari Docker",
+      "Pelajari Kubernetes dasar",
+      "Pelajari cloud (AWS/GCP)",
+      "Bangun pipeline deployment"
+    ],
+    "gaji_min": 4.3,
+    "gaji_max": 8.2,
+    "demand": 3
+  },
+  {
+    "id": "security-analyst",
+    "nama": "Cyber Security Analyst",
+    "kategori": "Infrastruktur & Keamanan",
+    "skills": [
+      "SIEM",
+      "Firewalls",
+      "Linux",
+      "Splunk",
+      "MS Windows",
+      "Antivirus",
+      "IDS/IPS",
+      "WAF",
+      "TCP/IP",
+      "Fortinet",
+      "VPN",
+      "vulnerability scanners"
+    ],
+    "roadmap": [
+      "Pelajari jaringan komputer",
+      "Kuasai Linux",
+      "Pelajari Python untuk keamanan",
+      "Pelajari SIEM",
+      "Ikuti CTF / sertifikasi",
+      "Bangun lab keamanan"
+    ],
+    "gaji_min": 5.6,
+    "gaji_max": 8.9,
+    "demand": 1
+  },
+  {
+    "id": "qa-engineer",
+    "nama": "QA Engineer",
+    "kategori": "Web",
+    "skills": [
+      "Selenium",
+      "Java",
+      "Python",
+      "Katalon",
+      "Postman",
+      "Jira",
+      "Appium",
+      "API",
+      "Git",
+      "SQL",
+      "JavaScript",
+      "TestNG"
+    ],
+    "roadmap": [
+      "Pelajari konsep software testing",
+      "Praktik testing manual",
+      "Pelajari SQL",
+      "Pelajari automation (Selenium)",
+      "Pelajari API testing",
+      "Bangun portofolio test plan"
+    ],
+    "gaji_min": 4.8,
+    "gaji_max": 9.2,
+    "demand": 1
+  },
+  {
+    "id": "it-pm",
+    "nama": "IT Project Manager",
+    "kategori": "Desain & Manajemen",
+    "skills": [
+      "Jira",
+      "SAP",
+      "Trello",
+      "Java",
+      "Scrum/Agile",
+      "MS Office",
+      "MS Project",
+      "SQL",
+      "MS Excel",
+      "Figma",
+      "Python",
+      "SQL Server"
+    ],
+    "roadmap": [
+      "Pahami Agile/Scrum",
+      "Pelajari tools (Jira)",
+      "Asah komunikasi & leadership",
+      "Pelajari manajemen risiko",
+      "Ambil sertifikasi (PSM/PMP)",
+      "Pimpin project kecil"
+    ],
+    "gaji_min": 10.5,
+    "gaji_max": 14.1,
+    "demand": 1
+  }
+]

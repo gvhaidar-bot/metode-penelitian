@@ -94,12 +94,41 @@ def unduh():
     print("Unduhan selesai.")
 
 
+# Spesialisasi/teknologi -> karier (sinyal paling spesifik, dicek dulu)
+SPEC_RULES = [
+    ("frontend-dev", ["angular", "react", "vue", "frontend", "front end"]),
+    ("mobile-dev", ["flutter", "android", "ios", "kotlin", "swift", "react native"]),
+    ("data-analyst", ["data analysis", "big data", "data warehousing", "tableau", "power bi"]),
+    ("ml-engineer", ["machine learning", "deep learning", "tensorflow", "pytorch", "data science"]),
+    ("devops-engineer", ["devops", "kubernetes", "docker", "ci/cd", "aws", "azure", "cloud"]),
+    ("security-analyst", ["cyber security", "information security", "soc ", "penetration"]),
+    ("qa-engineer", ["qa", "quality assurance", "testing", "selenium", "test automation"]),
+    ("it-pm", ["project management", "agile", "scrum", "product management"]),
+    ("backend-dev", ["node.js", "node js", ".net", "java ", "python", "php", "golang", "backend", "back end", "api "]),
+    ("uiux-designer", ["ui/ux", "ux design", "figma"]),
+]
+
+# Klasifikasi umum -> karier (fallback bila spesialisasi tidak cocok)
+CLASS_RULES = [
+    ("backend-dev", ["developers/programmers", "engineering - software", "architects"]),
+    ("qa-engineer", ["testing & quality assurance"]),
+    ("security-analyst", ["security"]),
+    ("devops-engineer", ["networks & systems administration", "engineering - network"]),
+    ("data-analyst", ["database development & administration", "business/systems analysts"]),
+    ("it-pm", ["programme & project management", "management", "product management & development"]),
+]
+
+# Klasifikasi yang tidak dipetakan ke 10 karier (dikeluarkan dari agregasi)
+SKIP_CLASS = ["help desk & it support", "sales - pre & post", "consultants"]
+
+
 def norm_skill(s: str) -> str:
     s = re.sub(r"\s+", " ", str(s).strip())
     return s
 
 
 def karier_dari_judul(judul: str):
+    """Petakan judul lowongan (dataset gaji) ke karier via KARIER_RULES."""
     t = f" {judul.lower()} "
     for kid, keywords in KARIER_RULES:
         if any(k in t for k in keywords):
@@ -107,25 +136,62 @@ def karier_dari_judul(judul: str):
     return None
 
 
+def karier_dari_spesialisasi(teks: str):
+    t = f" {teks.lower()} "
+    for kid, keywords in SPEC_RULES:
+        if any(k in t for k in keywords):
+            return kid
+    return None
+
+
+def karier_dari_klasifikasi(klas: str):
+    t = klas.lower().strip()
+    if t in SKIP_CLASS:
+        return None
+    for kid, keywords in CLASS_RULES:
+        if any(k in t for k in keywords):
+            return kid
+    return None
+
+
 def proses_jobs():
-    header = pd.read_csv(RAW / "itjob_header.csv")
+    header = pd.read_csv(RAW / "itjob_header.csv", low_memory=False)
     main = pd.read_csv(RAW / "itjob_main.csv")
     tools = pd.read_csv(RAW / "itjob_tools.csv")
     prog = pd.read_csv(RAW / "itjob_prog_lang.csv")
+    spec = pd.read_csv(RAW / "itjob_main_spec.csv")
 
     idn = header[header["country"].str.lower().str.strip() == "indonesia"].copy()
     print(f"Lowongan Indonesia: {len(idn)} dari {len(header)} total")
 
-    df = idn.merge(main[["jobid", "title"]], on="jobid", how="left")
-    df["karier"] = df["title"].fillna("").apply(karier_dari_judul)
+    df = idn.merge(main[["jobid", "source_classification"]], on="jobid", how="left")
+
+    # gabung sinyal spesialisasi per jobid (dari header + tabel spec)
+    spec_map = {}
+    for _, r in spec.iterrows():
+        spec_map.setdefault(r["jobid"], []).append(str(r["addit_spec_text"]))
+    df["spec_text"] = df["jobid"].map(lambda j: " ".join(spec_map.get(j, [])))
+    df["tech_spec"] = df["tech_specialisation"].fillna("") if "tech_specialisation" in df.columns else ""
+
+    def petakan(r):
+        kid = karier_dari_spesialisasi(f"{r['spec_text']} {r['tech_spec']}")
+        if kid:
+            return kid
+        return karier_dari_klasifikasi(str(r["source_classification"] or ""))
+
+    df["karier"] = df.apply(petakan, axis=1)
     df = df[df["karier"].notna()].copy()
-    print(f"Lowongan IT terpetakan ke karier: {len(df)}")
+    print(f"Lowongan terpetakan ke karier: {len(df)}")
 
     skill_map = {}
     for _, r in tools.iterrows():
-        skill_map.setdefault(r["jobid"], []).append(norm_skill(r["tool_text"]))
+        s = norm_skill(r["tool_text"])
+        if s:
+            skill_map.setdefault(r["jobid"], []).append(s)
     for _, r in prog.iterrows():
-        skill_map.setdefault(r["jobid"], []).append(norm_skill(r["prog_lang_text"]))
+        s = norm_skill(r["prog_lang_text"])
+        if s:
+            skill_map.setdefault(r["jobid"], []).append(s)
     df["skills"] = df["jobid"].map(lambda j: skill_map.get(j, []))
 
     return df
@@ -210,10 +276,27 @@ def main():
 
     # Ringkasan EDA
     print("\n=== Ringkasan EDA ===")
-    print(df["karier"].value_counts().to_string())
+    vc = df["karier"].value_counts()
+    print(vc.to_string())
     print("\nContoh skill per karier:")
+    contoh = []
     for d in data[:3]:
-        print(f"- {d['nama']}: {', '.join(d['skills'][:6])}")
+        contoh.append(f"- {d['nama']}: {', '.join(d['skills'][:6])}")
+        print(contoh[-1])
+
+    # simpan ringkasan untuk laporan
+    baris = ["# Ringkasan EDA — Dataset Karier IT Indonesia", "",
+             f"Dibuat: {__import__('datetime').date.today().isoformat()}",
+             f"Sumber: IT Jobs Asia-Pacific (May–Jun 2024) + JobStreet Salary 2024", "",
+             f"- Total lowongan: {len(pd.read_csv(RAW / 'itjob_header.csv', usecols=['jobid']))}",
+             f"- Lowongan Indonesia: {len(df)} (sebelum pemetaan karier)",
+             f"- Terpetakan ke 10 karier: {len(df)}",
+             f"- Baris gaji terpakai: {sum(1 for _ in gaji_map)} karier", "",
+             "## Distribusi lowongan per karier", ""]
+    baris += [f"- {NAMA[k]}: {v}" for k, v in vc.items()]
+    baris += ["", "## Contoh skill tersering", ""] + contoh
+    (BASE / "eda_summary.md").write_text("\n".join(baris), encoding="utf-8")
+    print(f"\nRingkasan tersimpan: {BASE / 'eda_summary.md'}")
 
 
 if __name__ == "__main__":
