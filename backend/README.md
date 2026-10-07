@@ -12,12 +12,13 @@ API: http://localhost:8000 — dokumentasi otomatis: http://localhost:8000/docs
 
 ## Endpoint
 
-| Method | Path              | Keterangan                                  |
-|--------|-------------------|---------------------------------------------|
-| GET    | `/`               | Cek status API                              |
-| GET    | `/pekerjaan`      | Daftar semua profil pekerjaan + roadmap     |
-| GET    | `/pekerjaan/{id}` | Detail satu pekerjaan                       |
-| POST   | `/rekomendasi`    | Hitung ranking rekomendasi                  |
+| Method | Path                          | Keterangan                                  |
+|--------|-------------------------------|---------------------------------------------|
+| GET    | `/`                           | Cek status API                              |
+| GET    | `/pekerjaan`                  | Daftar semua profil pekerjaan + roadmap     |
+| GET    | `/pekerjaan/{id}`             | Detail satu pekerjaan                       |
+| GET    | `/pekerjaan/{id}/roadmap`     | Roadmap belajar satu pekerjaan              |
+| POST   | `/rekomendasi`                | Hitung ranking rekomendasi                  |
 
 Contoh body `POST /rekomendasi`:
 
@@ -37,3 +38,34 @@ Contoh body `POST /rekomendasi`:
 
 Data profil pekerjaan: `data/pekerjaan.json` (10 karier IT, data contoh untuk
 pengembangan — nanti diganti hasil olahan dataset Kaggle).
+
+## Database MySQL (opsional)
+
+1. Buat database lalu jalankan `schema.sql`:
+   ```sql
+   CREATE DATABASE karier_it CHARACTER SET utf8mb4;
+   -- lalu import backend/schema.sql
+   ```
+2. Isi environment variable:
+   ```bash
+   export DATABASE_URL="mysql+pymysql://root:@localhost/karier_it"
+   ```
+3. Seed data awal dari JSON:
+   ```bash
+   python3 db.py
+   ```
+4. Jalankan API seperti biasa — bila `DATABASE_URL` terisi dan MySQL
+   terjangkau, data diambil dari database; bila tidak, otomatis fallback
+   ke `pekerjaan.json`.
+
+## Pipeline dataset Kaggle
+
+`data/build_dataset.py` mengunduh (butuh kredensial Kaggle), memfilter
+lowongan Indonesia, memetakan judul ke 10 karier, mengagregasi skill,
+menggabungkan data gaji, lalu menulis ulang `pekerjaan.json` + ringkasan EDA:
+
+```bash
+cd backend/data
+python3 build_dataset.py --download   # butuh `kaggle` CLI + login Kaggle
+python3 build_dataset.py              # pakai CSV yang sudah ada di data/raw/
+```

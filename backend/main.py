@@ -29,6 +29,18 @@ app.add_middleware(
 DATA_PATH = Path(__file__).parent / "data" / "pekerjaan.json"
 PEKERJAAN = json.loads(DATA_PATH.read_text(encoding="utf-8"))
 
+# Coba muat dari MySQL bila DATABASE_URL tersedia; fallback ke JSON
+try:
+    from db import muat_dari_db
+    _dari_db = muat_dari_db()
+    if _dari_db:
+        PEKERJAAN = _dari_db
+        print(f"[main] Memakai data dari MySQL ({len(PEKERJAAN)} pekerjaan)")
+    else:
+        print(f"[main] Memakai data dari pekerjaan.json ({len(PEKERJAAN)} pekerjaan)")
+except Exception as e:
+    print(f"[main] Lewati MySQL ({e}); memakai pekerjaan.json")
+
 # Bobot SAW: skill 45%, minat 25%, gaji 15%, demand 15%
 BOBOT = {"skill": 0.45, "minat": 0.25, "gaji": 0.15, "demand": 0.15}
 MAX_GAJI = max(p["gaji_max"] for p in PEKERJAAN)
@@ -103,6 +115,15 @@ def detail_pekerjaan(pekerjaan_id: str):
     for job in PEKERJAAN:
         if job["id"] == pekerjaan_id:
             return job
+    raise HTTPException(status_code=404, detail="Pekerjaan tidak ditemukan")
+
+
+@app.get("/pekerjaan/{pekerjaan_id}/roadmap")
+def roadmap_pekerjaan(pekerjaan_id: str):
+    """Roadmap belajar untuk satu pekerjaan."""
+    for job in PEKERJAAN:
+        if job["id"] == pekerjaan_id:
+            return {"id": job["id"], "nama": job["nama"], "roadmap": job["roadmap"]}
     raise HTTPException(status_code=404, detail="Pekerjaan tidak ditemukan")
 
 
