@@ -20,6 +20,20 @@
 
 Status tiap TC diisi saat pengujian: Lolos / Gagal + catatan.
 
+### Hasil eksekusi (2026-10-07, backend FastAPI lokal, data Kaggle asli)
+
+| ID | Status | Catatan |
+|----|--------|---------|
+| TC-01 | Lolos | 5 hasil, terurut menurun, teratas: Data Analyst (skor 0,815) |
+| TC-02 | Lolos | Tanpa skill tetap mengembalikan 5 hasil (dari minat+gaji+demand) |
+| TC-03 | Lolos | Tepat 3 hasil |
+| TC-04 | Lolos | Body kosong → 5 hasil default (minat netral=3) |
+| TC-05 | Lolos | 10 item, semua berisi skills & roadmap |
+| TC-06 | Lolos | Detail + 6 langkah roadmap |
+| TC-07 | Lolos | 404 sesuai harapan |
+| TC-08 | Lolos | 6 langkah roadmap |
+| TC-09 – TC-13 | Belum | Butuh browser (frontend); dijalankan manual |
+
 ## B. Kuesioner Kepuasan Pengguna (Skala Likert 1–5)
 
 Responden: mahasiswa Informatika (target ±30 orang).
