@@ -1,4 +1,4 @@
-// Klien API. Mencoba backend FastAPI dulu (VITE_API_URL atau localhost:8000),
+// Klien API. Mencoba backend Flask dulu (VITE_API_URL atau localhost:8000),
 // kalau tidak terjangkau otomatis memakai mesin lokal (mode demo) supaya
 // UI tetap bisa didemokan tanpa backend.
 

@@ -2,7 +2,7 @@
 // Logikanya sama persis dengan backend/main.py:
 //   1. Content-Based Filtering + Cosine Similarity -> kecocokan skill
 //   2. SAW -> skor akhir dari skill, minat, gaji, demand.
-// Dipakai otomatis oleh api.js ketika backend FastAPI tidak terjangkau.
+// Dipakai otomatis oleh api.js ketika backend Flask tidak terjangkau.
 
 import { PEKERJAAN } from "../data/pekerjaan.js";
 

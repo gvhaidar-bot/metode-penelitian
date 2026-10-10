@@ -20,7 +20,7 @@
 
 Status tiap TC diisi saat pengujian: Lolos / Gagal + catatan.
 
-### Hasil eksekusi (2026-10-07, backend FastAPI lokal, data Kaggle asli)
+### Hasil eksekusi (2026-10-07, backend lokal, data Kaggle asli)
 
 | ID | Status | Catatan |
 |----|--------|---------|

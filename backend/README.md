@@ -5,10 +5,10 @@
 ```bash
 cd backend
 pip install -r requirements.txt
-uvicorn main:app --reload
+flask --app app run --debug --port 8000
 ```
 
-API: http://localhost:8000 — dokumentasi otomatis: http://localhost:8000/docs
+API: http://localhost:8000 (harus port 8000 agar dibaca frontend)
 
 ## Endpoint
 

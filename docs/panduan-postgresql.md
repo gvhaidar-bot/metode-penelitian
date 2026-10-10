@@ -4,6 +4,8 @@ Langkah ini dijalankan di laptop masing-masing.
 
 ## 1. Install PostgreSQL
 1. Unduh installer di [postgresql.org/download/windows](https://www.postgresql.org/download/windows/)
+   — pilih versi **18.x (stabil)**. PostgreSQL 19 masih pra-rilis (RC1 15 Okt 2026,
+   GA 29 Okt 2026), jadi jangan install versi 19 untuk project ini.
 2. Jalankan installer, catat **password** yang kamu isi untuk user `postgres`
 3. Centang komponen default saja (PostgreSQL Server, pgAdmin) → Install
 
@@ -31,9 +33,9 @@ Ganti `PASSWORD` dengan password PostgreSQL-mu. Di PowerShell:
 ## 5. Jalankan backend
 ```bash
 set DATABASE_URL=postgresql+psycopg2://postgres:PASSWORD@localhost/karier_it
-uvicorn main:app --reload
+flask --app app run --debug --port 8000
 ```
-Buka http://localhost:8000/docs untuk mencoba endpoint.
+Buka http://localhost:8000/pekerjaan untuk mencoba endpoint.
 
 ## 6. Jalankan frontend
 ```bash

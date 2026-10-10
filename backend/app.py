@@ -1,4 +1,4 @@
-"""Backend API Sistem Rekomendasi Karier IT.
+"""Backend API Sistem Rekomendasi Karier IT (Flask).
 
 Metode:
   1. Content-Based Filtering + Cosine Similarity  -> kecocokan skill user
@@ -6,25 +6,20 @@ Metode:
   2. SAW (Simple Additive Weighting)             -> gabungan skor akhir dari
      kecocokan skill, minat, gaji, dan kebutuhan pasar (demand).
 
-Jalankan:  uvicorn main:app --reload   (dari folder backend/)
-Dokumen API otomatis: http://localhost:8000/docs
+Jalankan (dari folder backend/):
+    flask --app app run --debug
+atau:
+    python app.py
 """
 import json
 import math
 from pathlib import Path
 
-from fastapi import FastAPI, HTTPException
-from fastapi.middleware.cors import CORSMiddleware
-from pydantic import BaseModel, Field
+from flask import Flask, jsonify, request
+from flask_cors import CORS
 
-app = FastAPI(title="API Rekomendasi Karier IT")
-
-app.add_middleware(
-    CORSMiddleware,
-    allow_origins=["*"],
-    allow_methods=["*"],
-    allow_headers=["*"],
-)
+app = Flask(__name__)
+CORS(app)  # izinkan akses dari frontend (Vite)
 
 DATA_PATH = Path(__file__).parent / "data" / "pekerjaan.json"
 PEKERJAAN = json.loads(DATA_PATH.read_text(encoding="utf-8"))
@@ -35,11 +30,11 @@ try:
     _dari_db = muat_dari_db()
     if _dari_db:
         PEKERJAAN = _dari_db
-        print(f"[main] Memakai data dari PostgreSQL ({len(PEKERJAAN)} pekerjaan)")
+        print(f"[app] Memakai data dari PostgreSQL ({len(PEKERJAAN)} pekerjaan)")
     else:
-        print(f"[main] Memakai data dari pekerjaan.json ({len(PEKERJAAN)} pekerjaan)")
+        print(f"[app] Memakai data dari pekerjaan.json ({len(PEKERJAAN)} pekerjaan)")
 except Exception as e:
-    print(f"[main] Lewati PostgreSQL ({e}); memakai pekerjaan.json")
+    print(f"[app] Lewati PostgreSQL ({e}); memakai pekerjaan.json")
 
 # Bobot SAW: skill 45%, minat 25%, gaji 15%, demand 15%
 BOBOT = {"skill": 0.45, "minat": 0.25, "gaji": 0.15, "demand": 0.15}
@@ -93,44 +88,54 @@ def hitung_skor(job: dict, skill_user: set, minat: dict) -> dict:
     }
 
 
-class RekomendasiIn(BaseModel):
-    skills: list[str] = Field(default_factory=list, description="Daftar skill yang dimiliki user")
-    minat: dict[str, int] = Field(default_factory=dict, description="Nilai minat 1-5 per kategori")
-    top_n: int = Field(default=5, ge=1, le=20)
-
-
 @app.get("/")
 def root():
-    return {"status": "ok", "service": "API Rekomendasi Karier IT"}
+    return jsonify({"status": "ok", "service": "API Rekomendasi Karier IT"})
 
 
 @app.get("/pekerjaan")
 def daftar_pekerjaan():
     """Daftar semua profil pekerjaan."""
-    return PEKERJAAN
+    return jsonify(PEKERJAAN)
 
 
-@app.get("/pekerjaan/{pekerjaan_id}")
+@app.get("/pekerjaan/<pekerjaan_id>")
 def detail_pekerjaan(pekerjaan_id: str):
     for job in PEKERJAAN:
         if job["id"] == pekerjaan_id:
-            return job
-    raise HTTPException(status_code=404, detail="Pekerjaan tidak ditemukan")
+            return jsonify(job)
+    return jsonify({"detail": "Pekerjaan tidak ditemukan"}), 404
 
 
-@app.get("/pekerjaan/{pekerjaan_id}/roadmap")
+@app.get("/pekerjaan/<pekerjaan_id>/roadmap")
 def roadmap_pekerjaan(pekerjaan_id: str):
     """Roadmap belajar untuk satu pekerjaan."""
     for job in PEKERJAAN:
         if job["id"] == pekerjaan_id:
-            return {"id": job["id"], "nama": job["nama"], "roadmap": job["roadmap"]}
-    raise HTTPException(status_code=404, detail="Pekerjaan tidak ditemukan")
+            return jsonify({"id": job["id"], "nama": job["nama"], "roadmap": job["roadmap"]})
+    return jsonify({"detail": "Pekerjaan tidak ditemukan"}), 404
 
 
 @app.post("/rekomendasi")
-def rekomendasi(inp: RekomendasiIn):
+def rekomendasi():
     """Hitung ranking rekomendasi karier dari skill + minat user."""
-    skill_user = {normalisasi(s) for s in inp.skills if s.strip()}
-    hasil = [hitung_skor(job, skill_user, inp.minat) for job in PEKERJAAN]
+    data = request.get_json(force=True, silent=True) or {}
+    skills = data.get("skills", []) or []
+    minat = data.get("minat", {}) or {}
+    try:
+        top_n = int(data.get("top_n", 5))
+    except (TypeError, ValueError):
+        top_n = 5
+    top_n = max(1, min(top_n, 20))
+
+    skill_user = {normalisasi(s) for s in skills if isinstance(s, str) and s.strip()}
+    hasil = [hitung_skor(job, skill_user, minat) for job in PEKERJAAN]
     hasil.sort(key=lambda x: x["skor_akhir"], reverse=True)
-    return {"hasil": hasil[: inp.top_n], "metode": "Content-Based Filtering + Cosine Similarity + SAW"}
+    return jsonify({
+        "hasil": hasil[:top_n],
+        "metode": "Content-Based Filtering + Cosine Similarity + SAW",
+    })
+
+
+if __name__ == "__main__":
+    app.run(debug=True, port=8000)
