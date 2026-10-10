@@ -56,8 +56,20 @@ def cosine_similarity(skill_user: set, skill_job: set) -> float:
 def hitung_skor(job: dict, skill_user: set, minat: dict) -> dict:
     skills_job = {normalisasi(s) for s in job["skills"]}
 
+    # Robust: normalisasi key kategori (tahan beda kapitalisasi/spasi)
+    # dan clamp nilai ke 0-5. Kunci yang hilang -> netral (3), karena
+    # skala penilaian 1-5 dan frontend selalu mengirim kelima kategori.
+    minat_norm = {}
+    for k, v in (minat or {}).items():
+        try:
+            vv = float(v)
+        except (TypeError, ValueError):
+            continue
+        minat_norm[str(k).strip().lower()] = max(0.0, min(5.0, vv))
+    skor_minat = minat_norm.get(job["kategori"].strip().lower(), 3) / 5.0
+
     skor_skill = cosine_similarity(skill_user, skills_job)
-    skor_minat = minat.get(job["kategori"], 3) / 5.0
+    # Normalisasi SAW baku untuk kriteria benefit: x / max(x)
     skor_gaji = job["gaji_max"] / MAX_GAJI
     skor_demand = job["demand"] / 5.0
 
