@@ -27,7 +27,7 @@ export const PEKERJAAN = [
     ],
     "gaji_min": 7.1,
     "gaji_max": 9.1,
-    "demand": 2
+    "demand": 3
   },
   {
     "id": "backend-dev",
@@ -57,7 +57,7 @@ export const PEKERJAAN = [
     ],
     "gaji_min": 7.2,
     "gaji_max": 9.5,
-    "demand": 4
+    "demand": 5
   },
   {
     "id": "mobile-dev",

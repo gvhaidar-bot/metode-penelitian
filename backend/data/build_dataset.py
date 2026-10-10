@@ -180,6 +180,7 @@ def proses_jobs():
         return karier_dari_klasifikasi(str(r["source_classification"] or ""))
 
     df["karier"] = df.apply(petakan, axis=1)
+    n_sebelum_peta = len(df)
     df = df[df["karier"].notna()].copy()
     print(f"Lowongan terpetakan ke karier: {len(df)}")
 
@@ -194,7 +195,7 @@ def proses_jobs():
             skill_map.setdefault(r["jobid"], []).append(s)
     df["skills"] = df["jobid"].map(lambda j: skill_map.get(j, []))
 
-    return df
+    return df, n_sebelum_peta
 
 
 def proses_gaji(df_jobs):
@@ -223,7 +224,9 @@ def proses_gaji(df_jobs):
 
 def bangun(df, gaji_map):
     data = []
-    total = len(df)
+    # Hitung jumlah lowongan per karier dulu untuk normalisasi demand
+    counts = {kid: len(df[df["karier"] == kid]) for kid in NAMA}
+    max_count = max(counts.values()) if counts else 1
     for kid in NAMA:
         sub = df[df["karier"] == kid]
         if sub.empty:
@@ -236,7 +239,10 @@ def bangun(df, gaji_map):
                     counter[s] = counter.get(s, 0) + 1
         top_skills = [s for s, _ in sorted(counter.items(), key=lambda x: -x[1])[:12]]
 
-        demand = max(1, min(5, round(5 * len(sub) / max(total, 1) * 3)))
+        # demand: max-normalization jumlah lowongan ke skala 1-5.
+        # Konsisten dengan normalisasi SAW untuk kriteria benefit (x/max),
+        # sehingga skor_demand = demand/5 = proporsi thd karier terbanyak.
+        demand = max(1, round(5 * len(sub) / max_count))
         gmin, gmax = gaji_map.get(kid, (5.0, 12.0))
 
         data.append({
@@ -267,7 +273,7 @@ def main():
                 "atau taruh CSV Kaggle manual di folder tersebut."
             )
 
-    df = proses_jobs()
+    df, n_indonesia = proses_jobs()
     gaji_map = proses_gaji(df)
     data = bangun(df, gaji_map)
 
@@ -289,9 +295,9 @@ def main():
              f"Dibuat: {__import__('datetime').date.today().isoformat()}",
              f"Sumber: IT Jobs Asia-Pacific (May–Jun 2024) + JobStreet Salary 2024", "",
              f"- Total lowongan: {len(pd.read_csv(RAW / 'itjob_header.csv', usecols=['jobid']))}",
-             f"- Lowongan Indonesia: {len(df)} (sebelum pemetaan karier)",
+             f"- Lowongan Indonesia: {n_indonesia} (sebelum pemetaan karier)",
              f"- Terpetakan ke 10 karier: {len(df)}",
-             f"- Baris gaji terpakai: {sum(1 for _ in gaji_map)} karier", "",
+             f"- Karier dengan data gaji: {len(gaji_map)} dari 10", "",
              "## Distribusi lowongan per karier", ""]
     baris += [f"- {NAMA[k]}: {v}" for k, v in vc.items()]
     baris += ["", "## Contoh skill tersering", ""] + contoh

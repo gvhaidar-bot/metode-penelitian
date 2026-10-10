@@ -1,12 +1,12 @@
 # Ringkasan EDA — Dataset Karier IT Indonesia
 
-Dibuat: 2026-10-07
+Dibuat: 2026-10-10
 Sumber: IT Jobs Asia-Pacific (May–Jun 2024) + JobStreet Salary 2024
 
 - Total lowongan: 32839
-- Lowongan Indonesia: 1205 (sebelum pemetaan karier)
+- Lowongan Indonesia: 2290 (sebelum pemetaan karier)
 - Terpetakan ke 10 karier: 1205
-- Baris gaji terpakai: 10 karier
+- Karier dengan data gaji: 10 dari 10
 
 ## Distribusi lowongan per karier
 
