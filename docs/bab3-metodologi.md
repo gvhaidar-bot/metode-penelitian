@@ -3,8 +3,9 @@
 ## 3.1 Metode Penelitian
 Penelitian ini menggunakan metode **R&D (Research and Development)** dengan
 pendekatan deskriptif: mengembangkan sistem pendukung keputusan rekomendasi
-karier, lalu mendeskripsikan kinerjanya melalui pengujian fungsional dan
-perbandingan metode. Metode pengembangan perangkat lunak yang dipakai adalah
+karier, lalu mendeskripsikan kinerjanya melalui pengujian fungsional,
+evaluasi relevansi rekomendasi, dan analisis sensitivitas bobot. Metode
+pengembangan perangkat lunak yang dipakai adalah
 **Prototype** — sistem dibangun bertahap berdasarkan umpan balik hingga
 memenuhi kebutuhan.
 
@@ -22,7 +23,9 @@ Implementasi (CBF + Cosine Similarity, SAW, halaman web)
         |
 Pengujian black-box (13 test case)
         |
-Perbandingan metode (CBF+SAW vs Naive Bayes)
+Evaluasi relevansi rekomendasi (skenario + hit@3)
+        |
+Analisis sensitivitas bobot SAW
         |
 Analisis hasil & penarikan kesimpulan
 ```
@@ -57,9 +60,11 @@ bukan dikumpulkan langsung oleh peneliti):
 ## 3.5 Teknik Analisis Data
 - **Kinerja fungsional:** persentase test case black-box yang lolos
   (target 100%).
-- **Konsistensi metode:** overlap@5 dan korelasi peringkat (Spearman's rho /
-  Kendall's tau) antara perangkingan CBF+SAW dan Naive Bayes pada skenario
-  input yang sama (lihat `rencana-pengujian.md` bagian B).
+- **Relevansi rekomendasi:** hit@3 pada skenario profil user sintetis
+  dengan label relevansi yang ditetapkan peneliti (lihat
+  `rencana-pengujian.md` bagian B).
+- **Stabilitas bobot:** overlap@5 ranking baseline vs varian bobot SAW
+  (lihat `rencana-pengujian.md` bagian C).
 - **Kualitas data:** ringkasan EDA — distribusi lowongan, skill tersering,
   dan sebaran gaji (lihat `backend/data/eda_summary.md` + grafik).
 
@@ -70,5 +75,5 @@ bukan dikumpulkan langsung oleh peneliti):
 | 3–4 | Pengumpulan & pra-pemrosesan data |
 | 5–7 | Implementasi sistem |
 | 8 | Pengujian black-box |
-| 9 | Perbandingan metode & analisis |
+| 9 | Evaluasi relevansi & sensitivitas bobot |
 | 10 | Analisis & penyusunan laporan |

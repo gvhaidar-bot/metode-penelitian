@@ -17,8 +17,6 @@
 | TC-11 | Halaman Riwayat | Simpan otomatis | Selesai 1 rekomendasi | Entri muncul di /riwayat |
 | TC-12 | Halaman Roadmap | Pilih karier | Klik chip karier | Timeline langkah berubah sesuai karier |
 | TC-13 | Navigasi | Semua menu sidebar | Klik tiap menu | Tidak ada halaman kosong |
-| TC-14 | POST /bandingkan | Input valid | skills=[Python, SQL], top_n=5 | 200, berisi cbf_saw + naive_bayes + metrik (overlap, spearman_rho, kendall_tau) |
-| TC-15 | POST /bandingkan | Konsistensi metrik | skills=[PHP] | overlap 0–1, korelasi −1..1, total probabilitas NB = 1 |
 
 Status tiap TC diisi saat pengujian: Lolos / Gagal + catatan.
 
@@ -36,31 +34,37 @@ Status tiap TC diisi saat pengujian: Lolos / Gagal + catatan.
 | TC-08 | Lolos | 6 langkah roadmap |
 | TC-09 – TC-13 | Verifikasi statis (bukan browser) | Semua link sidebar mengarah ke route yang terdefinisi di App.jsx (tidak ada halaman kosong); production build sukses; engine rekomendasi JS diuji via node (Python+SQL → Data Analyst teratas). Uji klik manual tetap disarankan di laptop. |
 
-## B. Perbandingan Metode (CBF+SAW vs Naive Bayes)
+## B. Evaluasi Relevansi Rekomendasi
 
-Tujuan: menguji **konsistensi** perangkingan — apakah rekomendasi yang
-dihasilkan robust dan tidak hanya kebetulan cocok pada satu metode.
-Ini BUKAN uji superioritas: tanpa label ground truth independen,
-tidak dapat disimpulkan satu metode "lebih akurat" dari yang lain.
+Tujuan: menguji apakah rekomendasi yang dihasilkan sistem **masuk akal
+secara domain**, bukan sekadar berjalan tanpa error. Seluruh evaluasi
+memakai data sekunder — tanpa kuesioner.
 
-Desain:
-1. Kedua metode dijalankan pada dataset profil karier yang sama
-   (10 karier di PostgreSQL).
-2. Skenario input sama untuk kedua metode: beberapa profil skill
-   sintetis (mis. {Python, SQL}, {HTML, CSS, JavaScript}, {PHP})
-   dikombinasikan dengan variasi nilai minat.
-3. Bandingkan daftar peringkat top-5 yang dihasilkan tiap metode.
-   Catatan: Naive Bayes hanya memakai informasi skill (probabilistik),
-   sedangkan CBF+SAW memakai empat kriteria — perbedaan hasil yang
-   wajar dianalisis, bukan dianggap kegagalan salah satu metode.
+Desain (scenario-based, label relevansi ditetapkan peneliti dengan dasar
+yang jelas):
+1. Susun 3–4 profil user sintetis, mis.:
+   - {Python, SQL} + minat tinggi bidang Data → ekspektasi: Data Analyst /
+     ML Engineer di top-3 (dasar: 5 tools teratas lowongan riil 2025).
+   - {HTML, CSS, JavaScript} → ekspektasi: Frontend Developer teratas.
+   - {PHP, Laravel} → ekspektasi: Backend / Mobile Developer di top-3.
+2. Jalankan tiap skenario via POST /rekomendasi, catat top-5.
+3. Hitung **hit@3**: apakah karier ekspektasi muncul di 3 teratas.
 
-Metrik:
-- **Overlap@5**: berapa karier yang sama-sama muncul di top-5
-  kedua metode.
-- **Korelasi peringkat**: Spearman's rho / Kendall's tau antara dua
-  daftar peringkat lengkap (10 karier).
+Interpretasi: dilaporkan apa adanya per skenario; skenario yang meleset
+dianalisis penyebabnya (profil skill? bobot? data gaji/demand?).
 
-Interpretasi: kesepakatan yang tinggi menunjukkan perangkingan
-konsisten lintas metode; perbedaan dianalisis secara kualitatif
-untuk menjelaskan karakter masing-masing metode. Hasil perbandingan
-dilaporkan apa adanya, termasuk ketika kedua metode tidak sepakat.
+## C. Analisis Sensitivitas Bobot SAW
+
+Tujuan: menguji seberapa stabil ranking terhadap pilihan bobot, sekaligus
+menjawab kebutuhan justifikasi bobot (lihat bab3 3.4).
+
+Desain: untuk skenario input yang sama, bandingkan ranking pada beberapa
+kombinasi bobot (total = 1):
+- Baseline: 0,45 / 0,25 / 0,15 / 0,15 (skill/minat/gaji/demand)
+- Skill-heavy: 0,60 / 0,20 / 0,10 / 0,10
+- Seimbang: 0,25 / 0,25 / 0,25 / 0,25
+- Minat-heavy: 0,25 / 0,45 / 0,15 / 0,15
+
+Metrik: overlap@5 antara ranking baseline dan tiap varian.
+Interpretasi: ranking yang stabil di semua varian = robust; yang berubah
+drastis = sensitif terhadap bobot → perlu justifikasi/validasi lebih kuat.

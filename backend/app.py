@@ -5,8 +5,6 @@ Metode:
      terhadap profil skill tiap pekerjaan.
   2. SAW (Simple Additive Weighting)             -> gabungan skor akhir dari
      kecocokan skill, minat, gaji, dan kebutuhan pasar (demand).
-  3. Naive Bayes (Bernoulli, nb_model.py)        -> METODE PEMBANDING untuk
-     uji konsistensi via POST /bandingkan (lihat docs/rencana-pengujian.md).
 
 Jalankan (dari folder backend/):
     flask --app app run --debug
@@ -19,9 +17,6 @@ from pathlib import Path
 
 from flask import Flask, jsonify, request
 from flask_cors import CORS
-
-import metrik
-import nb_model
 
 app = Flask(__name__)
 CORS(app)  # izinkan akses dari frontend (Vite)
@@ -48,11 +43,6 @@ MAX_GAJI = max(p["gaji_max"] for p in PEKERJAAN)
 
 def normalisasi(skill: str) -> str:
     return skill.strip().lower()
-
-
-# Model Naive Bayes (pembanding) dilatih dari profil karier yang sama
-# dengan CBF+SAW — dibangun setelah normalisasi tersedia.
-NB_MODEL = nb_model.latih(PEKERJAAN, normalisasi)
 
 
 def cosine_similarity(skill_user: set, skill_job: set) -> float:
@@ -163,42 +153,6 @@ def rekomendasi():
     return jsonify({
         "hasil": hasil[:top_n],
         "metode": "Content-Based Filtering + Cosine Similarity + SAW",
-    })
-
-
-@app.post("/bandingkan")
-def bandingkan():
-    """Bandingkan ranking CBF+SAW vs Naive Bayes (uji konsistensi).
-
-    BUKAN penentu metode terbaik — hanya mengukur kesepakatan dua metode
-    pada skenario input yang sama (lihat docs/rencana-pengujian.md bag. B).
-    """
-    data = request.get_json(force=True, silent=True) or {}
-    skills = data.get("skills", []) or []
-    minat = data.get("minat", {}) or {}
-    try:
-        top_n = int(data.get("top_n", 5))
-    except (TypeError, ValueError):
-        top_n = 5
-    top_n = max(1, min(top_n, 10))
-
-    skill_user = {normalisasi(s) for s in skills if isinstance(s, str) and s.strip()}
-
-    ranking_cbf = [hitung_skor(job, skill_user, minat) for job in PEKERJAAN]
-    ranking_cbf.sort(key=lambda x: x["skor_akhir"], reverse=True)
-
-    ranking_nb = nb_model.prediksi(NB_MODEL, skill_user)
-
-    return jsonify({
-        "cbf_saw": ranking_cbf[:top_n],
-        "naive_bayes": ranking_nb[:top_n],
-        "metrik": {
-            "overlap": metrik.overlap_at_k(ranking_cbf, ranking_nb, top_n),
-            "spearman_rho": metrik.spearman_rho(ranking_cbf, ranking_nb),
-            "kendall_tau": metrik.kendall_tau(ranking_cbf, ranking_nb),
-        },
-        "catatan": "Uji konsistensi, bukan superioritas: kesepakatan tinggi "
-                   "tidak berarti satu metode lebih akurat.",
     })
 
 
