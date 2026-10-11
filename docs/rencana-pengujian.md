@@ -17,6 +17,8 @@
 | TC-11 | Halaman Riwayat | Simpan otomatis | Selesai 1 rekomendasi | Entri muncul di /riwayat |
 | TC-12 | Halaman Roadmap | Pilih karier | Klik chip karier | Timeline langkah berubah sesuai karier |
 | TC-13 | Navigasi | Semua menu sidebar | Klik tiap menu | Tidak ada halaman kosong |
+| TC-14 | POST /bandingkan | Input valid | skills=[Python, SQL], top_n=5 | 200, berisi cbf_saw + naive_bayes + metrik (overlap, spearman_rho, kendall_tau) |
+| TC-15 | POST /bandingkan | Konsistensi metrik | skills=[PHP] | overlap 0–1, korelasi −1..1, total probabilitas NB = 1 |
 
 Status tiap TC diisi saat pengujian: Lolos / Gagal + catatan.
 
