@@ -85,8 +85,8 @@
       "Pelajari publish ke Play Store",
       "Bangun aplikasi portofolio"
     ],
-    "gaji_min": 4.8,
-    "gaji_max": 4.8,
+    "gaji_min": 7.5,
+    "gaji_max": 11.5,
     "demand": 1
   },
   {
@@ -101,11 +101,10 @@
       "MS Excel",
       "AWS",
       "Azure",
-      "Java",
       "SQL Server",
-      "Kafka",
       "Spark",
-      "Google Cloud"
+      "Google Cloud",
+      "R"
     ],
     "roadmap": [
       "Kuasai Excel/Sheets",

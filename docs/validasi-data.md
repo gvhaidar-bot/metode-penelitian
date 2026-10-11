@@ -63,12 +63,21 @@ AWS, Azure, Java, SQL Server, Kafka, Spark, Google Cloud.
 - Gaji dataset 2024 adalah rata-rata per jabatan-perusahaan-lokasi, bukan
   rentang min–maks seperti di profil kurasi.
 
-## Usulan kalibrasi
+## Kalibrasi yang diterapkan (2026-10-11, atas persetujuan peneliti)
 
-1. Mobile Developer: gaji 4,8–4,8 → 7,5–11,5 (median riil 9,7; min 4,9;
-   maks 16,5; n=8). Placeholder min=max harus diganti.
-2. Data Analyst: pertimbangkan tambah R; tinjau ulang Java/Kafka/Spark/AWS/
-   Azure/Google Cloud/SQL Server.
-3. Skor demand: tinjau ulang (7 dari 10 karier bernilai 1 — tampak belum
-   dikalibrasi); perlu sumber volume lowongan per peran bila ingin
-   divalidasi.
+1. Mobile Developer: gaji 4,8–4,8 → **7,5–11,5** (median riil 9,7; min 4,9;
+   maks 16,5; n=8). Berlaku di `backend/data/pekerjaan.json` dan
+   `backend/seed.sql` (diregenerasi).
+2. Data Analyst: **tambah R**; **hapus Java dan Kafka** (paling lemah
+   dukungannya di data riil). Spark, AWS, Azure, Google Cloud, SQL Server
+   dipertahankan — masih relevan secara domain dan sampel 1 bulan terlalu
+   tipis untuk membuangnya.
+3. Skor demand: TIDAK diubah — tetap estimasi kurasi sampai ada sumber
+   volume lowongan per peran yang valid.
+
+Catatan untuk peneliti: setelah `git pull`, database lokal perlu
+disegarkan karena seed bersifat insert-only:
+```sql
+TRUNCATE pekerjaan, kategori, skill, pekerjaan_skill, roadmap RESTART IDENTITY CASCADE;
+```
+lalu jalankan ulang `backend/seed.sql`.
