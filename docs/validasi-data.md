@@ -55,6 +55,13 @@ AWS, Azure, Java, SQL Server, Kafka, Spark, Google Cloud.
 
 ## Keterbatasan
 
+- Dataset gaji mentah mengandung **22.020 baris duplikat persis (66,8%)**;
+  validasi di atas dihitung ulang setelah deduplikasi (10.956 baris unik)
+  dan median tiap peran praktis tidak berubah — kesimpulan validasi tetap
+  berlaku.
+- Dataset 555 lowongan **terkonsentrasi di Jakarta (71,9%)**; jangan klaim
+  mewakili pasar kerja Indonesia secara merata — cakupan geografis adalah
+  Indonesia dengan konsentrasi Jakarta.
 - Skor demand (1–5) di profil kurasi BELUM tervalidasi: dataset 2024
   berbentuk agregat (bukan volume mentah) dan dataset 2025 hanya mencakup
   peran data selama 1 bulan. Skor demand tetap estimasi kurasi.
