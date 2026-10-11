@@ -36,3 +36,12 @@ export async function kirimRekomendasi({ skills, minat, top_n = 5 }) {
   });
   return { ...data, sumber: "backend" };
 }
+
+export async function bandingkanMetode({ skills, minat, top_n = 5 }) {
+  const data = await panggil("/bandingkan", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ skills, minat, top_n }),
+  });
+  return { ...data, sumber: "backend" };
+}
