@@ -1,4 +1,4 @@
-"""Lapisan database (PostgreSQL via SQLAlchemy).
+"""Lapisan database (PostgreSQL via SQLAlchemy), skema 3NF.
 
 Aktif bila environment variable DATABASE_URL diisi, contoh:
     postgresql+psycopg2://postgres:password@localhost/karier_it
@@ -13,35 +13,51 @@ from pathlib import Path
 DATABASE_URL = os.environ.get("DATABASE_URL", "").strip()
 
 try:
-    from sqlalchemy import Column, DECIMAL, ForeignKey, Integer, String, Text, create_engine
+    from sqlalchemy import (Column, DECIMAL, ForeignKey, Integer, String, Text,
+                            UniqueConstraint, create_engine)
     from sqlalchemy.orm import declarative_base, relationship, sessionmaker
 
     Base = declarative_base()
+
+    class Kategori(Base):
+        __tablename__ = "kategori"
+        id = Column(Integer, primary_key=True, autoincrement=True)
+        nama = Column(String(50), nullable=False, unique=True)
+
+    class Skill(Base):
+        __tablename__ = "skill"
+        id = Column(Integer, primary_key=True, autoincrement=True)
+        nama = Column(String(100), nullable=False, unique=True)
 
     class Pekerjaan(Base):
         __tablename__ = "pekerjaan"
         id = Column(String(50), primary_key=True)
         nama = Column(String(100), nullable=False)
-        kategori = Column(String(50), nullable=False)
+        kategori_id = Column(Integer, ForeignKey("kategori.id"), nullable=False)
         gaji_min = Column(DECIMAL(5, 1), nullable=False)
         gaji_max = Column(DECIMAL(5, 1), nullable=False)
         demand = Column(Integer, nullable=False)
-        skills = relationship("PekerjaanSkill", cascade="all, delete-orphan")
+        kategori = relationship("Kategori")
+        relasi_skill = relationship("PekerjaanSkill", cascade="all, delete-orphan")
         roadmaps = relationship("Roadmap", cascade="all, delete-orphan",
                                 order_by="Roadmap.urutan")
 
     class PekerjaanSkill(Base):
         __tablename__ = "pekerjaan_skill"
-        id = Column(Integer, primary_key=True, autoincrement=True)
-        pekerjaan_id = Column(String(50), ForeignKey("pekerjaan.id"), nullable=False)
-        skill = Column(String(100), nullable=False)
+        pekerjaan_id = Column(String(50), ForeignKey("pekerjaan.id",
+                               ondelete="CASCADE"), primary_key=True)
+        skill_id = Column(Integer, ForeignKey("skill.id",
+                           ondelete="CASCADE"), primary_key=True)
+        skill = relationship("Skill")
 
     class Roadmap(Base):
         __tablename__ = "roadmap"
         id = Column(Integer, primary_key=True, autoincrement=True)
-        pekerjaan_id = Column(String(50), ForeignKey("pekerjaan.id"), nullable=False)
+        pekerjaan_id = Column(String(50), ForeignKey("pekerjaan.id",
+                               ondelete="CASCADE"), nullable=False)
         urutan = Column(Integer, nullable=False)
         langkah = Column(Text, nullable=False)
+        __table_args__ = (UniqueConstraint("pekerjaan_id", "urutan"),)
 
     _HAS_SQLA = True
 except ImportError:
@@ -49,7 +65,7 @@ except ImportError:
 
 
 def muat_dari_db():
-    """Kembalikan list profil pekerjaan dari MySQL, atau None bila tak tersedia."""
+    """Kembalikan list profil pekerjaan dari PostgreSQL, atau None bila tak tersedia."""
     if not (_HAS_SQLA and DATABASE_URL):
         return None
     try:
@@ -62,8 +78,8 @@ def muat_dari_db():
             return [{
                 "id": p.id,
                 "nama": p.nama,
-                "kategori": p.kategori,
-                "skills": [sk.skill for sk in p.skills],
+                "kategori": p.kategori.nama,
+                "skills": [rs.skill.nama for rs in p.relasi_skill],
                 "roadmap": [r.langkah for r in sorted(p.roadmaps, key=lambda r: r.urutan)],
                 "gaji_min": float(p.gaji_min),
                 "gaji_max": float(p.gaji_max),
@@ -79,8 +95,17 @@ def muat_dari_json():
     return json.loads(p.read_text(encoding="utf-8"))
 
 
+def _dapat_atau_buat(s, model, **kwargs):
+    obj = s.query(model).filter_by(**kwargs).one_or_none()
+    if obj is None:
+        obj = model(**kwargs)
+        s.add(obj)
+        s.flush()
+    return obj
+
+
 def seed_dari_json():
-    """Isi tabel MySQL dari pekerjaan.json (sekali saja)."""
+    """Isi tabel PostgreSQL dari pekerjaan.json (aman dijalankan ulang)."""
     if not (_HAS_SQLA and DATABASE_URL):
         raise RuntimeError("DATABASE_URL belum diisi")
     engine = create_engine(DATABASE_URL)
@@ -91,10 +116,13 @@ def seed_dari_json():
         for job in data:
             if s.get(Pekerjaan, job["id"]):
                 continue
-            p = Pekerjaan(id=job["id"], nama=job["nama"], kategori=job["kategori"],
+            kat = _dapat_atau_buat(s, Kategori, nama=job["kategori"])
+            p = Pekerjaan(id=job["id"], nama=job["nama"], kategori_id=kat.id,
                           gaji_min=job["gaji_min"], gaji_max=job["gaji_max"],
                           demand=job["demand"])
-            p.skills = [PekerjaanSkill(skill=sk) for sk in job["skills"]]
+            for sk in job["skills"]:
+                skill = _dapat_atau_buat(s, Skill, nama=sk)
+                p.relasi_skill.append(PekerjaanSkill(skill_id=skill.id))
             p.roadmaps = [Roadmap(urutan=i + 1, langkah=lk)
                           for i, lk in enumerate(job["roadmap"])]
             s.add(p)

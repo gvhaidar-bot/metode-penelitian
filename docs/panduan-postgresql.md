@@ -49,5 +49,7 @@ backend berjalan, bila tidak halaman menampilkan pesan error.
 ## Catatan
 - Tanpa `DATABASE_URL`, backend otomatis memakai `pekerjaan.json`
   (mode fallback) — tetap bisa jalan tanpa PostgreSQL.
+- Alternatif seeding murni-SQL: jalankan `backend/seed.sql` di database
+  karier_it (isinya sama dengan `python db.py`, aman dijalankan ulang).
 - Setelah data Kaggle baru diolah (`python data/build_dataset.py`),
   ulangi langkah 4 untuk refresh isi database.
