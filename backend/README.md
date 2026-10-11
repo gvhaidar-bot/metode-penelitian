@@ -15,6 +15,7 @@ API: http://localhost:8000 (harus port 8000 agar dibaca frontend)
 | Method | Path                          | Keterangan                                  |
 |--------|-------------------------------|---------------------------------------------|
 | GET    | `/`                           | Cek status API                              |
+| GET    | `/meta`                       | Daftar skill & kategori untuk form frontend |
 | GET    | `/pekerjaan`                  | Daftar semua profil pekerjaan + roadmap     |
 | GET    | `/pekerjaan/{id}`             | Detail satu pekerjaan                       |
 | GET    | `/pekerjaan/{id}/roadmap`     | Roadmap belajar satu pekerjaan              |

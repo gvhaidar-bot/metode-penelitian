@@ -105,6 +105,13 @@ def root():
     return jsonify({"status": "ok", "service": "API Rekomendasi Karier IT"})
 
 
+@app.get("/meta")
+def meta():
+    skills = sorted({s for job in PEKERJAAN for s in job["skills"]}, key=str.lower)
+    kategori = sorted({job["kategori"] for job in PEKERJAAN})
+    return jsonify({"skills": skills, "kategori": kategori})
+
+
 @app.get("/pekerjaan")
 def daftar_pekerjaan():
     """Daftar semua profil pekerjaan."""

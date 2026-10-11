@@ -7,12 +7,15 @@ const Roadmap = () => {
   const [params] = useSearchParams();
   const [daftar, setDaftar] = useState([]);
   const [aktif, setAktif] = useState(params.get("karier") || "");
+  const [error, setError] = useState(null);
 
   useEffect(() => {
-    getPekerjaan().then((d) => {
-      setDaftar(d);
-      if (!params.get("karier") && d.length > 0) setAktif(d[0].id);
-    });
+    getPekerjaan()
+      .then((d) => {
+        setDaftar(d);
+        if (!params.get("karier") && d.length > 0) setAktif(d[0].id);
+      })
+      .catch((e) => setError(e.message));
   }, []);
 
   const job = daftar.find((p) => p.id === aktif);
@@ -27,6 +30,13 @@ const Roadmap = () => {
             Tahapan belajar yang disarankan untuk tiap bidang karier — dari dasar sampai siap kerja.
           </p>
         </div>
+
+        {error && (
+          <div className="bg-red-50 border border-red-200 rounded-2xl p-5 mb-8">
+            <p className="font-bold text-red-800 mb-1">Backend tidak terjangkau</p>
+            <p className="text-sm text-red-700">{error}</p>
+          </div>
+        )}
 
         <div className="flex flex-wrap gap-2 mb-8">
           {daftar.map((p) => (

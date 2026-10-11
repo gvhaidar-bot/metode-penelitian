@@ -43,8 +43,8 @@ cd frontend
 npm install
 npm run dev
 ```
-Buka http://localhost:5173 — frontend otomatis memakai backend bila
-berjalan (atau mode demo bila tidak).
+Buka http://localhost:5173 — frontend wajib terhubung ke backend; pastikan
+backend berjalan, bila tidak halaman menampilkan pesan error.
 
 ## Catatan
 - Tanpa `DATABASE_URL`, backend otomatis memakai `pekerjaan.json`

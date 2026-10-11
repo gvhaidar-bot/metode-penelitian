@@ -61,7 +61,7 @@ Simbol: `[ ]` = proses, `< >` = keputusan (decision), `→` = alur.
 |---|-----------|----------------|---------------------|----------------|
 | 1 | Apakah ada skill yang dipilih? | Lanjut ke perhitungan | Tampilkan peringatan, kembali ke form | `frontend/src/pages/Rekomendasi.jsx` |
 | 2 | Apakah backend API terjangkau? | Hitung via API (`POST /rekomendasi`) | Hitung lokal dengan mesin JS | `frontend/src/api.js` |
-| 3 | Apakah PostgreSQL tersedia? | Ambil data dari database | Ambil data dari `pekerjaan.json` | `backend/db.py`, `backend/main.py` |
+| 3 | Apakah PostgreSQL tersedia? | Ambil data dari database | Ambil data dari `pekerjaan.json` | `backend/db.py`, `backend/app.py` |
 
 ## Pemetaan metode ke flowchart
 

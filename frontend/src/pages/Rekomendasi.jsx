@@ -1,8 +1,7 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { Sidebar } from "../components/sidebar";
-import { SEMUA_SKILL, KATEGORI } from "../data/pekerjaan.js";
-import { kirimRekomendasi } from "../api.js";
+import { getMeta, kirimRekomendasi } from "../api.js";
 
 const simpanRiwayat = (skills, hasil) => {
   try {
@@ -17,10 +16,25 @@ const simpanRiwayat = (skills, hasil) => {
 };
 
 const Rekomendasi = () => {
+  const [daftarSkill, setDaftarSkill] = useState([]);
+  const [kategori, setKategori] = useState([]);
   const [skills, setSkills] = useState([]);
-  const [minat, setMinat] = useState(Object.fromEntries(KATEGORI.map((k) => [k, 3])));
+  const [minat, setMinat] = useState({});
   const [hasil, setHasil] = useState(null);
   const [loading, setLoading] = useState(false);
+  const [memuat, setMemuat] = useState(true);
+  const [error, setError] = useState(null);
+
+  useEffect(() => {
+    getMeta()
+      .then((m) => {
+        setDaftarSkill(m.skills);
+        setKategori(m.kategori);
+        setMinat(Object.fromEntries(m.kategori.map((k) => [k, 3])));
+      })
+      .catch((e) => setError(e.message))
+      .finally(() => setMemuat(false));
+  }, []);
 
   const toggleSkill = (s) =>
     setSkills((prev) => (prev.includes(s) ? prev.filter((x) => x !== s) : [...prev, s]));
@@ -28,10 +42,13 @@ const Rekomendasi = () => {
   const proses = async () => {
     if (skills.length === 0) return;
     setLoading(true);
+    setError(null);
     try {
       const data = await kirimRekomendasi({ skills, minat, top_n: 5 });
       setHasil(data);
       simpanRiwayat(skills, data.hasil);
+    } catch (e) {
+      setError(e.message);
     } finally {
       setLoading(false);
     }
@@ -49,12 +66,23 @@ const Rekomendasi = () => {
           </p>
         </div>
 
+        {error && (
+          <div className="bg-red-50 border border-red-200 rounded-2xl p-5 mb-6">
+            <p className="font-bold text-red-800 mb-1">Backend tidak terjangkau</p>
+            <p className="text-sm text-red-700">{error}</p>
+          </div>
+        )}
+
+        {memuat && !error && (
+          <p className="text-slate-500 mb-6">Memuat data dari backend...</p>
+        )}
+
         {/* Form skill */}
         <div className="bg-white rounded-2xl border border-slate-200 shadow-sm p-6 lg:p-8 mb-6">
           <h2 className="text-lg font-bold text-slate-900 mb-1">1. Skill yang kamu kuasai</h2>
           <p className="text-sm text-slate-500 mb-4">Klik untuk memilih (boleh lebih dari satu).</p>
           <div className="flex flex-wrap gap-2">
-            {SEMUA_SKILL.map((s) => {
+            {daftarSkill.map((s) => {
               const aktif = skills.includes(s);
               return (
                 <button
@@ -80,7 +108,7 @@ const Rekomendasi = () => {
           <h2 className="text-lg font-bold text-slate-900 mb-1">2. Nilai minatmu per bidang</h2>
           <p className="text-sm text-slate-500 mb-4">Geser ke kanan kalau kamu tertarik (1 = tidak minat, 5 = sangat minat).</p>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-4">
-            {KATEGORI.map((k) => (
+            {kategori.map((k) => (
               <div key={k}>
                 <div className="flex justify-between text-sm mb-1">
                   <span className="font-medium text-slate-700">{k}</span>
@@ -101,7 +129,7 @@ const Rekomendasi = () => {
 
         <button
           onClick={proses}
-          disabled={skills.length === 0 || loading}
+          disabled={skills.length === 0 || loading || memuat}
           className="w-full md:w-auto px-8 py-3.5 bg-indigo-600 hover:bg-indigo-700 disabled:bg-slate-300 text-white font-semibold rounded-xl transition-all shadow-sm active:scale-[0.98] mb-10"
         >
           {loading ? "Menghitung..." : "Lihat Rekomendasi"}

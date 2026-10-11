@@ -24,16 +24,16 @@ PARTISI: Pengguna & Frontend            |  PARTISI: Backend (Flask)        |  PA
 < Ada skill yang dipilih? > ---Tidak→ [ Tampilkan peringatan, kembali ke form ] ──→ ⊗
 | Ya                                   |
 |                                      |                                    |
-|      < Backend API terjangkau? >     |                                    |
-|         | Ya                | Tidak    |                                    |
-|         |                   |          |                                    |
-|         |     [ Hitung lokal (mesin JS): |                                    |
-|         |       hitungRekomendasi() ] | |                                    |
-|         |       memakai data lokal   | |                                    |
-|         |       pekerjaan.js ] ──────┘ |                                    |
-|         |                   |          |                                    |
-|   [ Kirim POST /rekomendasi ]         |                                    |
-|   {skills, minat, top_n}  |           |                                    |
+|      [ Kirim POST /rekomendasi ]       |                                    |
+|      {skills, minat, top_n}           |                                    |
+|                   |                   |                                    |
+|      < Backend API terjangkau? >      |                                    |
+|         | Ya                | Tidak     |                                    |
+|         |                   |           |                                    |
+|         |     [ Tampilkan pesan error:   |                                    |
+|         |       "Backend tidak           |                                    |
+|         |       terjangkau" ]            |                                    |
+|         |                   ⊗           |                                    |
 |                           ↓           |                                    |
 |                                      | [ Normalisasi skill (huruf kecil) ] |
 |                                      |             |                      |
@@ -73,14 +73,13 @@ PARTISI: Pengguna & Frontend            |  PARTISI: Backend (Flask)        |  PA
 | Tahap di diagram | Lokasi di kode |
 |---|---|
 | Validasi "ada skill dipilih?" | `frontend/src/pages/Rekomendasi.jsx` |
-| Keputusan "backend terjangkau?" + fallback lokal | `frontend/src/api.js` → `kirimRekomendasi()` |
-| Mesin lokal (mode demo) | `frontend/src/lib/rekomendasi.js` → `hitungRekomendasi()` |
-| Data lokal frontend | `frontend/src/data/pekerjaan.js` |
-| Endpoint `POST /rekomendasi` | `backend/main.py` → `rekomendasi()` |
-| Normalisasi skill | `backend/main.py` → `normalisasi()` |
-| Keputusan "PostgreSQL terjangkau?" | `backend/main.py` (blok try import `db.muat_dari_db`) |
-| Cosine similarity | `backend/main.py` → `cosine_similarity()` |
-| Skor SAW + bobot | `backend/main.py` → `hitung_skor()` + `BOBOT` |
+| Keputusan "backend terjangkau?" → pesan error bila tidak | `frontend/src/api.js` → `panggil()` |
+| Endpoint `GET /meta` (daftar skill & kategori form) | `backend/app.py` → `meta()` |
+| Endpoint `POST /rekomendasi` | `backend/app.py` → `rekomendasi()` |
+| Normalisasi skill | `backend/app.py` → `normalisasi()` |
+| Keputusan "PostgreSQL terjangkau?" | `backend/app.py` (blok try import `db.muat_dari_db`) |
+| Cosine similarity | `backend/app.py` → `cosine_similarity()` |
+| Skor SAW + bobot | `backend/app.py` → `hitung_skor()` + `BOBOT` |
 | Simpan riwayat 20 terakhir | `frontend/src/pages/Rekomendasi.jsx` (localStorage `riwayat-rekomendasi`) |
 
 ## Catatan untuk laporan
