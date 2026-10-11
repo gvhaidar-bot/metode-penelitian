@@ -49,7 +49,8 @@ karier yang direkomendasikan.
    (snapshot, bukan data real-time).
 3. Input sistem berupa skill yang dipilih pengguna dan nilai minat
    per kategori (skala 1–5); sistem tidak menilai kemampuan secara langsung.
-4. Pengujian dilakukan secara black-box dan kuesioner kepuasan pengguna.
+4. Pengujian dilakukan secara black-box (13 test case) dan perbandingan
+   metode (CBF+SAW vs Naive Bayes) untuk menguji konsistensi perangkingan.
 
 ## Manfaat Penelitian
 - **Teoritis:** menunjukkan penerapan gabungan Content-Based Filtering,

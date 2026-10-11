@@ -34,19 +34,25 @@ Status tiap TC diisi saat pengujian: Lolos / Gagal + catatan.
 | TC-08 | Lolos | 6 langkah roadmap |
 | TC-09 – TC-13 | Verifikasi statis (bukan browser) | Semua link sidebar mengarah ke route yang terdefinisi di App.jsx (tidak ada halaman kosong); production build sukses; engine rekomendasi JS diuji via node (Python+SQL → Data Analyst teratas). Uji klik manual tetap disarankan di laptop. |
 
-## B. Kuesioner Kepuasan Pengguna (Skala Likert 1–5)
+## B. Perbandingan Metode (CBF+SAW vs Naive Bayes)
 
-Responden: mahasiswa Informatika (target ±30 orang).
-Skala: 1=Sangat Tidak Setuju … 5=Sangat Setuju.
+Tujuan: menguji konsistensi perangkingan — apakah rekomendasi yang
+dihasilkan robust dan tidak hanya kebetulan cocok pada satu metode.
 
-1. Sistem mudah digunakan tanpa panduan. 
-2. Hasil rekomendasi sesuai dengan skill yang saya masukkan. 
-3. Informasi gaji dan kebutuhan pasar membantu saya memutuskan. 
-4. Roadmap belajar yang diberikan jelas dan dapat diikuti. 
-5. Tampilan sistem menarik dan mudah dipahami. 
-6. Sistem membantu saya mengenal pilihan karier di bidang IT. 
-7. Saya akan merekomendasikan sistem ini ke teman. 
-8. Secara keseluruhan saya puas dengan sistem ini. 
+Desain:
+1. Kedua metode dijalankan pada dataset profil karier yang sama
+   (10 karier di PostgreSQL).
+2. Skenario input sama untuk kedua metode: beberapa profil skill
+   sintetis (mis. {Python, SQL}, {HTML, CSS, JavaScript}, {PHP})
+   dikombinasikan dengan variasi nilai minat.
+3. Bandingkan daftar peringkat top-5 yang dihasilkan tiap metode.
 
-Analisis: hitung rata-rata skor per pernyataan dan total; interpretasi
-misalnya rata-rata ≥ 4,0 = kategori "Baik/Sangat Baik".
+Metrik:
+- **Overlap@5**: berapa karier yang sama-sama muncul di top-5
+  kedua metode.
+- **Korelasi peringkat**: Spearman's rho / Kendall's tau antara dua
+  daftar peringkat lengkap (10 karier).
+
+Interpretasi: kesepakatan yang tinggi menunjukkan perangkingan
+konsisten lintas metode; perbedaan dianalisis untuk menjelaskan
+karakter masing-masing metode.
