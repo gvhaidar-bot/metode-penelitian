@@ -36,8 +36,10 @@ Status tiap TC diisi saat pengujian: Lolos / Gagal + catatan.
 
 ## B. Perbandingan Metode (CBF+SAW vs Naive Bayes)
 
-Tujuan: menguji konsistensi perangkingan — apakah rekomendasi yang
+Tujuan: menguji **konsistensi** perangkingan — apakah rekomendasi yang
 dihasilkan robust dan tidak hanya kebetulan cocok pada satu metode.
+Ini BUKAN uji superioritas: tanpa label ground truth independen,
+tidak dapat disimpulkan satu metode "lebih akurat" dari yang lain.
 
 Desain:
 1. Kedua metode dijalankan pada dataset profil karier yang sama
@@ -46,6 +48,9 @@ Desain:
    sintetis (mis. {Python, SQL}, {HTML, CSS, JavaScript}, {PHP})
    dikombinasikan dengan variasi nilai minat.
 3. Bandingkan daftar peringkat top-5 yang dihasilkan tiap metode.
+   Catatan: Naive Bayes hanya memakai informasi skill (probabilistik),
+   sedangkan CBF+SAW memakai empat kriteria — perbedaan hasil yang
+   wajar dianalisis, bukan dianggap kegagalan salah satu metode.
 
 Metrik:
 - **Overlap@5**: berapa karier yang sama-sama muncul di top-5
@@ -54,5 +59,6 @@ Metrik:
   daftar peringkat lengkap (10 karier).
 
 Interpretasi: kesepakatan yang tinggi menunjukkan perangkingan
-konsisten lintas metode; perbedaan dianalisis untuk menjelaskan
-karakter masing-masing metode.
+konsisten lintas metode; perbedaan dianalisis secara kualitatif
+untuk menjelaskan karakter masing-masing metode. Hasil perbandingan
+dilaporkan apa adanya, termasuk ketika kedua metode tidak sepakat.

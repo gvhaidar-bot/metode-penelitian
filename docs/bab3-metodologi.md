@@ -49,6 +49,9 @@ bukan dikumpulkan langsung oleh peneliti):
      dan vektor profil skill tiap pekerjaan.
   3. Metode SAW menggabungkan empat kriteria berbobot:
      skor = 0,45×skill + 0,25×minat + 0,15×gaji + 0,15×demand.
+     Penetapan bobot mengasumsikan kecocokan skill sebagai kriteria
+     dominan; justifikasi rinci (rujukan literatur dan/atau uji
+     sensitivitas bobot) ditulis pada bab pembahasan.
   4. Sistem menampilkan 5 karier teratas + roadmap belajar + riwayat.
 
 ## 3.5 Teknik Analisis Data
