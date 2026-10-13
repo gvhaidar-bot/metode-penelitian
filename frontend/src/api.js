@@ -2,7 +2,7 @@
 
 const API_URL =
   import.meta.env.VITE_API_URL === undefined
-    ? "http://localhost:8000"
+    ? "" // same-origin: cocok untuk preview_server.py maupun tunnel publik
     : import.meta.env.VITE_API_URL;
 
 const TOKEN_KEY = "kk-token";
