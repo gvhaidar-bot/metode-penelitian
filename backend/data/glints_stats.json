@@ -1,0 +1,66 @@
+{
+  "total_barisan": 1133,
+  "tak_terpetakan": 635,
+  "karier": {
+    "backend-dev": {
+      "jumlah_lowongan": 68,
+      "gaji_min_median_jt": 5.6,
+      "gaji_max_median_jt": 7.5,
+      "perusahaan_unik": 65
+    },
+    "data-analyst": {
+      "jumlah_lowongan": 86,
+      "gaji_min_median_jt": 5.0,
+      "gaji_max_median_jt": 6.0,
+      "perusahaan_unik": 80
+    },
+    "devops-engineer": {
+      "jumlah_lowongan": 34,
+      "gaji_min_median_jt": 8.0,
+      "gaji_max_median_jt": 12.0,
+      "perusahaan_unik": 34
+    },
+    "frontend-dev": {
+      "jumlah_lowongan": 61,
+      "gaji_min_median_jt": 6.0,
+      "gaji_max_median_jt": 7.75,
+      "perusahaan_unik": 53
+    },
+    "it-pm": {
+      "jumlah_lowongan": 57,
+      "gaji_min_median_jt": 8.0,
+      "gaji_max_median_jt": 12.0,
+      "perusahaan_unik": 52
+    },
+    "ml-engineer": {
+      "jumlah_lowongan": 36,
+      "gaji_min_median_jt": 6.0,
+      "gaji_max_median_jt": 8.0,
+      "perusahaan_unik": 35
+    },
+    "mobile-dev": {
+      "jumlah_lowongan": 47,
+      "gaji_min_median_jt": 6.9,
+      "gaji_max_median_jt": 9.0,
+      "perusahaan_unik": 36
+    },
+    "qa-engineer": {
+      "jumlah_lowongan": 49,
+      "gaji_min_median_jt": 6.3,
+      "gaji_max_median_jt": 8.0,
+      "perusahaan_unik": 41
+    },
+    "security-analyst": {
+      "jumlah_lowongan": 11,
+      "gaji_min_median_jt": 4.0,
+      "gaji_max_median_jt": 6.0,
+      "perusahaan_unik": 11
+    },
+    "uiux-designer": {
+      "jumlah_lowongan": 49,
+      "gaji_min_median_jt": 4.0,
+      "gaji_max_median_jt": 5.5,
+      "perusahaan_unik": 49
+    }
+  }
+}

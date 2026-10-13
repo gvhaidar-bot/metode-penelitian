@@ -31,6 +31,7 @@ from flask import Flask, jsonify, request
 from flask_cors import CORS
 
 import auth
+import glints
 
 app = Flask(__name__)
 
@@ -193,6 +194,22 @@ def roadmap_pekerjaan(pekerjaan_id: str):
             return jsonify({"id": job["id"], "nama": job["nama"],
                             "roadmap": job["roadmap"]})
     return jsonify({"detail": "Pekerjaan tidak ditemukan"}), 404
+
+
+@app.get("/pekerjaan/<pekerjaan_id>/lowongan")
+def lowongan_pekerjaan(pekerjaan_id: str):
+    """Contoh lowongan Glints yang terpetakan ke satu pekerjaan."""
+    if not any(job["id"] == pekerjaan_id for job in PEKERJAAN):
+        return jsonify({"detail": "Pekerjaan tidak ditemukan"}), 404
+    contoh, total = glints.lowongan_untuk_karier(pekerjaan_id, batas=5)
+    for l in contoh:
+        l.pop("karier_id", None)
+    return jsonify({
+        "id": pekerjaan_id,
+        "total_terpetakan": total,
+        "sumber": "Glints Indonesia (Mei-Jun 2026, klaim tim — posted_date relatif)",
+        "lowongan": contoh,
+    })
 
 
 @app.post("/auth/register")
