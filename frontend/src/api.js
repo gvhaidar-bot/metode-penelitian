@@ -77,6 +77,10 @@ export function getPekerjaanDetail(id) {
   return panggil("/pekerjaan/" + id);
 }
 
+export function getLowongan(id) {
+  return panggil("/pekerjaan/" + id + "/lowongan");
+}
+
 export async function kirimRekomendasi({ skills, minat, top_n = 5 }) {
   return panggil("/rekomendasi", {
     method: "POST",

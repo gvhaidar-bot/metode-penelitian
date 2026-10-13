@@ -1,11 +1,12 @@
 import { useEffect, useState } from "react";
 import { useSearchParams, Link } from "react-router-dom";
 import { Sidebar } from "../components/Sidebar";
-import { getPekerjaan } from "../api.js";
+import { getLowongan, getPekerjaan } from "../api.js";
 
 const Roadmap = () => {
   const [params, setParams] = useSearchParams();
   const [daftar, setDaftar] = useState([]);
+  const [lowongan, setLowongan] = useState(null);
   const [error, setError] = useState(null);
 
   useEffect(() => {
@@ -24,6 +25,15 @@ const Roadmap = () => {
     : (daftar[0] ? daftar[0].id : "");
 
   const job = daftar.find((p) => p.id === aktif);
+
+  useEffect(() => {
+    if (!aktif) return;
+    let batal = false;
+    getLowongan(aktif)
+      .then((d) => { if (!batal) setLowongan(d); })
+      .catch(() => { if (!batal) setLowongan({ lowongan: [], total_terpetakan: 0 }); });
+    return () => { batal = true; };
+  }, [aktif]);
 
   return (
     <div className="flex min-h-screen">
@@ -88,6 +98,26 @@ const Roadmap = () => {
                 </div>
               ))}
             </div>
+
+            {lowongan && lowongan.lowongan.length > 0 && (
+              <div className="mt-8 pt-8 border-t border-stone-200/70">
+                <div className="flex items-baseline justify-between mb-4">
+                  <h3 className="font-extrabold">Lowongan terkait di Glints</h3>
+                  <p className="text-xs text-stone-400">{lowongan.total_terpetakan} terpetakan</p>
+                </div>
+                <div className="space-y-2">
+                  {lowongan.lowongan.map((l, i) => (
+                    <div key={i} className="bg-paper rounded-xl px-4 py-3">
+                      <p className="font-bold text-sm">{l.judul}</p>
+                      <p className="text-xs text-stone-500 mt-0.5">
+                        {l.perusahaan}{l.lokasi ? " • " + l.lokasi : ""}{l.gaji ? " • " + l.gaji : ""}
+                      </p>
+                    </div>
+                  ))}
+                </div>
+                <p className="text-xs text-stone-400 mt-3">Sumber: Glints Indonesia (Mei–Jun 2026, klaim tim).</p>
+              </div>
+            )}
           </div>
         )}
       </div>

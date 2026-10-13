@@ -165,3 +165,19 @@ def test_auth_me_dan_logout(client):
 def test_auth_logout_tanpa_token_ditolak(client):
     assert client.post("/auth/logout").status_code == 401
     assert client.post("/auth/logout", headers={"Authorization": "Bearer salah"}).status_code == 401
+
+
+# Lowongan Glints per karier
+def test_lowongan_valid(client):
+    r = client.get("/pekerjaan/data-analyst/lowongan")
+    assert r.status_code == 200
+    data = r.get_json()
+    assert data["id"] == "data-analyst"
+    assert data["total_terpetakan"] > 0
+    assert len(data["lowongan"]) <= 5
+    for l in data["lowongan"]:
+        assert l["judul"] and l["perusahaan"]
+
+
+def test_lowongan_id_tidak_ada(client):
+    assert client.get("/pekerjaan/tidak-ada/lowongan").status_code == 404
