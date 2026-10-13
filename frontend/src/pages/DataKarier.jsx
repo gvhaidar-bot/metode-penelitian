@@ -91,7 +91,7 @@ export default function DataKarier() {
         </div>
 
         <div className="mt-10 bg-card rounded-2xl border border-line p-6 sm:p-8 text-center">
-          <h2 className="text-xl font-extrabold text-ink">Lihat posisi Anda di antara 14 karier ini</h2>
+          <h2 className="text-xl font-extrabold text-ink">Lihat posisi Anda di antara {(pekerjaan ? pekerjaan.length : 23)} karier ini</h2>
           <p className="text-sm text-muted mt-2">
             Masuk, isi skill, dan biarkan sistem menghitung peringkat kecocokan Anda.
           </p>

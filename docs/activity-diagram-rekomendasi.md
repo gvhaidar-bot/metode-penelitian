@@ -17,7 +17,7 @@ PARTISI: Pengguna & Frontend            |  PARTISI: Backend (Flask)        |  PA
 |                                      |                                    |
 [ Pilih skill yang dimiliki ]          |                                    |
 |                                      |                                    |
-[ Nilai minat tiap kategori (1-5) ]    |                                    |
+[ Urutkan 5 kategori minat (ranking, tanpa angka) ]    |                                    |
 |                                      |                                    |
 [ Tekan "Dapatkan Rekomendasi" ]       |                                    |
 |                                      |                                    |

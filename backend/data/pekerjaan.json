@@ -132,7 +132,8 @@
       "React Native",
       "Xcode",
       "Android Development",
-      "iOS Development"
+      "iOS Development",
+      "Android"
     ],
     "roadmap": [
       {
@@ -185,10 +186,7 @@
       "Tableau",
       "MS Excel",
       "AWS",
-      "Azure",
       "SQL Server",
-      "Spark",
-      "Google Cloud",
       "R",
       "Statistics",
       "Visualisasi Data",
@@ -364,7 +362,6 @@
       "Azure",
       "Docker",
       "Python",
-      "Google Cloud",
       "Kubernetes",
       "Java",
       "Terraform",
@@ -372,7 +369,9 @@
       "Git",
       "Ansible",
       "MySQL",
-      "Linux"
+      "Linux",
+      "CI/CD",
+      "Prometheus"
     ],
     "roadmap": [
       {
@@ -540,15 +539,12 @@
       "Jira",
       "SAP",
       "Trello",
-      "Java",
       "Scrum/Agile",
       "MS Office",
       "MS Project",
       "SQL",
       "MS Excel",
       "Figma",
-      "Python",
-      "SQL Server",
       "Manajemen Proyek",
       "Project Planning",
       "IT Project Management",
@@ -668,7 +664,10 @@
       "Komunikasi",
       "Analisis Kebutuhan",
       "SDLC",
-      "Manajemen Proyek"
+      "Manajemen Proyek",
+      "Stakeholder Analysis",
+      "Process Mapping",
+      "Business Process Modeling"
     ],
     "roadmap": [
       {
@@ -722,7 +721,11 @@
       "UML",
       "Dokumentasi",
       "SDLC",
-      "Komunikasi"
+      "Komunikasi",
+      "BPMN",
+      "Requirement Gathering",
+      "Data Flow Diagram",
+      "System Design"
     ],
     "roadmap": [
       {
@@ -838,7 +841,8 @@
       "Firewall",
       "Wireshark",
       "Linux",
-      "Network Troubleshooting"
+      "Network Troubleshooting",
+      "Troubleshooting"
     ],
     "gaji_min": 5.0,
     "gaji_max": 8.0,
@@ -892,10 +896,11 @@
       "Kubernetes",
       "Terraform",
       "Linux",
-      "CI/CD",
       "IAM",
       "Monitoring",
-      "Networking"
+      "Networking",
+      "S3",
+      "Lambda"
     ],
     "gaji_min": 8.0,
     "gaji_max": 12.0,
@@ -1061,7 +1066,7 @@
       "MySQL",
       "SQL Server",
       "Oracle",
-      "Backup & Recovery",
+      "Backup",
       "Query Tuning",
       "Replication",
       "Linux",

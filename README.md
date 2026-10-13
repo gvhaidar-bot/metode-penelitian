@@ -33,8 +33,8 @@ Filtering dan Simple Additive Weighting (SAW)*.
 1. **Content-Based Filtering + Cosine Similarity** — mencocokkan vektor
    skill pengguna dengan vektor skill tiap pekerjaan.
 2. **SAW (Simple Additive Weighting)** — merangking hasil dari 4 kriteria:
-   kecocokan skill (bobot 0,4), minat (0,3), gaji (0,2), kebutuhan pasar
-   (0,1). Bobot tersimpan di `backend/data/bobot.json` sehingga mudah
+   kecocokan skill (bobot 0,45), minat (0,25), gaji (0,15), kebutuhan pasar
+   (0,15). Bobot tersimpan di `backend/data/bobot.json` sehingga mudah
    diubah tanpa menyentuh kode.
 
 Simulasi perhitungan manual: `docs/contoh-perhitungan.md`.
@@ -48,7 +48,7 @@ metode-penelitian/
 │   ├── auth.py             # register/login/logout + token
 │   ├── db.py               # akses data (PostgreSQL / fallback JSON)
 │   ├── data/
-│   │   ├── pekerjaan.json  # 10 profil karier (skill, gaji, demand, roadmap)
+│   │   ├── pekerjaan.json  # 23 profil karier (skill, gaji, demand, roadmap)
 │   │   ├── bobot.json      # bobot kriteria SAW
 │   │   ├── job_salary_mean.csv                      # dataset gaji (mentah)
 │   │   ├── lowongan_data_dan_analytics_jobstreet.csv # lowongan JobStreet (mentah)
@@ -69,8 +69,8 @@ metode-penelitian/
 ## Dataset
 
 Profil 23 karier di `backend/data/pekerjaan.json` dikurasi dari dataset
-Kaggle (1.205 lowongan Indonesia dipetakan ke 10 profil; EDA di
-`backend/data/eda_summary.md`, dibuat 2026-10-10).
+Kaggle (1.205 lowongan Indonesia dipetakan ke 10 profil pada EDA 2026-10-10,
+sebelum perluasan ke 23 karier; EDA di `backend/data/eda_summary.md`).
 
 Data sekunder mentah (pembanding/validasi, per `backend/data/README.md`):
 
@@ -78,7 +78,7 @@ Data sekunder mentah (pembanding/validasi, per `backend/data/README.md`):
 |------|--------|-----|
 | `job_salary_mean.csv` | [kaggle.com/datasets/husnind/indonesia-average-job-salary](https://www.kaggle.com/datasets/husnind/indonesia-average-job-salary) | 32.976 lowongan Jobstreet Indonesia, **2024**, CC BY 4.0 — validasi rentang gaji |
 | `lowongan_data_dan_analytics_jobstreet.csv` | [kaggle.com/datasets/raflirizkya/indonesian-data-and-analytics-jobs-in-jobstreet](https://www.kaggle.com/datasets/raflirizkya/indonesian-data-and-analytics-jobs-in-jobstreet) | 555 lowongan Data & Analytics, **25 Agu–24 Sep 2025** — validasi skill peran data |
-| `glints_jobs.csv` | scraping tim (commit `211db6f5`, 2026-10-12) | 1.133 lowongan Glints Indonesia, diklaim **Mei–Jun 2026** — 569 terpetakan ke 14 karier via `backend/glints.py`; kolom `posted_date` hanya berisi tanggal relatif ("Kemarin", "N hari yang lalu") sehingga klaim tahun tidak bisa diverifikasi dari isi file. Detail: `docs/integrasi-glints.md` |
+| `glints_jobs.csv` | scraping tim (commit `211db6f5`, 2026-10-12) | 1.133 lowongan Glints Indonesia, diklaim **Mei–Jun 2026** — 597 terpetakan ke 23 karier via `backend/glints.py`; kolom `posted_date` hanya berisi tanggal relatif ("Kemarin", "N hari yang lalu") sehingga klaim tahun tidak bisa diverifikasi dari isi file. Detail: `docs/integrasi-glints.md` |
 
 **Penggunaan di aplikasi:** endpoint `GET /pekerjaan/{id}/lowongan`
 menampilkan contoh lowongan Glints per karier; halaman Roadmap punya

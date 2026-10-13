@@ -53,7 +53,7 @@ Contoh body `POST /rekomendasi` (header `Authorization: Bearer <token>`):
    Bobot dibaca dari `data/bobot.json` (total harus = 1); ubah file itu
    untuk eksperimen sensitivitas tanpa menyentuh kode.
 
-Data profil pekerjaan: `data/pekerjaan.json` (14 karier IT). Pengguna
+Data profil pekerjaan: `data/pekerjaan.json` (23 karier IT). Pengguna
 tersimpan di `data/users.json` (password ter-hash, dibuat otomatis).
 
 ## Test otomatis

@@ -33,3 +33,26 @@ karier berasal. Ditulis agar dapat disitasi apa adanya di skripsi.
 - Data gaji dan demand bersifat estimasi per Juni 2026 dan dapat berubah.
 - Pengembangan lanjutan: validasi pakar (kuesioner) untuk profil, gaji,
   demand, dan bobot SAW.
+
+## Narasi pertahanan untuk sidang (9 karier kurasi peneliti)
+
+Bila penguji mempertanyakan 9 dari 23 karier (~39%) yang dikurasi
+peneliti tanpa dataset pendukung, gunakan bingkai berikut:
+
+1. **Keputusan desain sistematis, bukan ad-hoc.** Sembilan karier dipilih
+   dengan kriteria eksplisit: (a) peran IT yang umum dibuka di Indonesia
+   (tercermin pada 1.133 lowongan Glints), (b) melengkapi spektrum bidang
+   yang belum terwakili (infrastruktur, data lanjutan, manajemen produk,
+   dukungan teknis), (c) tiap profil memakai struktur data yang sama
+   dengan 14 karier berbasis dataset (skill, gaji_min/max, demand 1–5,
+   roadmap 6 quest).
+2. **Transparansi penuh.** Dokumen ini mencatat jujur komponen mana yang
+   dari dataset dan mana yang estimasi peneliti; tidak ada klaim palsu
+   yang bisa dibongkar.
+3. **Keterbatasan dinyatakan terbuka.** Gaji, demand, dan bobot SAW yang
+   belum divalidasi pakar dicatat sebagai keterbatasan penelitian, dengan
+   validasi pakar (kuesioner) sebagai pekerjaan lanjutan yang konkret —
+   bukan disembunyikan.
+4. **Fokus penelitian adalah metode, bukan sensus pasar kerja.** Kontribusi
+   utama skripsi adalah rancang bangun SPK dengan CBF + SAW; data profil
+   adalah input yang dapat diganti/dipertajam tanpa mengubah metode.
