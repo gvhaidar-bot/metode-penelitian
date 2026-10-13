@@ -18,12 +18,36 @@
    "Laravel"
   ],
   "roadmap": [
-   "Kuasai HTML & CSS dasar",
-   "Pelajari JavaScript (DOM, fetch, ES6+)",
-   "Pelajari React",
-   "Pelajari Tailwind CSS",
-   "Pelajari Git & deployment",
-   "Bangun portofolio"
+   {
+    "judul": "Kuasai HTML dan CSS dasar",
+    "detail": "Pelajari struktur dokumen HTML, box model, flexbox, dan grid. Buat satu halaman statis tanpa framework sebagai bukti.",
+    "estimasi": "2 minggu"
+   },
+   {
+    "judul": "Kuasai JavaScript modern",
+    "detail": "Pelajari ES6 ke atas: arrow function, destructuring, promises, async/await, dan manipulasi DOM. Kerjakan 5 latihan logika tanpa melihat solusi.",
+    "estimasi": "3 minggu"
+   },
+   {
+    "judul": "Pelajari React dan komponen",
+    "detail": "Pahami state, props, hooks (useState, useEffect), dan pembagian komponen. Bangun ulang halaman statismu memakai React.",
+    "estimasi": "3 minggu"
+   },
+   {
+    "judul": "Pelajari styling dan konsumsi API",
+    "detail": "Kuasai Tailwind CSS dan teknik fetch data dari REST API termasuk loading dan error state. Sambungkan aplikasimu ke satu API publik.",
+    "estimasi": "2 minggu"
+   },
+   {
+    "judul": "Pelajari Git dan deployment",
+    "detail": "Kuasai commit, branch, dan pull request di GitHub. Deploy aplikasimu ke hosting statis dan pastikan bisa diakses publik.",
+    "estimasi": "1 minggu"
+   },
+   {
+    "judul": "Bangun portofolio 3 proyek",
+    "detail": "Susun 3 proyek terbaik dengan README yang menjelaskan masalah, solusi, dan teknologi. Satu proyek wajib memakai API eksternal.",
+    "estimasi": "3 minggu"
+   }
   ],
   "gaji_min": 7.1,
   "gaji_max": 9.1,
@@ -48,12 +72,36 @@
    "HTML/CSS"
   ],
   "roadmap": [
-   "Kuasai Node.js atau Python",
-   "Pelajari REST API & HTTP",
-   "Pelajari database SQL",
-   "Pelajari autentikasi (JWT)",
-   "Pelajari Docker dasar",
-   "Bangun API lengkap"
+   {
+    "judul": "Kuasai satu bahasa backend",
+    "detail": "Pilih satu (misal Python, Java, atau PHP) dan kuasai OOP, error handling, serta struktur proyek yang rapi.",
+    "estimasi": "3 minggu"
+   },
+   {
+    "judul": "Kuasai database relasional",
+    "detail": "Pelajari SQL: SELECT, JOIN, agregasi, index, dan relasi tabel. Rancang skema database untuk aplikasi sederhana.",
+    "estimasi": "2 minggu"
+   },
+   {
+    "judul": "Bangun REST API",
+    "detail": "Pelajari routing, request/response JSON, validasi input, dan status code HTTP. Buat API CRUD lengkap untuk satu domain data.",
+    "estimasi": "3 minggu"
+   },
+   {
+    "judul": "Tambahkan autentikasi",
+    "detail": "Implementasikan registrasi, login, hashing password, dan proteksi endpoint dengan token. Jangan pernah simpan password mentah.",
+    "estimasi": "2 minggu"
+   },
+   {
+    "judul": "Pelajari testing dan dokumentasi API",
+    "detail": "Tulis automated test untuk endpoint utamamu dan dokumentasikan API dengan contoh request/response yang bisa dicoba.",
+    "estimasi": "2 minggu"
+   },
+   {
+    "judul": "Deploy dan pantau aplikasi",
+    "detail": "Deploy backend ke server, atur environment variable dengan benar, dan pastikan log error bisa dibaca saat terjadi masalah.",
+    "estimasi": "2 minggu"
+   }
   ],
   "gaji_min": 7.2,
   "gaji_max": 9.5,
@@ -78,12 +126,36 @@
    "Laravel"
   ],
   "roadmap": [
-   "Pelajari Dart",
-   "Pelajari Flutter",
-   "Pelajari konsumsi REST API",
-   "Pelajari Firebase",
-   "Pelajari publish ke Play Store",
-   "Bangun aplikasi portofolio"
+   {
+    "judul": "Pilih platform dan siapkan tooling",
+    "detail": "Tentukan Android (Kotlin) atau cross-platform (Flutter). Install SDK, emulator, dan jalankan aplikasi bawaan sampai tampil di emulator.",
+    "estimasi": "1 minggu"
+   },
+   {
+    "judul": "Kuasai layout dan navigasi",
+    "detail": "Pelajari penyusunan tampilan, daftar scroll, dan perpindahan antar layar. Buat aplikasi 3 layar dengan navigasi yang benar.",
+    "estimasi": "3 minggu"
+   },
+   {
+    "judul": "Kelola state dan data lokal",
+    "detail": "Pelajari state management dan penyimpanan lokal. Buat aplikasi catatan yang datanya tetap ada setelah aplikasi ditutup.",
+    "estimasi": "2 minggu"
+   },
+   {
+    "judul": "Konsumsi API dari aplikasi",
+    "detail": "Sambungkan aplikasi ke REST API: tampilkan daftar data, tangani loading, error, dan kondisi tanpa koneksi.",
+    "estimasi": "2 minggu"
+   },
+   {
+    "judul": "Tangani izin dan fitur perangkat",
+    "detail": "Pelajari permission model, kamera atau lokasi, dan notifikasi. Tambahkan satu fitur perangkat ke aplikasimu.",
+    "estimasi": "2 minggu"
+   },
+   {
+    "judul": "Build dan rilis versi beta",
+    "detail": "Hasilkan file APK/app bundle yang siap instal, uji di perangkat fisik, dan catat semua bug yang ditemukan.",
+    "estimasi": "2 minggu"
+   }
   ],
   "gaji_min": 7.5,
   "gaji_max": 11.5,
@@ -107,12 +179,36 @@
    "R"
   ],
   "roadmap": [
-   "Kuasai Excel/Sheets",
-   "Pelajari SQL",
-   "Pelajari Python (pandas)",
-   "Pelajari dasar Statistik",
-   "Pelajari Tableau/Power BI",
-   "Bangun dashboard portofolio"
+   {
+    "judul": "Kuasai spreadsheet tingkat lanjut",
+    "detail": "Pelajari pivot table, VLOOKUP/XLOOKUP, dan pembersihan data kotor. Analisis satu dataset sampai menghasilkan ringkasan yang rapi.",
+    "estimasi": "2 minggu"
+   },
+   {
+    "judul": "Kuasai SQL dasar sampai menengah",
+    "detail": "Pelajari SELECT, WHERE, GROUP BY, JOIN, dan subquery. Jawab 10 pertanyaan bisnis dari satu database latihan.",
+    "estimasi": "3 minggu"
+   },
+   {
+    "judul": "Pelajari Python untuk analisis",
+    "detail": "Kuasai pandas untuk manipulasi data dan matplotlib untuk visualisasi dasar. Ulangi analisismu yang dulu memakai spreadsheet.",
+    "estimasi": "3 minggu"
+   },
+   {
+    "judul": "Pahami statistik deskriptif",
+    "detail": "Pelajari mean, median, distribusi, dan korelasi secukupnya untuk membaca data dengan benar dan menghindari kesimpulan keliru.",
+    "estimasi": "2 minggu"
+   },
+   {
+    "judul": "Kuasai tools visualisasi",
+    "detail": "Pelajari Tableau atau Power BI: buat dashboard interaktif dengan filter yang menjawab pertanyaan bisnis spesifik.",
+    "estimasi": "3 minggu"
+   },
+   {
+    "judul": "Bangun portofolio analisis end-to-end",
+    "detail": "Ambil dataset publik, rumuskan 3 pertanyaan bisnis, analisis, dan sajikan hasilnya dalam dashboard plus tulisan ringkas.",
+    "estimasi": "3 minggu"
+   }
   ],
   "gaji_min": 5.9,
   "gaji_max": 6.8,
@@ -137,12 +233,36 @@
    "Azure"
   ],
   "roadmap": [
-   "Kuatkan Python & matematika",
-   "Pelajari ML klasik (scikit-learn)",
-   "Pelajari deep learning",
-   "Pelajari MLOps dasar",
-   "Ikuti kompetisi Kaggle",
-   "Bangun project ML end-to-end"
+   {
+    "judul": "Matangkan Python dan matematika dasar",
+    "detail": "Kuasai NumPy, pandas, serta aljabar linear dan peluang secukupnya untuk memahami cara kerja model.",
+    "estimasi": "4 minggu"
+   },
+   {
+    "judul": "Kuasai machine learning klasik",
+    "detail": "Pelajari regresi, klasifikasi, dan evaluasi model (train/test split, confusion matrix). Latih model pertamamu dengan scikit-learn.",
+    "estimasi": "4 minggu"
+   },
+   {
+    "judul": "Pelajari deep learning",
+    "detail": "Pahami neural network, dan latih model sederhana dengan TensorFlow atau PyTorch pada dataset gambar atau teks.",
+    "estimasi": "4 minggu"
+   },
+   {
+    "judul": "Kuasai eksperimen yang rapi",
+    "detail": "Terapkan validasi silang, tuning hyperparameter, dan pencatatan eksperimen agar hasilmu bisa direproduksi.",
+    "estimasi": "2 minggu"
+   },
+   {
+    "judul": "Deploy model sebagai layanan",
+    "detail": "Bungkus modelmu dalam REST API, uji dengan data baru, dan ukur waktu responsnya.",
+    "estimasi": "3 minggu"
+   },
+   {
+    "judul": "Bangun proyek ML lengkap",
+    "detail": "Selesaikan satu proyek dari pengumpulan data sampai deployment, lengkap dengan dokumentasi dan evaluasi.",
+    "estimasi": "4 minggu"
+   }
   ],
   "gaji_min": 6.5,
   "gaji_max": 7.9,
@@ -167,12 +287,36 @@
    "Adobe Illustrator"
   ],
   "roadmap": [
-   "Pelajari prinsip desain",
-   "Kuasai Figma",
-   "Pelajari UX research",
-   "Pelajari prototyping",
-   "Bangun studi kasus",
-   "Pelajari design system"
+   {
+    "judul": "Pahami prinsip desain antarmuka",
+    "detail": "Pelajari hierarki visual, kontras, spacing, dan tipografi. Analisis 5 aplikasi populer dan catat pola yang berulang.",
+    "estimasi": "2 minggu"
+   },
+   {
+    "judul": "Kuasai Figma",
+    "detail": "Pelajari frame, auto layout, component, dan prototyping. Duplikasi satu layar aplikasi nyata sebagai latihan.",
+    "estimasi": "3 minggu"
+   },
+   {
+    "judul": "Pelajari riset pengguna dasar",
+    "detail": "Pahami persona, user journey, dan wawancara singkat. Lakukan riset kecil pada 3 orang untuk satu masalah nyata.",
+    "estimasi": "2 minggu"
+   },
+   {
+    "judul": "Rancang alur lengkap",
+    "detail": "Ubah hasil risetmu menjadi wireframe lalu high-fidelity design untuk satu alur utuh, bukan sekadar satu layar.",
+    "estimasi": "3 minggu"
+   },
+   {
+    "judul": "Uji desainmu",
+    "detail": "Lakukan usability testing sederhana pada 3 orang, catat temuan, dan revisi desain berdasarkan temuan tersebut.",
+    "estimasi": "2 minggu"
+   },
+   {
+    "judul": "Susun studi kasus portofolio",
+    "detail": "Tulis 2 studi kasus lengkap: masalah, riset, proses desain, pengujian, dan hasil akhir.",
+    "estimasi": "3 minggu"
+   }
   ],
   "gaji_min": 5.2,
   "gaji_max": 6.0,
@@ -197,12 +341,36 @@
    "MySQL"
   ],
   "roadmap": [
-   "Kuasai Linux & bash",
-   "Pelajari Git & CI/CD",
-   "Pelajari Docker",
-   "Pelajari Kubernetes dasar",
-   "Pelajari cloud (AWS/GCP)",
-   "Bangun pipeline deployment"
+   {
+    "judul": "Kuasai Linux dan jaringan dasar",
+    "detail": "Pelajari command line, manajemen proses, SSH, dan konsep DNS serta HTTP. Kelola satu VPS dari nol sampai bisa diakses.",
+    "estimasi": "3 minggu"
+   },
+   {
+    "judul": "Kuasai Git dan CI/CD",
+    "detail": "Pahami branching strategy dan buat pipeline otomatis: setiap push menjalankan test lalu deploy otomatis.",
+    "estimasi": "2 minggu"
+   },
+   {
+    "judul": "Kuasai container Docker",
+    "detail": "Pelajari image, container, dan Dockerfile. Bungkus satu aplikasimu dalam container yang bisa jalan di mana saja.",
+    "estimasi": "2 minggu"
+   },
+   {
+    "judul": "Pelajari orkestrasi dasar",
+    "detail": "Pahami konsep Kubernetes atau layanan container terkelola: deployment, scaling, dan health check.",
+    "estimasi": "3 minggu"
+   },
+   {
+    "judul": "Terapkan monitoring dan logging",
+    "detail": "Pasang pemantauan uptime dan kumpulkan log terpusat agar masalah ketahuan sebelum pengguna melapor.",
+    "estimasi": "2 minggu"
+   },
+   {
+    "judul": "Praktik infrastructure as code",
+    "detail": "Tulis konfigurasi infrastruktur sebagai kode (misal Terraform atau Ansible) agar server bisa dibangun ulang otomatis.",
+    "estimasi": "3 minggu"
+   }
   ],
   "gaji_min": 4.3,
   "gaji_max": 8.2,
@@ -227,12 +395,36 @@
    "vulnerability scanners"
   ],
   "roadmap": [
-   "Pelajari jaringan komputer",
-   "Kuasai Linux",
-   "Pelajari Python untuk keamanan",
-   "Pelajari SIEM",
-   "Ikuti CTF / sertifikasi",
-   "Bangun lab keamanan"
+   {
+    "judul": "Kuasai dasar jaringan dan sistem",
+    "detail": "Pelajari TCP/IP, DNS, HTTP, serta administrasi Linux dan Windows secukupnya untuk memahami permukaan serangan.",
+    "estimasi": "3 minggu"
+   },
+   {
+    "judul": "Pahami OWASP Top 10",
+    "detail": "Pelajari 10 kerentanan aplikasi web paling umum beserta cara mitigasinya. Praktik di lab legal seperti DVWA.",
+    "estimasi": "3 minggu"
+   },
+   {
+    "judul": "Kuasai tools pemindai",
+    "detail": "Pelajari vulnerability scanner dan cara membaca laporannya tanpa panik: bedakan temuan kritis dan false positive.",
+    "estimasi": "2 minggu"
+   },
+   {
+    "judul": "Pelajari analisis log dan SIEM",
+    "detail": "Pahami cara membaca log untuk menemukan aktivitas mencurigakan dan konsep kerja SIEM.",
+    "estimasi": "3 minggu"
+   },
+   {
+    "judul": "Latihan penetration testing dasar",
+    "detail": "Ikuti lab terstruktur (misal HackTheBox atau TryHackMe) dan dokumentasikan setiap temuan dengan rapi.",
+    "estimasi": "4 minggu"
+   },
+   {
+    "judul": "Tulis laporan keamanan",
+    "detail": "Susun satu laporan lengkap: temuan, tingkat risiko, dan rekomendasi perbaikan yang bisa dipahami non-teknis.",
+    "estimasi": "2 minggu"
+   }
   ],
   "gaji_min": 5.6,
   "gaji_max": 8.9,
@@ -257,12 +449,36 @@
    "TestNG"
   ],
   "roadmap": [
-   "Pelajari konsep software testing",
-   "Praktik testing manual",
-   "Pelajari SQL",
-   "Pelajari automation (Selenium)",
-   "Pelajari API testing",
-   "Bangun portofolio test plan"
+   {
+    "judul": "Pahami konsep pengujian",
+    "detail": "Pelajari jenis testing (fungsional, regresi, smoke), cara menulis test case yang jelas, dan pelaporan bug yang baik.",
+    "estimasi": "2 minggu"
+   },
+   {
+    "judul": "Uji manual terstruktur",
+    "detail": "Ambil satu aplikasi nyata, tulis 30 test case, eksekusi, dan laporkan bug dengan langkah reproduksi yang presisi.",
+    "estimasi": "2 minggu"
+   },
+   {
+    "judul": "Kuasai testing API",
+    "detail": "Pelajari Postman: uji endpoint REST, validasi response, dan susun koleksi test yang bisa dijalankan ulang.",
+    "estimasi": "2 minggu"
+   },
+   {
+    "judul": "Pelajari automation dasar",
+    "detail": "Kuasai Selenium atau Cypress: otomatiskan 10 skenario uji kritis yang paling sering diulang manual.",
+    "estimasi": "4 minggu"
+   },
+   {
+    "judul": "Pahami CI untuk testing",
+    "detail": "Integrasikan test otomatis ke pipeline agar berjalan setiap ada perubahan kode.",
+    "estimasi": "2 minggu"
+   },
+   {
+    "judul": "Bangun strategi uji satu proyek",
+    "detail": "Susun test plan lengkap untuk satu aplikasi: cakupan, prioritas, dan kriteria rilis.",
+    "estimasi": "2 minggu"
+   }
   ],
   "gaji_min": 4.8,
   "gaji_max": 9.2,
@@ -287,12 +503,36 @@
    "SQL Server"
   ],
   "roadmap": [
-   "Pahami Agile/Scrum",
-   "Pelajari tools (Jira)",
-   "Asah komunikasi & leadership",
-   "Pelajari manajemen risiko",
-   "Ambil sertifikasi (PSM/PMP)",
-   "Pimpin project kecil"
+   {
+    "judul": "Pahami Agile dan Scrum",
+    "detail": "Pelajari peran, ceremony (sprint planning, daily, review, retrospective), dan artefak Scrum. Ikuti simulasi satu sprint.",
+    "estimasi": "2 minggu"
+   },
+   {
+    "judul": "Kuasai tools manajemen proyek",
+    "detail": "Pelajari Jira atau Trello: backlog, board, dan pelacakan progress. Kelola satu proyek fiktif selama 2 sprint.",
+    "estimasi": "2 minggu"
+   },
+   {
+    "judul": "Belajar menulis requirement",
+    "detail": "Latih penulisan user story yang jelas beserta acceptance criteria yang bisa diuji.",
+    "estimasi": "2 minggu"
+   },
+   {
+    "judul": "Asah komunikasi dan fasilitasi",
+    "detail": "Praktik memimpin rapat yang singkat dan efektif, serta menyampaikan status proyek secara jujur dan terstruktur.",
+    "estimasi": "3 minggu"
+   },
+   {
+    "judul": "Pahami manajemen risiko",
+    "detail": "Pelajari identifikasi risiko, mitigasi, dan cara menyampaikan kabar buruk lebih awal dengan solusi.",
+    "estimasi": "2 minggu"
+   },
+   {
+    "judul": "Pimpin proyek kecil",
+    "detail": "Pimpin tim 2 sampai 3 orang mengerjakan proyek nyata selama satu bulan dan tulis retrospective di akhirnya.",
+    "estimasi": "4 minggu"
+   }
   ],
   "gaji_min": 10.5,
   "gaji_max": 14.1,
@@ -315,12 +555,36 @@
    "Kafka"
   ],
   "roadmap": [
-   "Kuasai SQL dan pemodelan data",
-   "Pelajari Python untuk pengolahan data",
-   "Pahami konsep ETL dan data warehouse",
-   "Pelajari Apache Spark",
-   "Pelajari orkestrasi pipeline dengan Airflow",
-   "Bangun pipeline data portofolio"
+   {
+    "judul": "Kuasai SQL dan pemodelan data",
+    "detail": "Pelajari query kompleks, window function, dan desain skema untuk analitik (star schema).",
+    "estimasi": "3 minggu"
+   },
+   {
+    "judul": "Kuasai Python untuk data",
+    "detail": "Pelajari pengolahan data skala besar dengan pandas dan penulisan script ETL yang andal.",
+    "estimasi": "3 minggu"
+   },
+   {
+    "judul": "Bangun pipeline ETL pertama",
+    "detail": "Buat pipeline yang menarik data dari API, membersihkannya, dan memuat ke database secara terjadwal.",
+    "estimasi": "3 minggu"
+   },
+   {
+    "judul": "Pelajari data warehouse",
+    "detail": "Pahami konsep data warehouse dan praktikkan dengan BigQuery atau Postgres untuk query analitik cepat.",
+    "estimasi": "2 minggu"
+   },
+   {
+    "judul": "Kuasai orkestrasi dengan Airflow",
+    "detail": "Jadwalkan dan pantau pipeline dengan Airflow, termasuk penanganan kegagalan dan retry.",
+    "estimasi": "3 minggu"
+   },
+   {
+    "judul": "Pelajari pemrosesan streaming",
+    "detail": "Pahami konsep Kafka atau Spark Streaming untuk data yang mengalir terus-menerus.",
+    "estimasi": "3 minggu"
+   }
   ],
   "gaji_min": 6.0,
   "gaji_max": 8.5,
@@ -341,12 +605,36 @@
    "Komunikasi"
   ],
   "roadmap": [
-   "Pahami proses bisnis dan analisis kebutuhan",
-   "Kuasai SQL dan Excel untuk analisis data",
-   "Pelajari pembuatan BRD dan dokumentasi",
-   "Pelajari UML untuk pemodelan proses",
-   "Asah komunikasi dengan stakeholder",
-   "Ikut proyek analisis sebagai portofolio"
+   {
+    "judul": "Pahami proses bisnis",
+    "detail": "Pelajari cara memetakan proses berjalan (as-is) dan mengusulkan perbaikan (to-be) dengan diagram yang rapi.",
+    "estimasi": "2 minggu"
+   },
+   {
+    "judul": "Kuasai analisis data dasar",
+    "detail": "Pelajari Excel tingkat lanjut dan SQL dasar untuk menjawab pertanyaan bisnis dari data.",
+    "estimasi": "3 minggu"
+   },
+   {
+    "judul": "Belajar menulis dokumen kebutuhan",
+    "detail": "Latih penulisan BRD dan use case yang lengkap, jelas, dan bisa diverifikasi tim teknis.",
+    "estimasi": "2 minggu"
+   },
+   {
+    "judul": "Kuasai pemodelan dengan UML",
+    "detail": "Pelajari activity diagram dan use case diagram untuk memvisualisasikan kebutuhan.",
+    "estimasi": "2 minggu"
+   },
+   {
+    "judul": "Asah komunikasi stakeholder",
+    "detail": "Praktik menggali kebutuhan lewat wawancara dan menyampaikan temuan dalam presentasi yang meyakinkan.",
+    "estimasi": "3 minggu"
+   },
+   {
+    "judul": "Susun studi kasus analisis",
+    "detail": "Ambil satu proses bisnis nyata, analisis, dan tulis dokumen rekomendasi perbaikan yang lengkap.",
+    "estimasi": "3 minggu"
+   }
   ],
   "gaji_min": 5.5,
   "gaji_max": 7.5,
@@ -367,12 +655,36 @@
    "Komunikasi"
   ],
   "roadmap": [
-   "Pahami siklus hidup pengembangan sistem (SDLC)",
-   "Pelajari analisis dan desain sistem",
-   "Kuasai UML untuk pemodelan",
-   "Pahami dasar database dan API",
-   "Latihan menulis dokumen SRS",
-   "Ikut proyek perancangan sistem"
+   {
+    "judul": "Pahami SDLC",
+    "detail": "Kuasai tahapan pengembangan sistem dari analisis sampai maintenance dan peran analis di tiap tahap.",
+    "estimasi": "2 minggu"
+   },
+   {
+    "judul": "Kuasai teknik pengumpulan kebutuhan",
+    "detail": "Pelajari wawancara, observasi, dan studi dokumen untuk menggali kebutuhan yang sebenarnya.",
+    "estimasi": "2 minggu"
+   },
+   {
+    "judul": "Pelajari pemodelan sistem dengan UML",
+    "detail": "Kuasai class diagram, sequence diagram, dan activity diagram untuk merancang solusi.",
+    "estimasi": "3 minggu"
+   },
+   {
+    "judul": "Tulis dokumen SRS",
+    "detail": "Susun Software Requirements Specification yang lengkap: fungsional, non-fungsional, dan batasan.",
+    "estimasi": "3 minggu"
+   },
+   {
+    "judul": "Pahami dasar teknis",
+    "detail": "Pelajari database, API, dan arsitektur aplikasi secukupnya untuk berdiskusi setara dengan developer.",
+    "estimasi": "3 minggu"
+   },
+   {
+    "judul": "Rancang satu sistem utuh",
+    "detail": "Buat dokumen perancangan lengkap untuk satu sistem fiktif dari kebutuhan sampai model teknis.",
+    "estimasi": "3 minggu"
+   }
   ],
   "gaji_min": 6.0,
   "gaji_max": 8.0,
@@ -395,12 +707,36 @@
    "MongoDB"
   ],
   "roadmap": [
-   "Kuasai HTML, CSS, dan JavaScript",
-   "Pelajari React untuk frontend",
-   "Pelajari Node.js dan Express untuk backend",
-   "Pahami database SQL dan NoSQL",
-   "Pelajari REST API dan autentikasi",
-   "Bangun aplikasi full stack portofolio"
+   {
+    "judul": "Kuasai fondasi web",
+    "detail": "Pelajari HTML, CSS, dan JavaScript sampai bisa membangun halaman interaktif tanpa framework.",
+    "estimasi": "3 minggu"
+   },
+   {
+    "judul": "Kuasai React",
+    "detail": "Pelajari komponen, hooks, dan state management. Bangun aplikasi frontend yang rapi dan terstruktur.",
+    "estimasi": "3 minggu"
+   },
+   {
+    "judul": "Bangun backend dengan Node.js",
+    "detail": "Pelajari Express, routing, dan koneksi database. Buat REST API yang melayani frontend-mu.",
+    "estimasi": "3 minggu"
+   },
+   {
+    "judul": "Kuasai dua jenis database",
+    "detail": "Pelajari database relasional (MySQL/Postgres) dan NoSQL (MongoDB), serta kapan memakai masing-masing.",
+    "estimasi": "2 minggu"
+   },
+   {
+    "judul": "Tambahkan autentikasi dan keamanan dasar",
+    "detail": "Implementasikan login, proteksi route, dan validasi input di kedua sisi aplikasi.",
+    "estimasi": "2 minggu"
+   },
+   {
+    "judul": "Deploy aplikasi full stack",
+    "detail": "Deploy frontend dan backend, sambungkan keduanya, dan pastikan aplikasi berjalan utuh di production.",
+    "estimasi": "2 minggu"
+   }
   ],
   "gaji_min": 7.5,
   "gaji_max": 10.0,

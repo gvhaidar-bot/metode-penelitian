@@ -19,7 +19,7 @@
 
 body {
   background-color: var(--color-paper);
-  color: var(--color-ink);
+  color: #1c1f1c;
   font-family: var(--font-sans);
 }
 

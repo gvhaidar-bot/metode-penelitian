@@ -19,10 +19,13 @@ Filtering dan Simple Additive Weighting (SAW)*.
 ## Fitur
 
 - Register/login/logout dengan token (password di-hash)
-- Rekomendasi karier berbasis skill + minat (wizard 3 langkah)
-- Ranking 5 karier teratas + skor kecocokan per kriteria
-- Roadmap belajar tiap bidang karier
-- Riwayat rekomendasi (tersimpan di browser)
+- Profil skill per akun: cari dari daftar master atau usulkan skill sendiri
+- Minat memakai ranking 5 kategori tanpa angka (paling diminati dulu), dikonversi ke bobot kriteria minat SAW via Rank Order Centroid
+- Rekomendasi karier berbasis skill + minat (CBF + SAW)
+- Ranking karier teratas + rincian skor per kriteria
+- Roadmap belajar tiap karier sebagai quest yang bisa dicentang, progres tersimpan di akun
+- Riwayat rekomendasi tersimpan di server per akun (login di mana saja, data ikut)
+- Contoh lowongan Glints per karier di halaman roadmap
 - Proteksi route: halaman dalam hanya bisa diakses setelah login
 
 ## Metode
@@ -160,4 +163,6 @@ Rencana pengujian (black-box + evaluasi relevansi):
   di-ignore git) — cocok untuk demo/skripsi, bukan untuk produksi.
 - Token login disimpan di memori proses backend dan kedaluwarsa 24 jam;
   restart server membatalkan semua sesi.
-- Riwayat rekomendasi tersimpan di localStorage browser per perangkat.
+- Riwayat rekomendasi, skill profil, dan progres quest tersimpan di
+  `backend/data/users.json` per akun sehingga terbawa saat login
+  di perangkat lain.

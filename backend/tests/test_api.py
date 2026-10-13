@@ -13,8 +13,8 @@ sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
 import app as app_module  # noqa: E402
 
-MINAT_LENGKAP = {"Web": 5, "Mobile": 3, "Data & AI": 4,
-                 "Infrastruktur & Keamanan": 2, "Desain & Manajemen": 1}
+MINAT_LENGKAP = ["Data & AI", "Web", "Mobile",
+                 "Infrastruktur & Keamanan", "Desain & Manajemen"]
 
 
 @pytest.fixture()
@@ -52,9 +52,20 @@ def test_tc01_input_valid(client):
     assert skor == sorted(skor, reverse=True)
 
 
-# TC-02: tanpa skill
+# TC-02: tanpa skill dan profil kosong -> 400 dengan pesan jelas
 def test_tc02_tanpa_skill(client):
     tok = _token(client)
+    r = _rek(client, tok, {"skills": [], "minat": MINAT_LENGKAP})
+    assert r.status_code == 400
+    assert "skill" in r.get_json()["detail"].lower()
+
+
+# TC-02b: skill dari profil dipakai bila body tidak mengirim skills
+def test_tc02b_skill_dari_profil(client):
+    tok = _token(client)
+    hdr = {"Authorization": f"Bearer {tok}"}
+    r = client.put("/profil", json={"skills": ["Python", "SQL"]}, headers=hdr)
+    assert r.status_code == 200
     r = _rek(client, tok, {"skills": [], "minat": MINAT_LENGKAP})
     assert r.status_code == 200
     assert len(r.get_json()["hasil"]) == 5
@@ -69,12 +80,20 @@ def test_tc03_top_n_3(client):
     assert len(r.get_json()["hasil"]) == 3
 
 
-# TC-04: body kosong
+# TC-04: body kosong -> 400 (tidak ada skill, tidak ada minat valid)
 def test_tc04_body_kosong(client):
     tok = _token(client)
     r = _rek(client, tok, {})
-    assert r.status_code == 200
-    assert len(r.get_json()["hasil"]) == 5
+    assert r.status_code == 400
+
+
+# TC-04b: ranking minat tidak lengkap -> 400
+def test_tc04b_minat_tidak_lengkap(client):
+    tok = _token(client)
+    r = _rek(client, tok, {"skills": ["Python"],
+                           "minat": ["Web", "Data & AI"]})
+    assert r.status_code == 400
+    assert "kategori" in r.get_json()["detail"].lower()
 
 
 # TC-05: GET /pekerjaan
@@ -112,12 +131,12 @@ def test_tc08_roadmap(client):
 
 # Relevansi: skenario sintetis (docs/rencana-pengujian.md bagian B)
 def test_relevansi_python_sql_masuk_top3(client):
-    """{Python, SQL} + minat Data tinggi -> Data Analyst/ML Engineer di top-3."""
+    """{Python, SQL} + Data & AI peringkat 1 -> Data Analyst/ML Engineer di top-3."""
     tok = _token(client)
     r = _rek(client, tok, {"skills": ["Python", "SQL"],
-                           "minat": {"Data & AI": 5, "Web": 2, "Mobile": 1,
-                                     "Infrastruktur & Keamanan": 1,
-                                     "Desain & Manajemen": 1}})
+                           "minat": ["Data & AI", "Web", "Mobile",
+                                     "Infrastruktur & Keamanan",
+                                     "Desain & Manajemen"]})
     top3 = [h["id"] for h in r.get_json()["hasil"][:3]]
     assert any(i in top3 for i in ("data-analyst", "ml-engineer")), top3
 
@@ -125,9 +144,9 @@ def test_relevansi_python_sql_masuk_top3(client):
 def test_relevansi_html_css_js_frontend_teratas(client):
     r = _rek(client, _token(client),
              {"skills": ["HTML", "CSS", "JavaScript"],
-              "minat": {"Web": 5, "Mobile": 2, "Data & AI": 1,
-                        "Infrastruktur & Keamanan": 1,
-                        "Desain & Manajemen": 2}})
+              "minat": ["Web", "Mobile", "Data & AI",
+                        "Infrastruktur & Keamanan",
+                        "Desain & Manajemen"]})
     # Skill web murni cocok ke frontend-dev maupun fullstack-dev
     # (keduanya kategori Web); fullstack-dev unggul tipis via cosine
     # karena profil skill-nya lebih ramping.
@@ -184,3 +203,101 @@ def test_lowongan_valid(client):
 
 def test_lowongan_id_tidak_ada(client):
     assert client.get("/pekerjaan/tidak-ada/lowongan").status_code == 404
+
+
+# Profil skill
+def test_profil_get_put(client):
+    tok = _token(client)
+    hdr = {"Authorization": f"Bearer {tok}"}
+    r = client.get("/profil", headers=hdr)
+    assert r.status_code == 200
+    assert r.get_json()["skills"] == []
+    r = client.put("/profil", json={"skills": ["Python", "SQL", "Python", "  "]}, headers=hdr)
+    assert r.status_code == 200
+    assert r.get_json()["skills"] == ["Python", "SQL"]
+
+
+def test_profil_skill_kustom_bebas(client):
+    """User boleh mengajukan skill yang tidak ada di daftar master."""
+    tok = _token(client)
+    hdr = {"Authorization": f"Bearer {tok}"}
+    r = client.put("/profil", json={"skills": ["Bahasa Isyarat Robot"]}, headers=hdr)
+    assert r.status_code == 200
+    assert "Bahasa Isyarat Robot" in r.get_json()["skills"]
+
+
+def test_profil_tanpa_login_ditolak(client):
+    assert client.get("/profil").status_code == 401
+    assert client.put("/profil", json={"skills": []}).status_code == 401
+
+
+# Pencarian skill
+def test_skills_cari(client):
+    r = client.get("/skills?q=pyth")
+    assert r.status_code == 200
+    data = r.get_json()
+    assert "Python" in data["skills"]
+    assert data["jumlah"] < client.get("/skills").get_json()["jumlah"]
+
+
+# Quest roadmap
+def test_quest_toggle_dan_progress(client):
+    tok = _token(client)
+    hdr = {"Authorization": f"Bearer {tok}"}
+    r = client.post("/quest", json={"karier_id": "data-analyst", "langkah": 0,
+                                    "selesai": True}, headers=hdr)
+    assert r.status_code == 200
+    r = client.get("/quest", headers=hdr)
+    q = r.get_json()["data-analyst"]
+    assert q["selesai"] == [0]
+    assert q["total"] == 6 and q["persen"] == 17
+    r = client.post("/quest", json={"karier_id": "data-analyst", "langkah": 0,
+                                    "selesai": False}, headers=hdr)
+    assert r.status_code == 200
+    assert client.get("/quest", headers=hdr).get_json()["data-analyst"]["selesai"] == []
+
+
+def test_quest_validasi(client):
+    tok = _token(client)
+    hdr = {"Authorization": f"Bearer {tok}"}
+    assert client.post("/quest", json={"karier_id": "tidak-ada", "langkah": 0,
+                                       "selesai": True}, headers=hdr).status_code == 404
+    assert client.post("/quest", json={"karier_id": "data-analyst", "langkah": 99,
+                                       "selesai": True}, headers=hdr).status_code == 400
+    assert client.get("/quest").status_code == 401
+
+
+# Riwayat server-side
+def test_riwayat_tersimpan_per_akun(client):
+    tok = _token(client)
+    r = _rek(client, tok, {"skills": ["Python", "SQL"], "minat": MINAT_LENGKAP})
+    assert r.status_code == 200
+    hdr = {"Authorization": f"Bearer {tok}"}
+    r = client.get("/riwayat", headers=hdr)
+    assert r.status_code == 200
+    riw = r.get_json()["riwayat"]
+    assert len(riw) == 1
+    assert riw[0]["hasil"][0]["id"] in ("data-analyst", "ml-engineer", "data-engineer")
+    assert client.get("/riwayat").status_code == 401
+
+
+# ROC: ranking minat tanpa angka -> bobot valid
+def test_roc_bobot_total_satu():
+    w = app_module.bobot_roc(["a", "b", "c", "d", "e"])
+    assert abs(sum(w.values()) - 1.0) < 1e-9
+    assert w["a"] > w["b"] > w["c"] > w["d"] > w["e"]
+    assert abs(w["a"] - 0.4567) < 0.001
+
+
+def test_roc_mempengaruhi_ranking(client):
+    """Minat Data peringkat 1 vs Web peringkat 1 memberi hasil berbeda."""
+    tok = _token(client)
+    r1 = _rek(client, tok, {"skills": ["Python"],
+                            "minat": ["Data & AI", "Web", "Mobile",
+                                      "Infrastruktur & Keamanan",
+                                      "Desain & Manajemen"]})
+    r2 = _rek(client, tok, {"skills": ["Python"],
+                            "minat": ["Web", "Data & AI", "Mobile",
+                                      "Infrastruktur & Keamanan",
+                                      "Desain & Manajemen"]})
+    assert r1.get_json()["hasil"][0]["id"] != r2.get_json()["hasil"][0]["id"]
