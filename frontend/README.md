@@ -20,11 +20,14 @@ di file `.env`, contoh: `VITE_API_URL=https://api.contoh.id`).
 
 | Route | Keterangan | Butuh login |
 |---|---|---|
-| `/` | Masuk / daftar akun | — |
+| `/` | Beranda penelitian (judul, metode, data karier) | — |
+| `/metode` | Penjelasan metode CBF + SAW + contoh hitungan | — |
+| `/data` | 14 profil karier | — |
+| `/masuk` | Masuk / daftar akun | — |
 | `/dashboard` | Ringkasan + rekomendasi terakhir | Ya |
+| `/skill` | Skill Saya: cari, pilih, dan usulkan skill | Ya |
 | `/rekomendasi` | Pilih skill + urutkan minat → ranking karier | Ya |
 | `/roadmap` | Roadmap belajar per karier (quest checklist) | Ya |
-| `/skill` | Skill Saya: cari, pilih, dan usulkan skill | Ya |
 | `/riwayat` | Riwayat rekomendasi (tersimpan di akun, server-side) | Ya |
 
 ## Build produksi

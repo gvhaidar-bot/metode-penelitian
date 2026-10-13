@@ -85,7 +85,7 @@ export default function Roadmap() {
           id="pilih-karier"
           value={aktif}
           onChange={(e) => setAktif(e.target.value)}
-          className="w-full px-4 py-2.5 rounded-xl border border-[#e5e7eb] text-sm font-semibold focus:outline-none focus:ring-2 focus:ring-pine-600 bg-white"
+          className="w-full px-4 py-2.5 rounded-xl border border-line text-sm font-semibold focus:outline-none focus:ring-2 focus:ring-primary bg-white"
         >
           {daftar.map((p) => (
             <option key={p.id} value={p.id}>
@@ -103,12 +103,12 @@ export default function Roadmap() {
         <Kartu>
           <div className="flex flex-wrap items-start justify-between gap-3 mb-2">
             <div>
-              <h2 className="text-xl font-extrabold text-[#1c1f1c]">{job.nama}</h2>
-              <p className="text-sm text-[#6b7280] mt-1">
+              <h2 className="text-xl font-extrabold text-ink">{job.nama}</h2>
+              <p className="text-sm text-muted mt-1">
                 {job.kategori} | Rp{job.gaji_min}-{job.gaji_max} jt/bulan
               </p>
             </div>
-            <p className="text-sm font-bold text-pine-800">
+            <p className="text-sm font-bold text-primary">
               {progres.selesai.length}/{progres.total} selesai ({progres.persen}%)
             </p>
           </div>
@@ -121,7 +121,7 @@ export default function Roadmap() {
                 <label
                   key={i}
                   className={`flex gap-4 p-4 rounded-2xl border cursor-pointer transition ${
-                    centang ? "border-pine-200 bg-pine-50" : "border-[#f2f5f2] bg-white hover:border-pine-200"
+                    centang ? "border-primary bg-primary-wash" : "border-line bg-card hover:border-primary"
                   }`}
                 >
                   <input
@@ -129,16 +129,16 @@ export default function Roadmap() {
                     checked={centang}
                     onChange={() => toggle(i)}
                     aria-label={langkah.judul}
-                    className="mt-1 w-5 h-5 rounded accent-pine-700 shrink-0"
+                    className="mt-1 w-5 h-5 rounded accent-primary shrink-0"
                   />
                   <div>
-                    <p className={`font-bold ${centang ? "text-pine-800 line-through" : "text-[#1c1f1c]"}`}>
+                    <p className={`font-bold ${centang ? "text-primary line-through" : "text-ink"}`}>
                       {langkah.judul}
                     </p>
-                    <p className="text-sm text-[#6b7280] mt-1 leading-relaxed">
+                    <p className="text-sm text-muted mt-1 leading-relaxed">
                       {langkah.detail}
                     </p>
-                    <p className="text-xs font-semibold text-gold-500 mt-2">
+                    <p className="text-xs font-semibold text-primary mt-2">
                       Estimasi: {langkah.estimasi}
                     </p>
                   </div>
@@ -148,13 +148,13 @@ export default function Roadmap() {
           </div>
 
           {lowongan && lowongan.lowongan.length > 0 && (
-            <div className="mt-8 pt-6 border-t border-[#f2f5f2]">
-              <h3 className="font-extrabold text-[#1c1f1c] mb-4">Lowongan terkait di Glints</h3>
+            <div className="mt-8 pt-6 border-t border-line">
+              <h3 className="font-extrabold text-ink mb-4">Lowongan terkait di Glints</h3>
               <div className="space-y-2">
                 {lowongan.lowongan.map((l, i) => (
-                  <div key={i} className="bg-[#f7f5f0] rounded-xl px-4 py-3">
-                    <p className="font-bold text-sm text-[#1c1f1c]">{l.judul}</p>
-                    <p className="text-xs text-[#6b7280] mt-0.5">
+                  <div key={i} className="bg-wash rounded-xl px-4 py-3">
+                    <p className="font-bold text-sm text-ink">{l.judul}</p>
+                    <p className="text-xs text-muted mt-0.5">
                       {l.perusahaan}
                       {l.lokasi ? " | " + l.lokasi : ""}
                       {l.gaji ? " | " + l.gaji : ""}
@@ -162,7 +162,7 @@ export default function Roadmap() {
                   </div>
                 ))}
               </div>
-              <p className="text-xs text-[#6b7280] mt-3">
+              <p className="text-xs text-muted mt-3">
                 Sumber: Glints Indonesia (Mei-Jun 2026, klaim tim).
               </p>
             </div>

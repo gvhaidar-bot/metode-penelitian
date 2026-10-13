@@ -55,8 +55,8 @@ async function panggil(path, options = {}) {
   if (!res.ok) {
     if (res.status === 401) {
       hapusSesi();
-      if (window.location.pathname !== "/") {
-        window.location.href = "/";
+      if (window.location.pathname !== "/masuk") {
+        window.location.href = "/masuk";
       }
       throw new Error("Sesi berakhir. Silakan masuk lagi.");
     }

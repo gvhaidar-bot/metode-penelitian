@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { getPekerjaan, getProfil, getQuest, getRiwayat } from "../api.js";
-import { useAuth } from "../auth.jsx";
 import { BilahProgress, JudulKartu, Kartu, Kosong, TombolPrimer } from "../components/ui.jsx";
 
 function DiagramBatang({ data }) {
@@ -11,12 +10,12 @@ function DiagramBatang({ data }) {
       {data.map((d) => (
         <div key={d.id}>
           <div className="flex justify-between text-sm mb-1">
-            <span className="font-semibold text-[#1c1f1c]">{d.nama}</span>
-            <span className="text-[#6b7280] font-semibold">{d.nilai}%</span>
+            <span className="font-semibold text-ink">{d.nama}</span>
+            <span className="text-muted font-semibold">{d.nilai}%</span>
           </div>
-          <div className="h-3 rounded-full bg-[#f2f5f2] overflow-hidden">
+          <div className="h-3 rounded-full bg-wash overflow-hidden">
             <div
-              className="h-full rounded-full bg-pine-700"
+              className="h-full rounded-full bg-lavender"
               style={{ width: (d.nilai / maks) * 100 + "%" }}
             />
           </div>
@@ -27,7 +26,6 @@ function DiagramBatang({ data }) {
 }
 
 export default function Dashboard() {
-  const { user } = useAuth();
   const [profil, setProfil] = useState(null);
   const [quest, setQuest] = useState(null);
   const [pekerjaan, setPekerjaan] = useState([]);
@@ -53,7 +51,6 @@ export default function Dashboard() {
     };
   }, []);
 
-  const namaDepan = (user?.name || "").split(" ")[0] || "Mahasiswa";
   const terakhir = riwayat && riwayat.length > 0 ? riwayat[0] : null;
   const teratas = terakhir
     ? terakhir.hasil.slice(0, 5).map((h) => ({
@@ -88,29 +85,47 @@ export default function Dashboard() {
 
   return (
     <div className="space-y-6">
-      {/* Hero */}
-      <Kartu className="bg-pine-800 !shadow-none">
-        <p className="text-pine-100 text-sm">Selamat datang kembali,</p>
-        <h2 className="text-2xl font-extrabold text-white mt-1">{namaDepan}</h2>
+      {/* Hero ala template: angka besar yang komunikatif */}
+      <Kartu>
+        <p className="text-sm text-muted">Selamat datang kembali,</p>
         {terakhir ? (
-          <p className="text-pine-100 text-sm mt-3">
-            Rekomendasi terakhir Anda:{" "}
-            <span className="font-bold text-gold-400">
-              {terakhir.hasil[0]?.nama}
-            </span>{" "}
-            dengan skor kecocokan {Math.round(terakhir.hasil[0]?.skor_akhir * 100)}%.
-          </p>
-        ) : (
-          <div className="mt-4">
-            <p className="text-pine-100 text-sm mb-3">
-              Lengkapi skill Anda, lalu hitung rekomendasi karier pertama Anda.
+          <>
+            <h2 className="text-2xl sm:text-3xl font-extrabold text-ink mt-2 leading-snug">
+              Karier paling cocok untuk Anda adalah{" "}
+              <span className="text-primary">{terakhir.hasil[0]?.nama}</span>
+            </h2>
+            <p className="text-muted text-sm mt-3">
+              Skor kecocokan {Math.round(terakhir.hasil[0]?.skor_akhir * 100)}%,
+              dihitung dengan Content-Based Filtering + SAW dari{" "}
+              {terakhir.skills.length} skill dan urutan minat Anda.
             </p>
-            <Link to="/skill">
-              <TombolPrimer className="!bg-gold-400 !text-pine-900 hover:!bg-gold-500">
-                Isi Skill Saya
-              </TombolPrimer>
-            </Link>
-          </div>
+            <div className="flex flex-wrap gap-3 mt-5">
+              <Link to="/rekomendasi">
+                <TombolPrimer>Hitung Ulang</TombolPrimer>
+              </Link>
+              <Link
+                to={"/roadmap?karier=" + terakhir.hasil[0]?.id}
+                className="px-5 py-2.5 rounded-xl border border-line text-sm font-bold text-ink hover:border-primary transition"
+              >
+                Lihat Roadmap
+              </Link>
+            </div>
+          </>
+        ) : (
+          <>
+            <h2 className="text-2xl sm:text-3xl font-extrabold text-ink mt-2 leading-snug">
+              Mulai petakan karier impian Anda
+            </h2>
+            <p className="text-muted text-sm mt-3">
+              Tiga langkah: isi skill, urutkan minat, terima peringkat karier
+              hasil perhitungan sistem.
+            </p>
+            <div className="mt-5">
+              <Link to="/skill">
+                <TombolPrimer>Isi Skill Saya</TombolPrimer>
+              </Link>
+            </div>
+          </>
         )}
       </Kartu>
 
@@ -122,8 +137,8 @@ export default function Dashboard() {
           ["Rekomendasi dibuat", riwayat ? riwayat.length : "-"],
         ].map(([label, nilai]) => (
           <Kartu key={label}>
-            <p className="text-3xl font-extrabold text-pine-800">{nilai}</p>
-            <p className="text-sm text-[#6b7280] mt-1">{label}</p>
+            <p className="text-3xl font-extrabold text-ink">{nilai}</p>
+            <p className="text-sm text-muted mt-1">{label}</p>
           </Kartu>
         ))}
       </div>
@@ -157,11 +172,11 @@ export default function Dashboard() {
                 <div className="flex justify-between text-sm mb-1.5">
                   <Link
                     to={"/roadmap?karier=" + q.id}
-                    className="font-semibold text-[#1c1f1c] hover:text-pine-700"
+                    className="font-semibold text-ink hover:text-primary"
                   >
                     {namaKarier(q.id)}
                   </Link>
-                  <span className="text-[#6b7280]">
+                  <span className="text-muted">
                     {q.selesai.length}/{q.total} ({q.persen}%)
                   </span>
                 </div>

@@ -48,7 +48,7 @@ export default function Riwayat() {
           <div className="text-center mt-2">
             <Link
               to="/rekomendasi"
-              className="text-sm font-bold text-pine-700 hover:text-pine-800"
+              className="text-sm font-bold text-primary hover:text-primary-deep"
             >
               Buat rekomendasi pertama
             </Link>
@@ -62,13 +62,13 @@ export default function Riwayat() {
               {(r.hasil || []).slice(0, 3).map((h, rank) => (
                 <div
                   key={h.id}
-                  className="flex items-center justify-between bg-[#f7f5f0] rounded-xl px-4 py-2.5"
+                  className="flex items-center justify-between bg-wash rounded-xl px-4 py-2.5"
                 >
-                  <p className="text-sm font-bold text-[#1c1f1c]">
-                    <span className="text-[#6b7280] font-semibold mr-2">{rank + 1}.</span>
+                  <p className="text-sm font-bold text-ink">
+                    <span className="text-muted font-semibold mr-2">{rank + 1}.</span>
                     {h.nama}
                   </p>
-                  <p className="text-sm font-extrabold text-pine-800">
+                  <p className="text-sm font-extrabold text-primary">
                     {Math.round(h.skor_akhir * 100)}%
                   </p>
                 </div>

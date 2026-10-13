@@ -35,10 +35,10 @@ export default function Auth() {
   const daftar = mode === "daftar";
 
   return (
-    <div className="min-h-screen bg-[#f7f5f0] flex items-center justify-center p-4">
+    <div className="min-h-screen bg-wash flex items-center justify-center p-4">
       <div className="w-full max-w-3xl bg-white rounded-2xl shadow-[0_2px_12px_rgba(16,76,54,0.1)] overflow-hidden grid md:grid-cols-2">
         {/* Panel brand */}
-        <div className="bg-pine-800 text-white p-8 sm:p-10 flex flex-col justify-between">
+        <div className="bg-ink text-white p-8 sm:p-10 flex flex-col justify-between">
           <div className="flex items-center gap-3">
             <LogoMark />
             <p className="font-extrabold leading-tight">
@@ -51,7 +51,7 @@ export default function Auth() {
             <h1 className="text-2xl sm:text-3xl font-extrabold leading-snug">
               Temukan karier IT yang paling cocok untuk Anda.
             </h1>
-            <p className="mt-4 text-pine-100 text-sm leading-relaxed">
+            <p className="mt-4 text-white/70 text-sm leading-relaxed">
               Masuk untuk menyimpan skill, menandai quest roadmap, dan melihat
               riwayat rekomendasi Anda. Data tersimpan di akun dan terbawa
               saat Anda masuk dari perangkat mana pun.
@@ -60,7 +60,7 @@ export default function Auth() {
         </div>
         {/* Panel form */}
         <div className="p-8 sm:p-10">
-          <div className="flex gap-2 mb-8 bg-[#f2f5f2] rounded-xl p-1">
+          <div className="flex gap-2 mb-8 bg-wash rounded-xl p-1">
             {[
               ["masuk", "Masuk"],
               ["daftar", "Daftar"],
@@ -73,7 +73,7 @@ export default function Auth() {
                   setGalat("");
                 }}
                 className={`flex-1 py-2 rounded-lg text-sm font-bold transition ${
-                  mode === m ? "bg-white text-pine-800 shadow-sm" : "text-[#6b7280]"
+                  mode === m ? "bg-white text-primary shadow-sm" : "text-muted"
                 }`}
               >
                 {label}
@@ -83,7 +83,7 @@ export default function Auth() {
           <form onSubmit={kirim} className="space-y-4">
             {daftar && (
               <div>
-                <label htmlFor="nama" className="block text-sm font-semibold text-[#1c1f1c] mb-1.5">
+                <label htmlFor="nama" className="block text-sm font-semibold text-ink mb-1.5">
                   Nama lengkap
                 </label>
                 <input
@@ -94,12 +94,12 @@ export default function Auth() {
                   onChange={(e) => setName(e.target.value)}
                   placeholder="Nama Anda"
                   autoComplete="name"
-                  className="w-full px-4 py-2.5 rounded-xl border border-[#e5e7eb] text-sm focus:outline-none focus:ring-2 focus:ring-pine-600"
+                  className="w-full px-4 py-2.5 rounded-xl border border-line text-sm focus:outline-none focus:ring-2 focus:ring-primary"
                 />
               </div>
             )}
             <div>
-              <label htmlFor="email" className="block text-sm font-semibold text-[#1c1f1c] mb-1.5">
+              <label htmlFor="email" className="block text-sm font-semibold text-ink mb-1.5">
                 Email
               </label>
               <input
@@ -110,11 +110,11 @@ export default function Auth() {
                 onChange={(e) => setEmail(e.target.value)}
                 placeholder="nama@email.com"
                 autoComplete="email"
-                className="w-full px-4 py-2.5 rounded-xl border border-[#e5e7eb] text-sm focus:outline-none focus:ring-2 focus:ring-pine-600"
+                className="w-full px-4 py-2.5 rounded-xl border border-line text-sm focus:outline-none focus:ring-2 focus:ring-primary"
               />
             </div>
             <div>
-              <label htmlFor="sandi" className="block text-sm font-semibold text-[#1c1f1c] mb-1.5">
+              <label htmlFor="sandi" className="block text-sm font-semibold text-ink mb-1.5">
                 Kata sandi
               </label>
               <input
@@ -126,7 +126,7 @@ export default function Auth() {
                 onChange={(e) => setPassword(e.target.value)}
                 placeholder={daftar ? "Minimal 6 karakter" : "Kata sandi Anda"}
                 autoComplete={daftar ? "new-password" : "current-password"}
-                className="w-full px-4 py-2.5 rounded-xl border border-[#e5e7eb] text-sm focus:outline-none focus:ring-2 focus:ring-pine-600"
+                className="w-full px-4 py-2.5 rounded-xl border border-line text-sm focus:outline-none focus:ring-2 focus:ring-primary"
               />
             </div>
             {galat && (
@@ -135,7 +135,7 @@ export default function Auth() {
             <button
               type="submit"
               disabled={sibuk}
-              className="w-full py-3 rounded-xl bg-pine-800 text-white text-sm font-bold hover:bg-pine-900 transition disabled:opacity-50"
+              className="w-full py-3 rounded-xl bg-primary text-white text-sm font-bold hover:bg-primary-deep transition disabled:opacity-50"
             >
               {sibuk ? "Memproses..." : daftar ? "Buat Akun" : "Masuk"}
             </button>

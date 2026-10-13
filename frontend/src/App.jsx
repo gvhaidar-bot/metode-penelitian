@@ -11,6 +11,9 @@ import {
   IkonSkill,
 } from "./components/ikon.jsx";
 import { LogoMark } from "./components/ui.jsx";
+import Landing from "./pages/Landing.jsx";
+import Metode from "./pages/Metode.jsx";
+import DataKarier from "./pages/DataKarier.jsx";
 import Auth from "./pages/Auth.jsx";
 import Dashboard from "./pages/Dashboard.jsx";
 import Skill from "./pages/Skill.jsx";
@@ -37,7 +40,7 @@ const JUDUL = {
 function ButuhLogin({ children }) {
   const { user, siap } = useAuth();
   if (!siap) return null;
-  if (!user) return <Navigate to="/" replace />;
+  if (!user) return <Navigate to="/masuk" replace />;
   return children;
 }
 
@@ -57,7 +60,7 @@ function TataLetak({ children }) {
     <div className="flex flex-col h-full">
       <Link to="/dashboard" className="flex items-center gap-3 px-2 py-2" onClick={() => setBuka(false)}>
         <LogoMark />
-        <span className="font-extrabold text-[#1c1f1c] leading-tight">
+        <span className="font-extrabold text-ink leading-tight">
           KarierKu
           <br />
           Informatika
@@ -73,8 +76,8 @@ function TataLetak({ children }) {
               onClick={() => setBuka(false)}
               className={`flex items-center gap-3 px-4 py-2.5 rounded-xl text-sm font-semibold transition ${
                 aktif
-                  ? "bg-pine-50 text-pine-800"
-                  : "text-[#6b7280] hover:bg-[#f2f5f2] hover:text-[#1c1f1c]"
+                  ? "bg-wash text-primary"
+                  : "text-muted hover:bg-wash hover:text-ink"
               }`}
             >
               <Ikon className="w-5 h-5" />
@@ -83,12 +86,12 @@ function TataLetak({ children }) {
           );
         })}
       </nav>
-      <div className="pt-4 border-t border-[#f2f5f2]">
-        <p className="px-4 text-sm font-bold text-[#1c1f1c] truncate">{user?.name}</p>
-        <p className="px-4 text-xs text-[#6b7280] truncate">{user?.email}</p>
+      <div className="pt-4 border-t border-line">
+        <p className="px-4 text-sm font-bold text-ink truncate">{user?.name}</p>
+        <p className="px-4 text-xs text-muted truncate">{user?.email}</p>
         <button
           onClick={keluarKlik}
-          className="mt-2 w-full flex items-center gap-3 px-4 py-2.5 rounded-xl text-sm font-semibold text-[#6b7280] hover:bg-[#f2f5f2] hover:text-[#1c1f1c] transition"
+          className="mt-2 w-full flex items-center gap-3 px-4 py-2.5 rounded-xl text-sm font-semibold text-muted hover:bg-wash hover:text-ink transition"
         >
           <IkonKeluar className="w-5 h-5" />
           Keluar
@@ -98,33 +101,33 @@ function TataLetak({ children }) {
   );
 
   return (
-    <div className="min-h-screen bg-[#f7f5f0]">
+    <div className="min-h-screen bg-bg">
       {/* Sidebar desktop */}
-      <aside className="hidden lg:block fixed inset-y-0 left-0 w-64 bg-white p-5 shadow-[1px_0_3px_rgba(16,76,54,0.06)]">
+      <aside className="hidden lg:block fixed inset-y-0 left-0 w-64 bg-card p-5 border-r border-line">
         {isiSidebar}
       </aside>
       {/* Sidebar mobile */}
       {buka && (
         <div className="lg:hidden fixed inset-0 z-40">
           <div className="absolute inset-0 bg-black/30" onClick={() => setBuka(false)} />
-          <aside className="absolute inset-y-0 left-0 w-72 bg-white p-5 shadow-xl">
+          <aside className="absolute inset-y-0 left-0 w-72 bg-card p-5 shadow-xl">
             {isiSidebar}
           </aside>
         </div>
       )}
       <div className="lg:pl-64">
         {/* Topbar */}
-        <header className="sticky top-0 z-10 bg-[#f7f5f0]/90 backdrop-blur px-4 sm:px-8 py-4 flex items-center gap-4">
+        <header className="sticky top-0 z-10 bg-bg/90 backdrop-blur px-4 sm:px-8 py-4 flex items-center gap-4">
           <button
-            className="lg:hidden p-2 -ml-2 rounded-lg hover:bg-white"
+            className="lg:hidden p-2 -ml-2 rounded-lg hover:bg-card"
             onClick={() => setBuka(true)}
             aria-label="Buka menu"
           >
-            <svg className="w-6 h-6 text-[#1c1f1c]" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round">
+            <svg className="w-6 h-6 text-ink" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round">
               <path d="M4 7h16M4 12h16M4 17h16" />
             </svg>
           </button>
-          <h1 className="text-lg sm:text-xl font-extrabold text-[#1c1f1c]">
+          <h1 className="text-lg sm:text-xl font-extrabold text-ink">
             {JUDUL[lokasi.pathname] || "KarierKu Informatika"}
           </h1>
         </header>
@@ -134,7 +137,7 @@ function TataLetak({ children }) {
   );
 }
 
-function Akar() {
+function Masuk() {
   const { user, siap } = useAuth();
   if (!siap) return null;
   if (user) return <Navigate to="/dashboard" replace />;
@@ -145,7 +148,10 @@ export default function App() {
   return (
     <AuthProvider>
       <Routes>
-        <Route path="/" element={<Akar />} />
+        <Route path="/" element={<Landing />} />
+        <Route path="/metode" element={<Metode />} />
+        <Route path="/data" element={<DataKarier />} />
+        <Route path="/masuk" element={<Masuk />} />
         <Route
           path="/dashboard"
           element={<ButuhLogin><TataLetak><Dashboard /></TataLetak></ButuhLogin>}
