@@ -25,6 +25,7 @@ atau:
 import json
 import math
 import os
+import re
 import time
 from pathlib import Path
 
@@ -89,9 +90,74 @@ def tokenisasi(skill: str) -> set:
     """Pecah satu nama skill menjadi token: 'HTML/CSS' -> {'html', 'css'}.
 
     Menangani inkonsistensi penulisan data ('HTML/CSS' di satu profil
-    vs 'HTML' + 'CSS' di profil lain) agar pencocokan adil.
+    vs 'HTML' + 'CSS' di profil lain) agar pencocokan adil, serta
+    menormalkan istilah Bahasa Indonesia ke Bahasa Inggris
+    ('ui desain' -> 'ui design') karena profil karier memakai istilah
+    Inggris. Normalisasi ini preprocessing CBF, bukan metode baru.
     """
-    return {t for t in (p.strip().lower() for p in str(skill).split("/")) if t}
+    s = _terapkan_sinonim(str(skill).lower())
+    return {_urutkan_kata(t) for t in (p.strip() for p in s.split("/")) if t}
+
+
+# Kamus sinonim Indonesia -> Inggris untuk normalisasi token skill.
+# Diterapkan simetris ke skill user dan skill profil karier.
+SINONIM_ID_EN = {
+    # Frasa multi-kata (dicocokkan dulu sebelum kata tunggal).
+    "kecerdasan buatan": "artificial intelligence",
+    "pembelajaran mesin": "machine learning",
+    "sistem operasi": "operating system",
+    "basis data": "database",
+    "perangkat lunak": "software",
+    "perangkat keras": "hardware",
+    "ilmu data": "data science",
+    "sumber daya manusia": "human resource",
+    # Kata tunggal.
+    "desain": "design",
+    "jaringan": "network",
+    "networking": "network",
+    "keamanan": "security",
+    "siber": "cyber",
+    "pengujian": "testing",
+    "grafis": "graphic",
+    "pemrograman": "programming",
+    "analisis": "analysis",
+    "analisa": "analysis",
+    "awan": "cloud",
+    "komputasi": "computing",
+    "komputer": "computer",
+    "sistem": "system",
+    "manajemen": "management",
+    "proyek": "project",
+    "dukungan": "support",
+    "teknis": "technical",
+    "pengembangan": "development",
+    "aplikasi": "application",
+    "seluler": "mobile",
+    "buatan": "artificial",
+    "rekayasa": "engineering",
+    "komunikasi": "communication",
+    "dokumentasi": "documentation",
+    "perangkat": "device",
+}
+
+
+def _terapkan_sinonim(teks: str) -> str:
+    """Ganti istilah Indonesia dengan padanan Inggris (batas kata penuh).
+
+    Frasa multi-kata diproses dulu agar 'basis data' menjadi 'database',
+    bukan 'basis database'. Kata-kata dalam tiap token lalu diurutkan
+    alfabetis agar 'desain ui' cocok dengan 'ui design'.
+    """
+    for frasa in sorted(SINONIM_ID_EN, key=lambda k: -len(k.split())):
+        teks = re.sub(r"\b" + re.escape(frasa) + r"\b",
+                      SINONIM_ID_EN[frasa], teks)
+    return teks
+
+
+def _urutkan_kata(token: str) -> str:
+    """Urutkan kata dalam token: 'ui design' dan 'design ui' jadi sama."""
+    kata = token.split()
+    return " ".join(sorted(kata)) if len(kata) > 1 else token
 
 
 def token_skill(daftar) -> set:
@@ -381,7 +447,9 @@ def daftar_skills():
     semua = sorted({s for job in PEKERJAAN for s in job["skills"]},
                    key=str.lower)
     if q:
-        semua = [s for s in semua if q in s.lower()]
+        # Pencarian sadar sinonim: "desain" menemukan "UI Design".
+        qn = _terapkan_sinonim(q)
+        semua = [s for s in semua if qn in _terapkan_sinonim(s.lower())]
     return jsonify({"skills": semua, "jumlah": len(semua)})
 
 

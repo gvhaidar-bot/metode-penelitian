@@ -66,6 +66,12 @@ export default function Metode() {
             skill yang Anda kuasai mendapat skor mendekati 1.
           </p>
           <Rumus>cos(A, B) = |A ∩ B| / (√|A| × √|B|)</Rumus>
+          <p className="text-sm text-muted mt-3 leading-relaxed">
+            Sebelum dibandingkan, nama skill dinormalkan: huruf kecil,
+            "HTML/CSS" dipecah menjadi dua, dan istilah Bahasa Indonesia
+            dipadankan ke Bahasa Inggris ("ui desain" menjadi "ui design"),
+            karena profil karier memakai istilah Inggris.
+          </p>
         </section>
 
         <section className="bg-card rounded-2xl border border-line p-6 sm:p-8">
