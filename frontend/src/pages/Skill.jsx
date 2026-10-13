@@ -140,9 +140,9 @@ export default function Skill() {
             placeholder="Mis. Bahasa Inggris"
             maxLength={40}
             aria-label="Skill baru"
-            className="flex-1 px-4 py-2.5 rounded-xl border border-line text-sm focus:outline-none focus:ring-2 focus:ring-primary"
+            className="flex-1 min-w-0 px-4 py-2.5 rounded-xl border border-line text-sm focus:outline-none focus:ring-2 focus:ring-primary"
           />
-          <TombolPrimer onClick={tambahUsulan}>Tambah</TombolPrimer>
+          <TombolPrimer onClick={tambahUsulan} className="shrink-0">Tambah</TombolPrimer>
         </div>
       </Kartu>
 
