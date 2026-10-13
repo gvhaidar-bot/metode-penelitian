@@ -39,7 +39,7 @@ class Handler(http.server.SimpleHTTPRequestHandler):
         # (POST /rekomendasi ditangani do_POST.)
         seg = rute.split("/")[1]
         terima = self.headers.get("Accept", "")
-        if seg in ("auth", "profil", "skills", "skill", "pekerjaan",
+        if seg in ("auth", "meta", "profil", "skills", "skill", "pekerjaan",
                    "quest", "riwayat") and "text/html" not in terima:
             return self._proxy()
         if os.path.exists(os.path.join(DIST, rute.lstrip("/"))):

@@ -77,6 +77,17 @@ export default function Rekomendasi() {
 
   return (
     <div className="space-y-6">
+      {/* Penanda langkah agar alur jelas */}
+      <div className="flex items-center gap-2 text-xs font-bold">
+        <span className="px-3 py-1.5 rounded-full bg-primary-wash text-primary">1. Skill</span>
+        <span className="text-muted">→</span>
+        <span className="px-3 py-1.5 rounded-full bg-primary-wash text-primary">2. Minat</span>
+        <span className="text-muted">→</span>
+        <span className={`px-3 py-1.5 rounded-full ${hasil ? "bg-primary-wash text-primary" : "bg-wash text-muted"}`}>
+          3. Hasil
+        </span>
+      </div>
+
       <Kartu>
         <JudulKartu
           judul="Skill Anda"
@@ -87,7 +98,7 @@ export default function Rekomendasi() {
             {skills.map((s) => (
               <span
                 key={s}
-                className="px-3.5 py-1.5 rounded-full text-sm font-semibold bg-pine-50 text-pine-800"
+                className="px-3.5 py-1.5 rounded-full text-sm font-semibold bg-primary-wash text-primary"
               >
                 {s}
               </span>
@@ -101,7 +112,7 @@ export default function Rekomendasi() {
         )}
         <Link
           to="/skill"
-          className="inline-block mt-4 text-sm font-bold text-pine-700 hover:text-pine-800"
+          className="inline-block mt-4 text-sm font-bold text-primary hover:text-primary-deep"
         >
           Ubah di Skill Saya
         </Link>
@@ -110,29 +121,29 @@ export default function Rekomendasi() {
       <Kartu>
         <JudulKartu
           judul="Urutan minat"
-          sub="Susun lima bidang dari yang paling Anda minati. Baris teratas adalah minat utama Anda."
+          sub="Bidang apa yang paling Anda sukai? Pakai tombol panah untuk menaikkan atau menurunkan. Tidak perlu memberi angka."
         />
         <ol className="space-y-2">
           {minat.map((k, i) => (
             <li
               key={k}
-              className="flex items-center gap-3 bg-[#f7f5f0] rounded-xl px-4 py-3"
+              className="flex items-center gap-3 bg-wash rounded-xl px-4 py-3"
             >
               <span
                 className={`w-8 h-8 rounded-full flex items-center justify-center text-sm font-extrabold shrink-0 ${
-                  i === 0 ? "bg-gold-400 text-pine-900" : "bg-white text-[#6b7280] border border-[#e5e7eb]"
+                  i === 0 ? "bg-primary text-white" : "bg-white text-muted border border-line"
                 }`}
               >
                 {i + 1}
               </span>
-              <span className="flex-1 text-sm font-bold text-[#1c1f1c]">{k}</span>
+              <span className="flex-1 text-sm font-bold text-ink">{k}</span>
               <div className="flex gap-1">
                 <button
                   type="button"
                   onClick={() => geser(i, -1)}
                   disabled={i === 0}
                   aria-label={"Naikkan " + k}
-                  className="p-2 rounded-lg text-[#6b7280] hover:bg-white hover:text-pine-700 disabled:opacity-30 disabled:cursor-not-allowed"
+                  className="p-2 rounded-lg text-muted hover:bg-white hover:text-primary disabled:opacity-30 disabled:cursor-not-allowed"
                 >
                   <IkonPanah arah="atas" />
                 </button>
@@ -141,7 +152,7 @@ export default function Rekomendasi() {
                   onClick={() => geser(i, 1)}
                   disabled={i === minat.length - 1}
                   aria-label={"Turunkan " + k}
-                  className="p-2 rounded-lg text-[#6b7280] hover:bg-white hover:text-pine-700 disabled:opacity-30 disabled:cursor-not-allowed"
+                  className="p-2 rounded-lg text-muted hover:bg-white hover:text-primary disabled:opacity-30 disabled:cursor-not-allowed"
                 >
                   <IkonPanah arah="bawah" />
                 </button>
@@ -163,7 +174,7 @@ export default function Rekomendasi() {
         <Kartu>
           <JudulKartu
             judul="Hasil rekomendasi"
-            sub="Peringkat lima karier dengan skor kecocokan tertinggi."
+            sub="Peringkat lima karier dengan skor kecocokan tertinggi, dihitung dengan Content-Based Filtering + SAW."
           />
           {hasil.length === 0 ? (
             <Kosong judul="Tidak ada hasil" sub="Coba ubah skill atau urutan minat Anda." />
@@ -172,18 +183,18 @@ export default function Rekomendasi() {
               {hasil.map((h, i) => {
                 const buka = terbuka === h.id;
                 return (
-                  <div key={h.id} className="border border-[#f2f5f2] rounded-2xl p-5">
+                  <div key={h.id} className="border border-line rounded-2xl p-5">
                     <div className="flex items-start justify-between gap-4">
                       <div>
-                        <p className="text-xs font-bold text-[#6b7280]">Peringkat {i + 1}</p>
-                        <h3 className="text-lg font-extrabold text-[#1c1f1c] mt-0.5">
+                        <p className="text-xs font-bold text-muted">Peringkat {i + 1}</p>
+                        <h3 className="text-lg font-extrabold text-ink mt-0.5">
                           {h.nama}
                         </h3>
-                        <p className="text-sm text-[#6b7280] mt-1">
+                        <p className="text-sm text-muted mt-1">
                           {h.kategori} | Rp{h.gaji_min}-{h.gaji_max} jt/bulan
                         </p>
                       </div>
-                      <p className="text-2xl font-extrabold text-pine-800 shrink-0">
+                      <p className="text-2xl font-extrabold text-primary shrink-0">
                         {persen(h.skor_akhir)}%
                       </p>
                     </div>
@@ -194,9 +205,9 @@ export default function Rekomendasi() {
                         ["Gaji", h.skor_gaji],
                         ["Demand", h.skor_demand],
                       ].map(([label, nilai]) => (
-                        <div key={label} className="bg-[#f7f5f0] rounded-xl px-3 py-2">
-                          <p className="text-xs text-[#6b7280]">{label}</p>
-                          <p className="text-sm font-extrabold text-[#1c1f1c]">
+                        <div key={label} className="bg-wash rounded-xl px-3 py-2">
+                          <p className="text-xs text-muted">{label}</p>
+                          <p className="text-sm font-extrabold text-ink">
                             {persen(nilai)}%
                           </p>
                         </div>
@@ -206,13 +217,13 @@ export default function Rekomendasi() {
                       <button
                         type="button"
                         onClick={() => setTerbuka(buka ? null : h.id)}
-                        className="text-sm font-bold text-pine-700 hover:text-pine-800"
+                        className="text-sm font-bold text-primary hover:text-primary-deep"
                       >
                         {buka ? "Sembunyikan detail skill" : "Lihat detail skill"}
                       </button>
                       <Link
                         to={"/roadmap?karier=" + h.id}
-                        className="text-sm font-bold text-pine-700 hover:text-pine-800"
+                        className="text-sm font-bold text-primary hover:text-primary-deep"
                       >
                         Lihat Roadmap
                       </Link>
@@ -220,27 +231,27 @@ export default function Rekomendasi() {
                     {buka && (
                       <div className="mt-4 grid sm:grid-cols-2 gap-4 text-sm">
                         <div>
-                          <p className="font-bold text-pine-800 mb-2">Skill yang cocok</p>
+                          <p className="font-bold text-primary mb-2">Skill yang cocok</p>
                           {h.skills_cocok.length > 0 ? (
-                            <ul className="list-disc list-inside text-[#1c1f1c] space-y-1">
+                            <ul className="list-disc list-inside text-ink space-y-1">
                               {h.skills_cocok.map((s) => (
                                 <li key={s}>{s}</li>
                               ))}
                             </ul>
                           ) : (
-                            <p className="text-[#6b7280]">Belum ada yang cocok.</p>
+                            <p className="text-muted">Belum ada yang cocok.</p>
                           )}
                         </div>
                         <div>
-                          <p className="font-bold text-[#6b7280] mb-2">Perlu dipelajari</p>
+                          <p className="font-bold text-muted mb-2">Perlu dipelajari</p>
                           {h.skills_kurang.length > 0 ? (
-                            <ul className="list-disc list-inside text-[#1c1f1c] space-y-1">
+                            <ul className="list-disc list-inside text-ink space-y-1">
                               {h.skills_kurang.slice(0, 8).map((s) => (
                                 <li key={s}>{s}</li>
                               ))}
                             </ul>
                           ) : (
-                            <p className="text-[#6b7280]">Semua skill sudah dikuasai.</p>
+                            <p className="text-muted">Semua skill sudah dikuasai.</p>
                           )}
                         </div>
                       </div>

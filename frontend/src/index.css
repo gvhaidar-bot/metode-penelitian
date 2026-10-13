@@ -3,52 +3,31 @@
 @theme {
   --font-sans: "Plus Jakarta Sans", ui-sans-serif, system-ui, sans-serif;
 
-  --color-paper: #f6f2ea;
-  --color-cream: #efe8d8;
-  --color-ink: #1e2421;
-  --color-pine-50: #edf4ef;
-  --color-pine-100: #d8e8dd;
-  --color-pine-200: #b3d2bf;
-  --color-pine-600: #1e7a5c;
-  --color-pine-700: #176648;
-  --color-pine-800: #104c36;
-  --color-pine-900: #0b3828;
-  --color-gold-400: #e8a93d;
-  --color-gold-500: #d18f22;
+  /* Palet mengikuti template desain acuan (fintech dashboard):
+     kanvas putih, kartu putih datar, teks tinta pekat,
+     aksen utama oranye hangat, lavender untuk grafik. */
+  --color-bg: #ffffff;
+  --color-card: #ffffff;
+  --color-ink: #1a1a24;
+  --color-muted: #8e93a7;
+  --color-faint: #c4c9d4;
+  --color-line: #ececf0;
+  --color-wash: #f4f4f6;
+  --color-primary: #f2994a;
+  --color-primary-deep: #dd8132;
+  --color-primary-wash: #fdf1e3;
+  --color-success: #52c468;
+  --color-success-wash: #eaf7ee;
+  --color-lavender: #c9b6f2;
+  --color-lavender-deep: #9b51e0;
+  --color-teal: #4fd1c5;
+  --color-amber: #f2c94c;
+  --color-coral: #eb6e6e;
 }
 
 body {
-  background-color: var(--color-paper);
-  color: #1c1f1c;
+  background-color: var(--color-bg);
+  color: var(--color-ink);
   font-family: var(--font-sans);
-}
-
-/* Slider minat */
-input[type="range"].slider-minat {
-  -webkit-appearance: none;
-  appearance: none;
-  height: 6px;
-  border-radius: 9999px;
-  background: var(--color-pine-100);
-  outline: none;
-}
-input[type="range"].slider-minat::-webkit-slider-thumb {
-  -webkit-appearance: none;
-  appearance: none;
-  width: 20px;
-  height: 20px;
-  border-radius: 9999px;
-  background: var(--color-pine-700);
-  border: 3px solid #fff;
-  box-shadow: 0 1px 4px rgb(0 0 0 / 0.25);
-  cursor: pointer;
-}
-input[type="range"].slider-minat::-moz-range-thumb {
-  width: 20px;
-  height: 20px;
-  border-radius: 9999px;
-  background: var(--color-pine-700);
-  border: 3px solid #fff;
-  box-shadow: 0 1px 4px rgb(0 0 0 / 0.25);
-  cursor: pointer;
+  -webkit-font-smoothing: antialiased;
 }

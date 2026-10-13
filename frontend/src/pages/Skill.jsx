@@ -81,8 +81,8 @@ export default function Skill() {
       onClick={() => toggle(s)}
       className={`px-3.5 py-1.5 rounded-full text-sm font-semibold border transition ${
         aktif
-          ? "bg-pine-800 text-white border-pine-800"
-          : "bg-white text-[#1c1f1c] border-[#e5e7eb] hover:border-pine-600"
+          ? "bg-primary text-white border-primary"
+          : "bg-card text-ink border-line hover:border-primary"
       }`}
     >
       {s}
@@ -105,7 +105,7 @@ export default function Skill() {
           value={kata}
           onChange={(e) => setKata(e.target.value)}
           placeholder="Ketik untuk mencari skill, mis. Python"
-          className="w-full px-4 py-2.5 rounded-xl border border-[#e5e7eb] text-sm focus:outline-none focus:ring-2 focus:ring-pine-600 mb-4"
+          className="w-full px-4 py-2.5 rounded-xl border border-line text-sm focus:outline-none focus:ring-2 focus:ring-primary mb-4"
         />
         {saran.length > 0 && (
           <div className="flex flex-wrap gap-2 mb-6">
@@ -140,14 +140,14 @@ export default function Skill() {
             placeholder="Mis. Bahasa Inggris"
             maxLength={40}
             aria-label="Skill baru"
-            className="flex-1 px-4 py-2.5 rounded-xl border border-[#e5e7eb] text-sm focus:outline-none focus:ring-2 focus:ring-pine-600"
+            className="flex-1 px-4 py-2.5 rounded-xl border border-line text-sm focus:outline-none focus:ring-2 focus:ring-primary"
           />
           <TombolPrimer onClick={tambahUsulan}>Tambah</TombolPrimer>
         </div>
       </Kartu>
 
       {pesan && (
-        <p className="text-sm text-pine-800 bg-pine-50 rounded-xl px-4 py-3">{pesan}</p>
+        <p className="text-sm text-primary bg-primary-wash rounded-xl px-4 py-3">{pesan}</p>
       )}
       {galat && (
         <p className="text-sm text-red-700 bg-red-50 rounded-xl px-4 py-3">{galat}</p>
