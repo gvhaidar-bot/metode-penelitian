@@ -1,12 +1,25 @@
-const API_URL = import.meta.env.VITE_API_URL || "http://localhost:8000";
+const API_URL =
+  import.meta.env.VITE_API_URL === undefined
+    ? "http://localhost:8000"
+    : import.meta.env.VITE_API_URL;
 const TOKEN_KEY = "rk-token";
 const USER_KEY = "rk-user";
 
 export function ambilToken() {
-  return localStorage.getItem(TOKEN_KEY);
+  const t = localStorage.getItem(TOKEN_KEY);
+  if (!t || t === "undefined" || t === "null") {
+    // Bersihkan sisa sesi rusak (mis. dari respons backend yang tidak valid)
+    localStorage.removeItem(TOKEN_KEY);
+    localStorage.removeItem(USER_KEY);
+    return null;
+  }
+  return t;
 }
 
 export function simpanSesi(token, user) {
+  if (!token || typeof user !== "object" || !user) {
+    throw new Error("Respons backend tidak valid.");
+  }
   localStorage.setItem(TOKEN_KEY, token);
   localStorage.setItem(USER_KEY, JSON.stringify(user));
 }
