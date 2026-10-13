@@ -1,14 +1,21 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import { Sidebar } from "../components/sidebar";
+import { Sidebar } from "../components/Sidebar";
+
+function bacaRiwayat() {
+  try {
+    const data = JSON.parse(localStorage.getItem("riwayat-rekomendasi") || "[]");
+    return Array.isArray(data) ? data : [];
+  } catch {
+    return [];
+  }
+}
 
 const Riwayat = () => {
   const [riwayat, setRiwayat] = useState([]);
 
   useEffect(() => {
-    try {
-      setRiwayat(JSON.parse(localStorage.getItem("riwayat-rekomendasi") || "[]"));
-    } catch { /* abaikan */ }
+    setRiwayat(bacaRiwayat());
   }, []);
 
   const hapus = () => {
@@ -43,12 +50,12 @@ const Riwayat = () => {
           <div className="space-y-4 pb-10">
             {riwayat.map((r, i) => (
               <div key={i} className="bg-white rounded-2xl border border-slate-200 shadow-sm p-6">
-                <p className="text-xs text-slate-400 mb-2">{r.tanggal}</p>
+                <p className="text-xs text-slate-400 mb-2">{r.tanggal || ""}</p>
                 <p className="text-sm text-slate-500 mb-3">
-                  Skill: <span className="text-slate-700 font-medium">{r.skills.join(", ")}</span>
+                  Skill: <span className="text-slate-700 font-medium">{(r.skills || []).join(", ") || "—"}</span>
                 </p>
                 <div className="space-y-2">
-                  {r.teratas.map((t, j) => (
+                  {(r.teratas || []).map((t, j) => (
                     <div key={j} className="flex items-center justify-between bg-slate-50 rounded-xl px-4 py-2.5">
                       <span className="font-medium text-slate-800">
                         <span className="text-indigo-600 font-bold mr-2">{j + 1}.</span>{t.nama}

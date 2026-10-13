@@ -1,9 +1,19 @@
 import React, { useState } from "react";
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
+import { useAuth } from "../auth.jsx";
+import { keluarAkun } from "../api.js";
 
 export const Sidebar = () => {
   const location = useLocation();
+  const navigate = useNavigate();
+  const { keluar } = useAuth();
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+
+  const handleLogout = async () => {
+    await keluarAkun();
+    keluar();
+    navigate("/", { replace: true });
+  };
 
   const mainMenuItems = [
     {
@@ -84,8 +94,8 @@ export const Sidebar = () => {
 
   const accountMenuItems = [
     {
-      name: "Logout",
-      path: "/",
+      name: "Keluar",
+      action: handleLogout,
       icon: (
         <svg
           className="w-5 h-5"
@@ -226,28 +236,26 @@ export const Sidebar = () => {
               </p>
               <div className="space-y-1">
                 {accountMenuItems.map((item) => {
-                  const isActive = location.pathname === item.path;
-                  const isLogout = item.name === "Logout";
+                  const isLogout = item.name === "Keluar";
                   return (
-                    <Link
+                    <button
                       key={item.name}
-                      to={item.path}
-                      onClick={() => setIsMobileMenuOpen(false)}
-                      className={`flex items-center gap-3 py-2.5 px-3 rounded-xl text-sm font-medium transition-colors ${
-                        isActive
-                          ? "bg-indigo-50 text-indigo-700"
-                          : isLogout
-                            ? "text-red-600 hover:bg-red-50"
-                            : "text-slate-600 hover:bg-slate-50 hover:text-slate-900"
+                      type="button"
+                      onClick={() => {
+                        setIsMobileMenuOpen(false);
+                        item.action();
+                      }}
+                      className={`w-full flex items-center gap-3 py-2.5 px-3 rounded-xl text-sm font-medium transition-colors ${
+                        isLogout
+                          ? "text-red-600 hover:bg-red-50"
+                          : "text-slate-600 hover:bg-slate-50 hover:text-slate-900"
                       }`}
                     >
-                      <div
-                        className={`${isActive ? "text-indigo-600" : isLogout ? "text-red-500" : "text-slate-400"}`}
-                      >
+                      <div className={isLogout ? "text-red-500" : "text-slate-400"}>
                         {item.icon}
                       </div>
                       {item.name}
-                    </Link>
+                    </button>
                   );
                 })}
               </div>

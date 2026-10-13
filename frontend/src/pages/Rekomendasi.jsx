@@ -1,23 +1,26 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import { Sidebar } from "../components/sidebar";
+import { Sidebar } from "../components/Sidebar";
 import { getMeta, kirimRekomendasi } from "../api.js";
 
 const simpanRiwayat = (skills, hasil) => {
   try {
-    const lama = JSON.parse(localStorage.getItem("riwayat-rekomendasi") || "[]");
-    lama.unshift({
+    const raw = localStorage.getItem("riwayat-rekomendasi") || "[]";
+    const lama = JSON.parse(raw);
+    const list = Array.isArray(lama) ? lama : [];
+    list.unshift({
       tanggal: new Date().toLocaleString("id-ID"),
-      skills,
-      teratas: hasil.slice(0, 3).map((h) => ({ nama: h.nama, skor: h.skor_akhir })),
+      skills: Array.isArray(skills) ? skills : [],
+      teratas: (hasil || []).slice(0, 3).map((h) => ({ nama: h.nama, skor: h.skor_akhir })),
     });
-    localStorage.setItem("riwayat-rekomendasi", JSON.stringify(lama.slice(0, 20)));
+    localStorage.setItem("riwayat-rekomendasi", JSON.stringify(list.slice(0, 20)));
   } catch { /* abaikan */ }
 };
 
 const Rekomendasi = () => {
   const [daftarSkill, setDaftarSkill] = useState([]);
   const [kategori, setKategori] = useState([]);
+  const [jumlahKarier, setJumlahKarier] = useState(null);
   const [skills, setSkills] = useState([]);
   const [minat, setMinat] = useState({});
   const [hasil, setHasil] = useState(null);
@@ -30,6 +33,7 @@ const Rekomendasi = () => {
       .then((m) => {
         setDaftarSkill(m.skills);
         setKategori(m.kategori);
+        setJumlahKarier(m.jumlah_pekerjaan ?? m.skills.length);
         setMinat(Object.fromEntries(m.kategori.map((k) => [k, 3])));
       })
       .catch((e) => setError(e.message))
@@ -62,7 +66,7 @@ const Rekomendasi = () => {
           <h1 className="text-3xl font-bold text-slate-900 mb-2 tracking-tight">Rekomendasi Karier</h1>
           <p className="text-slate-500 mt-1">
             Pilih skill yang kamu kuasai dan nilai minatmu — sistem akan mencocokkannya
-            dengan profil 10 bidang pekerjaan IT memakai Content-Based Filtering + Cosine Similarity.
+            dengan profil {jumlahKarier ?? "…"} bidang pekerjaan IT memakai Content-Based Filtering + Cosine Similarity.
           </p>
         </div>
 
@@ -100,7 +104,18 @@ const Rekomendasi = () => {
               );
             })}
           </div>
-          <p className="text-sm text-slate-500 mt-3">{skills.length} skill dipilih</p>
+          <div className="flex items-center justify-between mt-3">
+            <p className="text-sm text-slate-500">{skills.length} skill dipilih</p>
+            {skills.length > 0 && (
+              <button
+                type="button"
+                onClick={() => setSkills([])}
+                className="text-sm font-medium text-slate-500 hover:text-red-600 transition-colors"
+              >
+                Bersihkan pilihan
+              </button>
+            )}
+          </div>
         </div>
 
         {/* Form minat */}
@@ -140,9 +155,6 @@ const Rekomendasi = () => {
           <div className="pb-10">
             <h2 className="text-xl font-bold text-slate-900 mb-4">
               Hasil Rekomendasi
-              <span className="ml-3 text-xs font-medium text-slate-500 bg-slate-100 px-2.5 py-1 rounded-full align-middle">
-                sumber: {hasil.sumber}
-              </span>
             </h2>
             <div className="space-y-4">
               {hasil.hasil.map((h, i) => (

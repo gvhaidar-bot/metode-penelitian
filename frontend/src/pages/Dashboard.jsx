@@ -1,17 +1,32 @@
 import React, { useEffect, useState } from "react";
-import { Sidebar } from "../components/sidebar";
+import { Sidebar } from "../components/Sidebar";
 import { Link } from "react-router-dom";
+import { useAuth } from "../auth.jsx";
+import { getPekerjaan } from "../api.js";
+
+function bacaRiwayat() {
+  try {
+    const data = JSON.parse(localStorage.getItem("riwayat-rekomendasi") || "[]");
+    return Array.isArray(data) ? data : [];
+  } catch {
+    return [];
+  }
+}
 
 const Dashboard = () => {
+  const { user } = useAuth();
   const [riwayat, setRiwayat] = useState([]);
+  const [jumlahKarier, setJumlahKarier] = useState(null);
 
   useEffect(() => {
-    try {
-      setRiwayat(JSON.parse(localStorage.getItem("riwayat-rekomendasi") || "[]"));
-    } catch { /* abaikan */ }
+    setRiwayat(bacaRiwayat());
+    getPekerjaan()
+      .then((d) => setJumlahKarier(d.length))
+      .catch(() => setJumlahKarier(null));
   }, []);
 
   const terakhir = riwayat[0];
+  const nama = user?.name || "Pengguna";
 
   return (
     <div className="flex bg-slate-50 min-h-screen font-sans text-slate-800">
@@ -20,7 +35,7 @@ const Dashboard = () => {
       <div className="lg:ml-72 p-6 lg:p-10 w-full max-w-7xl mx-auto">
         <div className="mb-10 mt-12 lg:mt-0">
           <h1 className="text-3xl font-bold text-slate-900 mb-2 tracking-tight">Dashboard</h1>
-          <p className="text-lg text-slate-700 font-medium">Selamat datang kembali, Haidar.</p>
+          <p className="text-lg text-slate-700 font-medium">Selamat datang kembali, {nama}.</p>
           <p className="text-slate-500 mt-1">
             Temukan bidang karier IT yang paling cocok dengan skill dan minatmu.
           </p>
@@ -33,7 +48,7 @@ const Dashboard = () => {
             <h2 className="text-xl font-bold text-slate-900 mb-2">Mulai Rekomendasi Karier</h2>
             <p className="text-slate-600 mb-6 leading-relaxed">
               Masukkan skill yang kamu kuasai dan nilai minatmu. Sistem mencocokkannya
-              dengan profil 10 bidang pekerjaan IT menggunakan Content-Based Filtering
+              dengan profil bidang pekerjaan IT menggunakan Content-Based Filtering
               + Cosine Similarity, lalu merangkingnya dengan metode SAW.
             </p>
             <Link
@@ -69,7 +84,7 @@ const Dashboard = () => {
             </div>
             <div>
               <p className="text-sm font-medium text-slate-500">Bidang Pekerjaan</p>
-              <p className="text-2xl font-bold text-slate-900">10</p>
+              <p className="text-2xl font-bold text-slate-900">{jumlahKarier ?? "…"}</p>
             </div>
           </div>
 
@@ -79,7 +94,7 @@ const Dashboard = () => {
             </div>
             <div>
               <p className="text-sm font-medium text-slate-500">Roadmap Tersedia</p>
-              <p className="text-2xl font-bold text-slate-900">10</p>
+              <p className="text-2xl font-bold text-slate-900">{jumlahKarier ?? "…"}</p>
             </div>
           </div>
         </div>
@@ -99,9 +114,9 @@ const Dashboard = () => {
                 <p className="text-slate-500 text-sm">Belum ada rekomendasi. <Link to="/rekomendasi" className="text-indigo-600 font-medium hover:underline">Buat yang pertama</Link>.</p>
               ) : (
                 <div>
-                  <p className="text-xs text-slate-400 mb-3">{terakhir.tanggal}</p>
+                  <p className="text-xs text-slate-400 mb-3">{terakhir.tanggal || ""}</p>
                   <div className="space-y-2">
-                    {terakhir.teratas.map((t, j) => (
+                    {(terakhir.teratas || []).map((t, j) => (
                       <div key={j} className="flex items-center justify-between bg-slate-50 rounded-xl px-4 py-2.5">
                         <span className="font-medium text-slate-800">
                           <span className="text-indigo-600 font-bold mr-2">{j + 1}.</span>{t.nama}
@@ -122,7 +137,7 @@ const Dashboard = () => {
             <h3 className="text-lg font-bold text-slate-900 mb-2">Tentang Sistem</h3>
             <p className="text-slate-600 text-sm leading-relaxed mb-6 flex-1">
               Sistem rekomendasi bidang karier untuk mahasiswa IT. Skill yang dimasukkan
-              dicocokkan dengan profil 10 pekerjaan memakai Content-Based Filtering +
+              dicocokkan dengan profil pekerjaan memakai Content-Based Filtering +
               Cosine Similarity, lalu dirangking dengan SAW dari skor skill, minat,
               gaji, dan kebutuhan pasar. Setiap hasil dilengkapi roadmap belajar.
             </p>

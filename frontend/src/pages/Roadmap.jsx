@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useSearchParams, Link } from "react-router-dom";
-import { Sidebar } from "../components/sidebar";
+import { Sidebar } from "../components/Sidebar";
 import { getPekerjaan } from "../api.js";
 
 const Roadmap = () => {
@@ -17,6 +17,13 @@ const Roadmap = () => {
       })
       .catch((e) => setError(e.message));
   }, []);
+
+  // Sinkronkan pilihan dengan query param bila URL berubah setelah mount
+  // (mis. navigasi dari kartu hasil rekomendasi saat sudah di /roadmap).
+  useEffect(() => {
+    const dariUrl = params.get("karier");
+    if (dariUrl) setAktif(dariUrl);
+  }, [params]);
 
   const job = daftar.find((p) => p.id === aktif);
 
