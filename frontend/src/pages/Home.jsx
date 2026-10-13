@@ -53,7 +53,8 @@ const Home = () => {
           <div className="flex items-center gap-3 mb-16">
             <div className="w-11 h-11 rounded-xl bg-gold-400 flex items-center justify-center">
               <svg className="w-6 h-6 text-pine-900" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth="2.4">
-                <path strokeLinecap="round" strokeLinejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z" />
+                <path strokeLinecap="round" strokeLinejoin="round" d="M4 20h4v-4h4v-4h4V8" />
+                <path strokeLinecap="round" strokeLinejoin="round" d="M13 11l3-3 3 3" />
               </svg>
             </div>
             <p className="font-extrabold text-lg leading-tight">KarierKu<br />Informatika</p>
@@ -63,7 +64,7 @@ const Home = () => {
           </h1>
           <p className="text-pine-100/90 leading-relaxed max-w-md">
             Masukkan skill dan minatmu, sistem akan mencocokkannya dengan
-            profil 10 bidang pekerjaan IT dan memberi tahu karier yang
+            profil 14 bidang pekerjaan IT dan memberi tahu karier yang
             paling cocok — lengkap dengan roadmap belajarnya.
           </p>
         </div>
