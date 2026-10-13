@@ -8,7 +8,7 @@
 
 Web app Sistem Pendukung Keputusan (SPK) untuk rekomendasi bidang karier
 mahasiswa Informatika. Pengguna memasukkan skill yang dikuasai dan menilai
-minatnya, sistem mencocokkan dengan profil 14 bidang pekerjaan IT lalu
+minatnya, sistem mencocokkan dengan profil 23 bidang pekerjaan IT lalu
 mengeluarkan ranking karier, roadmap belajar, dan info prospek (gaji,
 kebutuhan pasar).
 
@@ -53,7 +53,7 @@ metode-penelitian/
 │   │   ├── job_salary_mean.csv                      # dataset gaji (mentah)
 │   │   ├── lowongan_data_dan_analytics_jobstreet.csv # lowongan JobStreet (mentah)
 │   │   └── glints_jobs.csv                          # lowongan Glints (mentah)
-│   ├── tests/test_api.py   # test otomatis (pytest, 14 test)
+│   ├── tests/test_api.py   # test otomatis (pytest, 31 test)
 │   └── requirements.txt
 ├── frontend/
 │   └── src/
@@ -68,7 +68,7 @@ metode-penelitian/
 
 ## Dataset
 
-Profil 14 karier di `backend/data/pekerjaan.json` dikurasi dari dataset
+Profil 23 karier di `backend/data/pekerjaan.json` dikurasi dari dataset
 Kaggle (1.205 lowongan Indonesia dipetakan ke 10 profil; EDA di
 `backend/data/eda_summary.md`, dibuat 2026-10-10).
 
@@ -136,7 +136,7 @@ Variabel lingkungan (opsional):
 ```bash
 cd backend
 pip install -r requirements.txt
-pytest -q        # 14 test: TC-01..TC-08 + relevansi + auth
+pytest -q        # 31 test: TC-01..TC-08 + relevansi + auth + ai_risk + tokenisasi
 ```
 
 ```bash

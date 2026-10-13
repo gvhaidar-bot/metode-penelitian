@@ -15,7 +15,7 @@
 siapkan bukti pendukung (tanggal scraping / script scraper) bila dosen
 menanyakan.
 
-## Pemetaan ke 14 karier
+## Pemetaan ke 23 karier
 
 `backend/glints.py` memetakan tiap lowongan ke id karier di
 `pekerjaan.json` dengan dua tahap:

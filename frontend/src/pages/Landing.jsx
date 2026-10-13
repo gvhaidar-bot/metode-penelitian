@@ -102,7 +102,7 @@ export default function Landing() {
         </div>
         <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 mt-12">
           {[
-            ["14", "Profil karier"],
+            [String(pekerjaan.length || 23), "Profil karier"],
             ["2", "Metode inti"],
             ["4", "Kriteria SAW"],
             [jmlSkill === null ? "-" : String(jmlSkill), "Skill terdaftar"],

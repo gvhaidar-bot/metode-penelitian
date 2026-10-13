@@ -1,12 +1,12 @@
 {
   "total_barisan": 1133,
-  "tak_terpetakan": 564,
+  "tak_terpetakan": 536,
   "karier": {
     "backend-dev": {
-      "jumlah_lowongan": 53,
-      "gaji_min_median_jt": 6.0,
-      "gaji_max_median_jt": 8.5,
-      "perusahaan_unik": 50
+      "jumlah_lowongan": 47,
+      "gaji_min_median_jt": 6.9,
+      "gaji_max_median_jt": 10.0,
+      "perusahaan_unik": 44
     },
     "business-analyst": {
       "jumlah_lowongan": 32,
@@ -26,6 +26,12 @@
       "gaji_max_median_jt": 10.0,
       "perusahaan_unik": 25
     },
+    "data-scientist": {
+      "jumlah_lowongan": 8,
+      "gaji_min_median_jt": 5.85,
+      "gaji_max_median_jt": 8.3,
+      "perusahaan_unik": 8
+    },
     "devops-engineer": {
       "jumlah_lowongan": 34,
       "gaji_min_median_jt": 8.0,
@@ -33,34 +39,40 @@
       "perusahaan_unik": 34
     },
     "frontend-dev": {
-      "jumlah_lowongan": 49,
-      "gaji_min_median_jt": 6.0,
-      "gaji_max_median_jt": 7.5,
-      "perusahaan_unik": 41
+      "jumlah_lowongan": 73,
+      "gaji_min_median_jt": 4.8,
+      "gaji_max_median_jt": 6.25,
+      "perusahaan_unik": 65
     },
     "fullstack-dev": {
-      "jumlah_lowongan": 40,
+      "jumlah_lowongan": 38,
       "gaji_min_median_jt": 5.0,
       "gaji_max_median_jt": 7.0,
-      "perusahaan_unik": 40
+      "perusahaan_unik": 38
     },
     "it-pm": {
-      "jumlah_lowongan": 56,
+      "jumlah_lowongan": 34,
       "gaji_min_median_jt": 8.0,
       "gaji_max_median_jt": 12.0,
-      "perusahaan_unik": 51
+      "perusahaan_unik": 32
     },
     "ml-engineer": {
-      "jumlah_lowongan": 34,
-      "gaji_min_median_jt": 6.0,
+      "jumlah_lowongan": 26,
+      "gaji_min_median_jt": 6.5,
       "gaji_max_median_jt": 8.0,
-      "perusahaan_unik": 34
+      "perusahaan_unik": 26
     },
     "mobile-dev": {
-      "jumlah_lowongan": 47,
-      "gaji_min_median_jt": 6.9,
-      "gaji_max_median_jt": 9.0,
-      "perusahaan_unik": 36
+      "jumlah_lowongan": 45,
+      "gaji_min_median_jt": 7.0,
+      "gaji_max_median_jt": 9.5,
+      "perusahaan_unik": 34
+    },
+    "product-manager": {
+      "jumlah_lowongan": 33,
+      "gaji_min_median_jt": 5.7,
+      "gaji_max_median_jt": 10.0,
+      "perusahaan_unik": 29
     },
     "qa-engineer": {
       "jumlah_lowongan": 49,
@@ -73,6 +85,12 @@
       "gaji_min_median_jt": 4.0,
       "gaji_max_median_jt": 6.0,
       "perusahaan_unik": 11
+    },
+    "sysadmin": {
+      "jumlah_lowongan": 3,
+      "gaji_min_median_jt": 3.75,
+      "gaji_max_median_jt": 5.5,
+      "perusahaan_unik": 3
     },
     "system-analyst": {
       "jumlah_lowongan": 10,

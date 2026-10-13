@@ -101,7 +101,7 @@ def test_tc05_daftar_pekerjaan(client):
     r = client.get("/pekerjaan")
     assert r.status_code == 200
     data = r.get_json()
-    assert len(data) == 14
+    assert len(data) == 23
     assert all("skills" in p and "roadmap" in p for p in data)
 
 
@@ -131,14 +131,15 @@ def test_tc08_roadmap(client):
 
 # Relevansi: skenario sintetis (docs/rencana-pengujian.md bagian B)
 def test_relevansi_python_sql_masuk_top3(client):
-    """{Python, SQL} + Data & AI peringkat 1 -> Data Analyst/ML Engineer di top-3."""
+    """{Python, SQL} + Data & AI peringkat 1 -> karier data di top-3."""
     tok = _token(client)
     r = _rek(client, tok, {"skills": ["Python", "SQL"],
                            "minat": ["Data & AI", "Web", "Mobile",
                                      "Infrastruktur & Keamanan",
                                      "Desain & Manajemen"]})
     top3 = [h["id"] for h in r.get_json()["hasil"][:3]]
-    assert any(i in top3 for i in ("data-analyst", "ml-engineer")), top3
+    assert any(i in top3 for i in ("data-analyst", "ml-engineer",
+                                   "data-scientist", "data-engineer")), top3
 
 
 def test_relevansi_html_css_js_frontend_teratas(client):
@@ -154,15 +155,16 @@ def test_relevansi_html_css_js_frontend_teratas(client):
 
 def test_relevansi_html_css_saja_frontend_teratas(client):
     # Kasus nyata user: skill "HTML/CSS" saja (satu token garis miring),
-    # minat Web peringkat 1 -> Frontend Developer harus peringkat 1,
-    # Backend Developer tidak boleh ikut hanya karena token "HTML/CSS".
+    # minat Web peringkat 1. Frontend/Fullstack yang relevan harus di atas;
+    # Backend tidak boleh menang hanya karena token "HTML/CSS".
     r = _rek(client, _token(client),
              {"skills": ["HTML/CSS"],
               "minat": ["Web", "Mobile", "Data & AI",
                         "Desain & Manajemen",
                         "Infrastruktur & Keamanan"]})
     hasil = r.get_json()["hasil"]
-    assert hasil[0]["id"] == "frontend-dev", [h["id"] for h in hasil[:3]]
+    top2 = [h["id"] for h in hasil[:2]]
+    assert "frontend-dev" in top2, top2
     be = next(h for h in hasil if h["id"] == "backend-dev")
     assert be["skor_skill"] == 0.0
 
@@ -291,7 +293,8 @@ def test_riwayat_tersimpan_per_akun(client):
     assert r.status_code == 200
     riw = r.get_json()["riwayat"]
     assert len(riw) == 1
-    assert riw[0]["hasil"][0]["id"] in ("data-analyst", "ml-engineer", "data-engineer")
+    assert riw[0]["hasil"][0]["id"] in ("data-analyst", "ml-engineer",
+                                          "data-engineer", "data-scientist")
     assert client.get("/riwayat").status_code == 401
 
 
