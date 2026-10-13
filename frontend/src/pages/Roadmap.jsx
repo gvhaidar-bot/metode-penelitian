@@ -1,46 +1,39 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { useSearchParams, Link } from "react-router-dom";
 import { Sidebar } from "../components/Sidebar";
 import { getPekerjaan } from "../api.js";
 
 const Roadmap = () => {
-  const [params] = useSearchParams();
+  const [params, setParams] = useSearchParams();
   const [daftar, setDaftar] = useState([]);
-  const [aktif, setAktif] = useState(params.get("karier") || "");
   const [error, setError] = useState(null);
 
   useEffect(() => {
     getPekerjaan()
-      .then((d) => {
-        setDaftar(d);
-        if (!params.get("karier") && d.length > 0) setAktif(d[0].id);
-      })
+      .then(setDaftar)
       .catch((e) => setError(e.message));
   }, []);
 
-  // Sinkronkan pilihan dengan query param bila URL berubah setelah mount
-  // (mis. navigasi dari kartu hasil rekomendasi saat sudah di /roadmap).
-  useEffect(() => {
-    const dariUrl = params.get("karier");
-    if (dariUrl) setAktif(dariUrl);
-  }, [params]);
+  // Karier aktif mengikuti query param (?karier=...) agar selalu sinkron
+  // dengan URL, termasuk saat navigasi dari halaman hasil rekomendasi.
+  const aktif = params.get("karier") || (daftar[0] ? daftar[0].id : "");
 
   const job = daftar.find((p) => p.id === aktif);
 
   return (
-    <div className="flex bg-slate-50 min-h-screen font-sans text-slate-800">
+    <div className="flex min-h-screen">
       <Sidebar />
-      <div className="lg:ml-72 p-6 lg:p-10 w-full max-w-7xl mx-auto">
-        <div className="mb-8 mt-12 lg:mt-0">
-          <h1 className="text-3xl font-bold text-slate-900 mb-2 tracking-tight">Roadmap Belajar</h1>
-          <p className="text-slate-500 mt-1">
-            Tahapan belajar yang disarankan untuk tiap bidang karier — dari dasar sampai siap kerja.
+      <div className="lg:ml-72 w-full max-w-4xl mx-auto p-6 lg:p-10">
+        <div className="mt-12 lg:mt-0 mb-6">
+          <h1 className="text-3xl font-extrabold tracking-tight">Roadmap Belajar</h1>
+          <p className="text-stone-500 mt-1 text-sm">
+            Tahapan belajar tiap bidang karier — dari dasar sampai siap kerja.
           </p>
         </div>
 
         {error && (
-          <div className="bg-red-50 border border-red-200 rounded-2xl p-5 mb-8">
-            <p className="font-bold text-red-800 mb-1">Backend tidak terjangkau</p>
+          <div className="bg-red-50 border border-red-200 rounded-2xl p-5 mb-6">
+            <p className="font-bold text-red-800 mb-1">Terjadi masalah</p>
             <p className="text-sm text-red-700">{error}</p>
           </div>
         )}
@@ -49,11 +42,11 @@ const Roadmap = () => {
           {daftar.map((p) => (
             <button
               key={p.id}
-              onClick={() => setAktif(p.id)}
-              className={`px-4 py-2 rounded-full text-sm font-medium border transition-all ${
+              onClick={() => setParams({ karier: p.id })}
+              className={`px-4 py-2 rounded-full text-sm font-semibold border transition ${
                 aktif === p.id
-                  ? "bg-indigo-600 text-white border-indigo-600 shadow-sm"
-                  : "bg-white text-slate-600 border-slate-200 hover:border-indigo-300 hover:text-indigo-700"
+                  ? "bg-pine-800 text-white border-pine-800"
+                  : "bg-white text-stone-600 border-stone-200 hover:border-pine-600 hover:text-pine-700"
               }`}
             >
               {p.nama}
@@ -62,29 +55,31 @@ const Roadmap = () => {
         </div>
 
         {job && (
-          <div className="bg-white rounded-2xl border border-slate-200 shadow-sm p-6 lg:p-8">
-            <div className="flex flex-wrap items-center justify-between gap-3 mb-6">
+          <div className="bg-white rounded-2xl border border-stone-200/70 p-6 sm:p-8">
+            <div className="flex flex-wrap items-center justify-between gap-3 mb-8">
               <div>
-                <h2 className="text-xl font-bold text-slate-900">{job.nama}</h2>
-                <p className="text-sm text-slate-500">
-                  {job.kategori} • Rp{job.gaji_min}–{job.gaji_max} jt/bulan • Kebutuhan pasar {"★".repeat(job.demand)}
+                <h2 className="text-xl font-extrabold">{job.nama}</h2>
+                <p className="text-sm text-stone-500">
+                  {job.kategori} • Rp{job.gaji_min}–{job.gaji_max} jt/bulan •{" "}
+                  <span className="text-gold-500 font-bold">{"★".repeat(job.demand)}</span>
+                  <span className="text-stone-300">{"★".repeat(5 - job.demand)}</span>
                 </p>
               </div>
               <Link
                 to="/rekomendasi"
-                className="px-4 py-2 text-sm font-medium text-indigo-600 bg-indigo-50 hover:bg-indigo-100 rounded-xl transition-colors"
+                className="px-4 py-2 text-sm font-bold text-pine-700 bg-pine-50 hover:bg-pine-100 rounded-xl transition"
               >
                 Cek Kecocokanku
               </Link>
             </div>
-            <div className="relative pl-8">
-              <div className="absolute left-3 top-2 bottom-2 w-0.5 bg-indigo-100" />
-              {job.roadmap.map((langkah, i) => (
+            <div className="relative pl-10">
+              <div className="absolute left-4 top-2 bottom-2 w-0.5 bg-pine-100" />
+              {(job.roadmap || []).map((langkah, i) => (
                 <div key={i} className="relative mb-6 last:mb-0">
-                  <span className="absolute -left-8 top-0 w-7 h-7 rounded-full bg-indigo-600 text-white text-sm font-bold flex items-center justify-center">
+                  <span className="absolute -left-10 top-0 w-8 h-8 rounded-full bg-pine-800 text-white text-sm font-extrabold flex items-center justify-center">
                     {i + 1}
                   </span>
-                  <p className="text-slate-700 leading-relaxed pt-0.5">{langkah}</p>
+                  <p className="text-stone-700 leading-relaxed pt-1">{langkah}</p>
                 </div>
               ))}
             </div>

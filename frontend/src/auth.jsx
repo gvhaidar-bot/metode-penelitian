@@ -1,5 +1,4 @@
-import React, { createContext, useContext, useState } from "react";
-import { Navigate, useLocation } from "react-router-dom";
+import { createContext, useContext, useState } from "react";
 import { ambilToken, ambilUser, hapusSesi } from "./api.js";
 
 const AuthContext = createContext(null);
@@ -20,16 +19,7 @@ export function AuthProvider({ children }) {
   );
 }
 
+// eslint-disable-next-line react-refresh/only-export-components
 export function useAuth() {
   return useContext(AuthContext);
-}
-
-/** Bungkus route yang butuh login; lempar ke "/" bila belum login. */
-export function ProtectedRoute({ children }) {
-  const { user } = useAuth();
-  const location = useLocation();
-  if (!user) {
-    return <Navigate to="/" replace state={{ dari: location.pathname }} />;
-  }
-  return children;
 }

@@ -1,4 +1,4 @@
-"""Test otomatis backend (pytest) — memetakan TC-01..TC-08 dari
+"""Test otomatis backend (pytest): memetakan TC-01..TC-08 dari
 docs/rencana-pengujian.md plus pengujian autentikasi.
 
 Jalankan dari folder backend/:
@@ -40,7 +40,7 @@ def _rek(client, token, body):
                        headers={"Authorization": f"Bearer {token}"})
 
 
-# --- TC-01: input valid -----------------------------------------------------
+# TC-01: input valid
 def test_tc01_input_valid(client):
     tok = _token(client)
     r = _rek(client, tok, {"skills": ["Python", "SQL"],
@@ -52,7 +52,7 @@ def test_tc01_input_valid(client):
     assert skor == sorted(skor, reverse=True)
 
 
-# --- TC-02: tanpa skill -----------------------------------------------------
+# TC-02: tanpa skill
 def test_tc02_tanpa_skill(client):
     tok = _token(client)
     r = _rek(client, tok, {"skills": [], "minat": MINAT_LENGKAP})
@@ -60,7 +60,7 @@ def test_tc02_tanpa_skill(client):
     assert len(r.get_json()["hasil"]) == 5
 
 
-# --- TC-03: top_n=3 ----------------------------------------------------------
+# TC-03: top_n=3
 def test_tc03_top_n_3(client):
     tok = _token(client)
     r = _rek(client, tok, {"skills": ["HTML"], "minat": MINAT_LENGKAP,
@@ -69,7 +69,7 @@ def test_tc03_top_n_3(client):
     assert len(r.get_json()["hasil"]) == 3
 
 
-# --- TC-04: body kosong ------------------------------------------------------
+# TC-04: body kosong
 def test_tc04_body_kosong(client):
     tok = _token(client)
     r = _rek(client, tok, {})
@@ -77,7 +77,7 @@ def test_tc04_body_kosong(client):
     assert len(r.get_json()["hasil"]) == 5
 
 
-# --- TC-05: GET /pekerjaan ---------------------------------------------------
+# TC-05: GET /pekerjaan
 def test_tc05_daftar_pekerjaan(client):
     r = client.get("/pekerjaan")
     assert r.status_code == 200
@@ -86,7 +86,7 @@ def test_tc05_daftar_pekerjaan(client):
     assert all("skills" in p and "roadmap" in p for p in data)
 
 
-# --- TC-06: GET /pekerjaan/{id} valid ----------------------------------------
+# TC-06: GET /pekerjaan/{id} valid
 def test_tc06_detail_valid(client):
     r = client.get("/pekerjaan/data-analyst")
     assert r.status_code == 200
@@ -95,13 +95,13 @@ def test_tc06_detail_valid(client):
     assert len(data["roadmap"]) == 6
 
 
-# --- TC-07: GET /pekerjaan/{id} tidak ada -> 404 ------------------------------
+# TC-07: GET /pekerjaan/{id} tidak ada -> 404
 def test_tc07_detail_tidak_ada(client):
     r = client.get("/pekerjaan/tidak-ada")
     assert r.status_code == 404
 
 
-# --- TC-08: GET /pekerjaan/{id}/roadmap ---------------------------------------
+# TC-08: GET /pekerjaan/{id}/roadmap
 def test_tc08_roadmap(client):
     r = client.get("/pekerjaan/mobile-dev/roadmap")
     assert r.status_code == 200
@@ -110,7 +110,7 @@ def test_tc08_roadmap(client):
     assert isinstance(data["roadmap"], list) and len(data["roadmap"]) > 0
 
 
-# --- Relevansi: skenario sintetis (docs/rencana-pengujian.md bagian B) ---------
+# Relevansi: skenario sintetis (docs/rencana-pengujian.md bagian B)
 def test_relevansi_python_sql_masuk_top3(client):
     """{Python, SQL} + minat Data tinggi -> Data Analyst/ML Engineer di top-3."""
     tok = _token(client)
@@ -131,7 +131,7 @@ def test_relevansi_html_css_js_frontend_teratas(client):
     assert r.get_json()["hasil"][0]["id"] == "frontend-dev"
 
 
-# --- Autentikasi --------------------------------------------------------------
+# Autentikasi
 def test_auth_register_duplikat_ditolak(client):
     import uuid
     email = f"d{uuid.uuid4().hex[:8]}@example.com"
