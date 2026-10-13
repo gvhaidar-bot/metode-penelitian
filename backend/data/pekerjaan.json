@@ -419,7 +419,7 @@
     "kategori": "Infrastruktur & Keamanan",
     "skills": [
       "SIEM",
-      "Firewalls",
+      "Firewall",
       "Linux",
       "Splunk",
       "MS Windows",
@@ -429,7 +429,8 @@
       "TCP/IP",
       "Fortinet",
       "VPN",
-      "vulnerability scanners"
+      "vulnerability scanners",
+      "Cyber Security"
     ],
     "roadmap": [
       {
@@ -489,7 +490,8 @@
       "JavaScript",
       "TestNG",
       "Automation Testing",
-      "SDLC"
+      "SDLC",
+      "Software Testing"
     ],
     "roadmap": [
       {
@@ -842,7 +844,8 @@
       "Wireshark",
       "Linux",
       "Network Troubleshooting",
-      "Troubleshooting"
+      "Troubleshooting",
+      "Networking"
     ],
     "gaji_min": 5.0,
     "gaji_max": 8.0,
@@ -1070,7 +1073,8 @@
       "Query Tuning",
       "Replication",
       "Linux",
-      "Monitoring"
+      "Monitoring",
+      "Database"
     ],
     "gaji_min": 6.0,
     "gaji_max": 9.0,
