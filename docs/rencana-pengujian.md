@@ -4,23 +4,47 @@
 
 | ID | Fitur | Skenario | Input | Hasil yang diharapkan |
 |----|-------|----------|-------|----------------------|
-| TC-01 | POST /rekomendasi | Input valid | skills=[Python, SQL], minat lengkap, top_n=5 | 200, 5 hasil terurut skor menurun |
-| TC-02 | POST /rekomendasi | Tanpa skill | skills=[], minat lengkap | 200, ranking tetap keluar (dari minat+gaji+demand) |
+| TC-01 | POST /rekomendasi | Input valid | skills=[Python, SQL], minat total 100, top_n=5 | 200, 5 hasil terurut skor menurun |
+| TC-02 | POST /rekomendasi | Tanpa skill, profil kosong | skills=[], minat total 100 | 400, pesan "isi dulu skill" |
+| TC-02b | POST /rekomendasi | Skill dari profil | PUT /profil dulu, lalu skills=[] | 200, 5 hasil |
 | TC-03 | POST /rekomendasi | top_n=3 | skills=[HTML], top_n=3 | Tepat 3 hasil |
-| TC-04 | POST /rekomendasi | Body kosong | {} | 200, hasil default (minat netral=3) |
-| TC-05 | GET /pekerjaan | Daftar pekerjaan | — | 200, 10 item berisi skills & roadmap |
-| TC-06 | GET /pekerjaan/{id} | ID valid | data-analyst | 200, detail + roadmap 6 langkah |
+| TC-04 | POST /rekomendasi | Body kosong | {} | 400 (minat tidak valid) |
+| TC-04b | POST /rekomendasi | Minat bukan 100 | skills=[Python], minat total 70 | 400, pesan menyebut 100 |
+| TC-05 | GET /pekerjaan | Daftar pekerjaan | — | 200, 14 item berisi skills & roadmap |
+| TC-06 | GET /pekerjaan/{id} | ID valid | data-analyst | 200, detail + roadmap 6 quest |
 | TC-07 | GET /pekerjaan/{id} | ID tidak ada | tidak-ada | 404 |
-| TC-08 | GET /pekerjaan/{id}/roadmap | Roadmap valid | mobile-dev | 200, list langkah berurutan |
-| TC-09 | Halaman Rekomendasi | Alur penuh | Pilih 3 skill, geser minat, klik tombol | Kartu hasil tampil + skor + tombol Roadmap |
-| TC-10 | Halaman Rekomendasi | Tanpa skill | Langsung klik tombol | Tombol nonaktif / tidak error |
-| TC-11 | Halaman Riwayat | Simpan otomatis | Selesai 1 rekomendasi | Entri muncul di /riwayat |
-| TC-12 | Halaman Roadmap | Pilih karier | Klik chip karier | Timeline langkah berubah sesuai karier |
+| TC-08 | GET /pekerjaan/{id}/roadmap | Roadmap valid | mobile-dev | 200, list quest berurutan |
+| TC-09 | Halaman Rekomendasi | Alur penuh | Isi skill, urutkan 5 kategori minat, klik tombol | Kartu hasil tampil + rincian skor + tombol Roadmap |
+| TC-10 | Halaman Rekomendasi | Tanpa skill | Profil kosong, klik tombol | Pesan error jelas, tidak crash |
+| TC-11 | Halaman Riwayat | Simpan otomatis | Selesai 1 rekomendasi | Entri muncul di /riwayat (server) |
+| TC-12 | Halaman Roadmap | Pilih karier | Klik karier | Quest berubah + checkbox tersimpan |
 | TC-13 | Navigasi | Semua menu sidebar | Klik tiap menu | Tidak ada halaman kosong |
+| TC-14 | PUT /profil | Simpan skill | skills=[Python, SQL] | 200, skill tersimpan |
+| TC-15 | PUT /profil | Skill kustom | skills=["Skill Baru"] | 200, diterima |
+| TC-16 | GET /skills | Cari skill | ?q=pyth | 200, berisi Python |
+| TC-17 | POST /quest | Tandai quest | karier valid, langkah 0 | 200, progres bertambah |
+| TC-18 | GET /quest | Progress | — | 200, persen per karier |
 
 Status tiap TC diisi saat pengujian: Lolos / Gagal + catatan.
 
-### Hasil eksekusi (2026-10-07, backend lokal, data Kaggle asli)
+### Hasil eksekusi (2026-10-13, rebuild: ranking minat + quest + profil server-side)
+
+Backend pytest: 26/26 lolos (TC-01..TC-08, TC-02b, TC-04b, TC-14..TC-18,
+autentikasi, lowongan Glints, relevansi).
+
+| ID | Status | Catatan |
+|----|--------|---------|
+| TC-01 | Lolos | 5 hasil, terurut menurun |
+| TC-02 | Lolos | 400 + pesan jelas bila profil kosong |
+| TC-04b | Lolos | Minat total 70 → 400 |
+| TC-05 | Lolos | 14 item |
+| TC-14..TC-18 | Lolos | Profil, pencarian skill, quest, riwayat server-side |
+
+### Hasil eksekusi lama (2026-10-07, backend lokal, data Kaggle asli)
+
+> Catatan: hasil di bawah memakai model minat skala 1-5 yang sudah
+> diganti ranking 5 kategori minat (tanpa angka) pada rebuild 2026-10-13. Disimpan sebagai
+> arsip.
 
 | ID | Status | Catatan |
 |----|--------|---------|

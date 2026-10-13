@@ -115,3 +115,98 @@ def logout(token):
     if token in _SESI:
         del _SESI[token]
     return {"ok": True}, (None, 200)
+
+
+# ---------------------------------------------------------------------------
+# Profil, quest roadmap, dan riwayat (tersimpan per akun di users.json).
+# Inilah fungsi login: data pengguna mengikuti akunnya di mana pun ia masuk.
+# ---------------------------------------------------------------------------
+
+def _default_profil():
+    return {"skills": [], "quests": {}, "riwayat": []}
+
+
+def get_user_record(email):
+    """Kembalikan record user lengkap (atau None)."""
+    return _muat_users().get((email or "").strip().lower())
+
+
+def get_profil(email):
+    rec = get_user_record(email)
+    if not rec:
+        return None
+    return {
+        "name": rec.get("name", ""),
+        "email": (email or "").strip().lower(),
+        "skills": list(rec.get("skills", [])),
+    }
+
+
+def simpan_skills(email, skills):
+    """Simpan daftar skill pengguna. Kembalikan (ok, pesan_error)."""
+    email = (email or "").strip().lower()
+    bersih = []
+    terlihat = set()
+    for s in skills or []:
+        nama = (s or "").strip()
+        if not nama or len(nama) > 40:
+            continue
+        kunci = nama.lower()
+        if kunci not in terlihat:
+            terlihat.add(kunci)
+            bersih.append(nama)
+        if len(bersih) >= 60:
+            break
+    users = _muat_users()
+    rec = users.get(email)
+    if not rec:
+        return False, "Akun tidak ditemukan"
+    rec["skills"] = bersih
+    _simpan_users(users)
+    return True, None
+
+
+def get_quests(email):
+    rec = get_user_record(email)
+    return dict(rec.get("quests", {})) if rec else {}
+
+
+def set_quest(email, karier_id, langkah, selesai):
+    """Tandai satu langkah quest selesai/belum. Kembalikan (ok, pesan)."""
+    email = (email or "").strip().lower()
+    users = _muat_users()
+    rec = users.get(email)
+    if not rec:
+        return False, "Akun tidak ditemukan"
+    try:
+        langkah = int(langkah)
+    except (TypeError, ValueError):
+        return False, "Nomor langkah tidak valid"
+    quests = rec.setdefault("quests", {})
+    daftar = quests.setdefault(karier_id, [])
+    if selesai and langkah not in daftar:
+        daftar.append(langkah)
+    elif not selesai and langkah in daftar:
+        daftar.remove(langkah)
+    quests[karier_id] = sorted(daftar)
+    _simpan_users(users)
+    return True, None
+
+
+def tambah_riwayat(email, entri):
+    """Simpan satu hasil rekomendasi ke riwayat akun (maks 50)."""
+    email = (email or "").strip().lower()
+    users = _muat_users()
+    rec = users.get(email)
+    if not rec:
+        return False
+    riwayat = rec.setdefault("riwayat", [])
+    riwayat.insert(0, entri)
+    del riwayat[50:]
+    _simpan_users(users)
+    return True
+
+
+def get_riwayat(email):
+    rec = get_user_record(email)
+    return list(rec.get("riwayat", [])) if rec else []

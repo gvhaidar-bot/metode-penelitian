@@ -25,6 +25,7 @@ atau:
 import json
 import math
 import os
+import time
 from pathlib import Path
 
 from flask import Flask, jsonify, request
@@ -97,20 +98,32 @@ def cosine_similarity(skill_user: set, skill_job: set) -> float:
     return irisan / (math.sqrt(len(skill_user)) * math.sqrt(len(skill_job)))
 
 
-def hitung_skor(job: dict, skill_user: set, minat: dict, max_gaji: float) -> dict:
+def bobot_roc(urutan):
+    """Konversi ranking kategori (paling diminati dulu) menjadi bobot
+    yang totalnya 1, dipakai sebagai skor kriteria "minat" dalam SAW.
+
+    Ini BUKAN metode baru: SAW membutuhkan bobot/nilai tiap kriteria,
+    dan urutan prioritas user diubah ke bobot memakai Rank Order
+    Centroid (Barron & Barrett), teknik pembobotan standar untuk
+    mengubah ranking ordinal menjadi bobot kardinal:
+        w_i = (1/n) * sum(1/k untuk k = i..n)
+    Metode penelitian tetap: Content-Based Filtering + SAW.
+    """
+    n = len(urutan)
+    bobot = {}
+    for i, kat in enumerate(urutan):
+        w = sum(1.0 / k for k in range(i + 1, n + 1)) / n
+        bobot[str(kat).strip().lower()] = w
+    return bobot
+
+
+def hitung_skor(job: dict, skill_user: set, minat: list, max_gaji: float) -> dict:
     skills_job = {normalisasi(s) for s in job["skills"]}
 
-    # Robust: normalisasi key kategori (tahan beda kapitalisasi/spasi)
-    # dan clamp nilai ke 0-5. Kunci yang hilang -> netral (3), karena
-    # skala penilaian 1-5 dan frontend selalu mengirim kelima kategori.
-    minat_norm = {}
-    for k, v in (minat or {}).items():
-        try:
-            vv = float(v)
-        except (TypeError, ValueError):
-            continue
-        minat_norm[str(k).strip().lower()] = max(0.0, min(5.0, vv))
-    skor_minat = minat_norm.get(job["kategori"].strip().lower(), 3) / 5.0
+    # Minat diinput sebagai ranking 5 kategori (tanpa angka), lalu
+    # dikonversi ke bobot via Rank Order Centroid.
+    bobot_minat = bobot_roc(minat or [])
+    skor_minat = bobot_minat.get(job["kategori"].strip().lower(), 0.0)
 
     skor_skill = cosine_similarity(skill_user, skills_job)
     # Normalisasi SAW baku untuk kriteria benefit: x / max(x).
@@ -253,32 +266,150 @@ def auth_logout():
 
 @app.post("/rekomendasi")
 def rekomendasi():
-    """Hitung ranking rekomendasi karier dari skill + minat user.
+    """Hitung ranking rekomendasi karier dari skill + ranking minat user.
 
     Membutuhkan login: header "Authorization: Bearer <token>".
+    Body: {"skills": [...], "minat": [kategori...], "top_n": 5}.
+    "minat" adalah daftar 5 kategori terurut dari yang paling diminati
+    (tanpa angka); backend mengonversinya ke bobot via Rank Order Centroid.
+    Bila "skills" kosong, dipakai skill tersimpan di profil akun.
+    Hasil otomatis tersimpan di riwayat akun.
     """
     ditolak = _butuh_login()
     if ditolak:
         return ditolak
+    user = _user_saat_ini()
     data = request.get_json(force=True, silent=True) or {}
     skills = data.get("skills", []) or []
-    minat = data.get("minat", {}) or {}
+    if not skills:
+        profil = auth.get_profil(user["email"]) or {}
+        skills = profil.get("skills", [])
+    minat = data.get("minat", []) or []
     try:
         top_n = int(data.get("top_n", 5))
     except (TypeError, ValueError):
         top_n = 5
     top_n = max(1, min(top_n, 20))
 
+    kategori_valid = sorted({j["kategori"].strip().lower()
+                             for j in PEKERJAAN})
+    minat_norm = [str(k).strip().lower() for k in minat
+                  if isinstance(k, str) and str(k).strip()]
+    if sorted(minat_norm) != kategori_valid:
+        return jsonify({"detail": "Urutkan kelima kategori minat dari yang paling diminati"}), 400
+
     skill_user = {normalisasi(s) for s in skills
                   if isinstance(s, str) and s.strip()}
+    if not skill_user:
+        return jsonify({"detail": "Isi dulu skill di halaman Skill Saya"}), 400
     max_gaji = max((p["gaji_max"] for p in PEKERJAAN), default=0)
-    hasil = [hitung_skor(job, skill_user, minat, max_gaji)
+    hasil = [hitung_skor(job, skill_user, minat_norm, max_gaji)
              for job in PEKERJAAN]
     hasil.sort(key=lambda x: x["skor_akhir"], reverse=True)
+
+    auth.tambah_riwayat(user["email"], {
+        "waktu": time.strftime("%Y-%m-%d %H:%M:%S"),
+        "skills": sorted(skill_user),
+        "minat": minat_norm,
+        "hasil": [{"id": h["id"], "nama": h["nama"],
+                   "skor_akhir": h["skor_akhir"]} for h in hasil[:top_n]],
+    })
     return jsonify({
         "hasil": hasil[:top_n],
         "metode": "Content-Based Filtering + Cosine Similarity + SAW",
     })
+
+
+@app.get("/profil")
+def profil_get():
+    """Profil akun: nama, email, dan skill tersimpan."""
+    ditolak = _butuh_login()
+    if ditolak:
+        return ditolak
+    return jsonify(auth.get_profil(_user_saat_ini()["email"]))
+
+
+@app.put("/profil")
+def profil_put():
+    """Simpan daftar skill akun. Skill bebas diajukan user (maks 40 karakter)."""
+    ditolak = _butuh_login()
+    if ditolak:
+        return ditolak
+    data = request.get_json(force=True, silent=True) or {}
+    ok, pesan = auth.simpan_skills(_user_saat_ini()["email"],
+                                   data.get("skills", []))
+    if not ok:
+        return jsonify({"detail": pesan}), 400
+    return jsonify(auth.get_profil(_user_saat_ini()["email"]))
+
+
+@app.get("/skills")
+def daftar_skills():
+    """Daftar skill master (dari profil karier) untuk kolom pencarian.
+
+    Query opsional: ?q=teks untuk filter.
+    """
+    q = (request.args.get("q", "") or "").strip().lower()
+    semua = sorted({s for job in PEKERJAAN for s in job["skills"]},
+                   key=str.lower)
+    if q:
+        semua = [s for s in semua if q in s.lower()]
+    return jsonify({"skills": semua, "jumlah": len(semua)})
+
+
+@app.get("/quest")
+def quest_get():
+    """Progress quest roadmap per karier untuk akun ini."""
+    ditolak = _butuh_login()
+    if ditolak:
+        return ditolak
+    quests = auth.get_quests(_user_saat_ini()["email"])
+    hasil = {}
+    for job in PEKERJAAN:
+        selesai = sorted(quests.get(job["id"], []))
+        total = len(job.get("roadmap", []))
+        hasil[job["id"]] = {
+            "selesai": selesai,
+            "total": total,
+            "persen": round(len(selesai) / total * 100) if total else 0,
+        }
+    return jsonify(hasil)
+
+
+@app.post("/quest")
+def quest_set():
+    """Tandai satu langkah roadmap selesai/belum.
+
+    Body: {"karier_id": "...", "langkah": 0, "selesai": true}.
+    """
+    ditolak = _butuh_login()
+    if ditolak:
+        return ditolak
+    data = request.get_json(force=True, silent=True) or {}
+    karier_id = data.get("karier_id", "")
+    job = next((j for j in PEKERJAAN if j["id"] == karier_id), None)
+    if not job:
+        return jsonify({"detail": "Karier tidak ditemukan"}), 404
+    try:
+        langkah = int(data.get("langkah"))
+    except (TypeError, ValueError):
+        return jsonify({"detail": "Nomor langkah tidak valid"}), 400
+    if not 0 <= langkah < len(job.get("roadmap", [])):
+        return jsonify({"detail": "Nomor langkah di luar jangkauan"}), 400
+    ok, pesan = auth.set_quest(_user_saat_ini()["email"], karier_id,
+                               langkah, bool(data.get("selesai")))
+    if not ok:
+        return jsonify({"detail": pesan}), 400
+    return jsonify({"ok": True})
+
+
+@app.get("/riwayat")
+def riwayat_get():
+    """Riwayat rekomendasi milik akun ini (terbaru dulu)."""
+    ditolak = _butuh_login()
+    if ditolak:
+        return ditolak
+    return jsonify({"riwayat": auth.get_riwayat(_user_saat_ini()["email"])})
 
 
 if __name__ == "__main__":

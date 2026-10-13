@@ -5,17 +5,31 @@ const AuthContext = createContext(null);
 
 export function AuthProvider({ children }) {
   const [user, setUser] = useState(() => (ambilToken() ? ambilUser() : null));
+  // Tanpa token tidak ada yang perlu divalidasi: langsung siap.
+  const [siap, setSiap] = useState(() => !ambilToken());
 
-  // Verifikasi token tersimpan ke backend saat aplikasi dimuat.
-  // Token basi langsung dibersihkan agar user tidak terkunci di halaman dalam.
+  // Validasi token tersimpan ke server saat aplikasi dimuat.
+  // Token basi langsung dibersihkan agar tidak terkunci di halaman dalam.
   useEffect(() => {
+    let batal = false;
     if (!ambilToken()) return;
     cekSesi()
-      .then((u) => setUser(u))
+      .then((u) => {
+        if (!batal) {
+          setUser(u);
+          setSiap(true);
+        }
+      })
       .catch(() => {
-        hapusSesi();
-        setUser(null);
+        if (!batal) {
+          hapusSesi();
+          setUser(null);
+          setSiap(true);
+        }
       });
+    return () => {
+      batal = true;
+    };
   }, []);
 
   const masuk = (u) => setUser(u);
@@ -25,7 +39,7 @@ export function AuthProvider({ children }) {
   };
 
   return (
-    <AuthContext.Provider value={{ user, masuk, keluar }}>
+    <AuthContext.Provider value={{ user, masuk, keluar, siap }}>
       {children}
     </AuthContext.Provider>
   );
