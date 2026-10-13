@@ -15,7 +15,7 @@ Studi literatur & observasi masalah
         |
 Pengumpulan data (dataset Kaggle: lowongan IT Asia-Pasifik + gaji JobStreet 2024)
         |
-Pra-pemrosesan data (filter Indonesia → pemetaan 10 karier → agregasi skill → join gaji)
+Pra-pemrosesan data (filter Indonesia → pemetaan 14 karier → agregasi skill → join gaji)
         |
 Perancangan sistem (arsitektur React–Flask–PostgreSQL, skema DB, endpoint API)
         |

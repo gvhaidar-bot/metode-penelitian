@@ -15,7 +15,7 @@
 siapkan bukti pendukung (tanggal scraping / script scraper) bila dosen
 menanyakan.
 
-## Pemetaan ke 10 karier
+## Pemetaan ke 14 karier
 
 `backend/glints.py` memetakan tiap lowongan ke id karier di
 `pekerjaan.json` dengan dua tahap:
@@ -30,19 +30,23 @@ Hasil pemetaan (dihasilkan `backend/data/build_glints.py`):
 
 | Karier | Lowongan | Median gaji (jt) |
 |---|---|---|
-| data-analyst | 86 | 5,0–6,0 |
-| backend-dev | 68 | 5,6–7,5 |
-| frontend-dev | 61 | 6,0–7,8 |
-| it-pm | 57 | 8,0–12,0 |
+| data-analyst | 79 | 5,0–6,0 |
+| backend-dev | 53 | 6,0–8,5 |
+| frontend-dev | 49 | 6,0–7,5 |
+| it-pm | 56 | 8,0–12,0 |
 | qa-engineer | 49 | 6,3–8,0 |
 | uiux-designer | 49 | 4,0–5,5 |
 | mobile-dev | 47 | 6,9–9,0 |
-| ml-engineer | 36 | 6,0–8,0 |
+| fullstack-dev | 40 | 5,0–7,0 |
+| ml-engineer | 34 | 6,0–8,0 |
 | devops-engineer | 34 | 8,0–12,0 |
+| business-analyst | 32 | 7,1–10,5 |
+| data-engineer | 26 | 7,0–10,0 |
 | security-analyst | 11 | 4,0–6,0 |
-| Tak terpetakan | 635 | — |
+| system-analyst | 10 | 5,5–7,8 |
+| Tak terpetakan | 564 | — |
 
-Total terpetakan: 498 dari 1.133 (44%). Yang tak terpetakan umumnya
+Total terpetakan: 569 dari 1.133 (50%). Yang tak terpetakan umumnya
 berjudul generik tanpa petunjuk skill yang jelas di requirements.
 
 Statistik tersimpan di `backend/data/glints_stats.json`. Untuk

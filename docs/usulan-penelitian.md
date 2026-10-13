@@ -34,7 +34,7 @@ karier yang direkomendasikan.
    dipertanggungjawabkan?
 
 ## Tujuan Penelitian
-1. Membangun profil skill 10 bidang pekerjaan IT dari data lowongan
+1. Membangun profil skill 14 bidang pekerjaan IT dari data lowongan
    Indonesia tahun 2024.
 2. Mengimplementasikan Content-Based Filtering + Cosine Similarity untuk
    pencocokan skill mahasiswa terhadap profil pekerjaan.
@@ -44,7 +44,7 @@ karier yang direkomendasikan.
    direkomendasikan.
 
 ## Batasan Masalah
-1. Cakupan 10 bidang pekerjaan IT populer di Indonesia.
+1. Cakupan 14 bidang pekerjaan IT populer di Indonesia.
 2. Data lowongan dan gaji berasal dari dataset Kaggle tahun 2024
    (snapshot, bukan data real-time).
 3. Input sistem berupa skill yang dipilih pengguna dan nilai minat

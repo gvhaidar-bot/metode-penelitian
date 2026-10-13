@@ -103,7 +103,6 @@ const Roadmap = () => {
               <div className="mt-8 pt-8 border-t border-stone-200/70">
                 <div className="flex items-baseline justify-between mb-4">
                   <h3 className="font-extrabold">Lowongan terkait di Glints</h3>
-                  <p className="text-xs text-stone-400">{lowongan.total_terpetakan} terpetakan</p>
                 </div>
                 <div className="space-y-2">
                   {lowongan.lowongan.map((l, i) => (

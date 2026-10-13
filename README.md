@@ -8,7 +8,7 @@
 
 Web app Sistem Pendukung Keputusan (SPK) untuk rekomendasi bidang karier
 mahasiswa Informatika. Pengguna memasukkan skill yang dikuasai dan menilai
-minatnya, sistem mencocokkan dengan profil 10 bidang pekerjaan IT lalu
+minatnya, sistem mencocokkan dengan profil 14 bidang pekerjaan IT lalu
 mengeluarkan ranking karier, roadmap belajar, dan info prospek (gaji,
 kebutuhan pasar).
 
@@ -65,7 +65,7 @@ metode-penelitian/
 
 ## Dataset
 
-Profil 10 karier di `backend/data/pekerjaan.json` dikurasi dari dataset
+Profil 14 karier di `backend/data/pekerjaan.json` dikurasi dari dataset
 Kaggle (1.205 lowongan Indonesia dipetakan ke 10 profil; EDA di
 `backend/data/eda_summary.md`, dibuat 2026-10-10).
 
@@ -75,7 +75,7 @@ Data sekunder mentah (pembanding/validasi, per `backend/data/README.md`):
 |------|--------|-----|
 | `job_salary_mean.csv` | [kaggle.com/datasets/husnind/indonesia-average-job-salary](https://www.kaggle.com/datasets/husnind/indonesia-average-job-salary) | 32.976 lowongan Jobstreet Indonesia, **2024**, CC BY 4.0 — validasi rentang gaji |
 | `lowongan_data_dan_analytics_jobstreet.csv` | [kaggle.com/datasets/raflirizkya/indonesian-data-and-analytics-jobs-in-jobstreet](https://www.kaggle.com/datasets/raflirizkya/indonesian-data-and-analytics-jobs-in-jobstreet) | 555 lowongan Data & Analytics, **25 Agu–24 Sep 2025** — validasi skill peran data |
-| `glints_jobs.csv` | scraping tim (commit `211db6f5`, 2026-10-12) | 1.133 lowongan Glints Indonesia, diklaim **Mei–Jun 2026** — 498 terpetakan ke 10 karier via `backend/glints.py`; kolom `posted_date` hanya berisi tanggal relatif ("Kemarin", "N hari yang lalu") sehingga klaim tahun tidak bisa diverifikasi dari isi file. Detail: `docs/integrasi-glints.md` |
+| `glints_jobs.csv` | scraping tim (commit `211db6f5`, 2026-10-12) | 1.133 lowongan Glints Indonesia, diklaim **Mei–Jun 2026** — 569 terpetakan ke 14 karier via `backend/glints.py`; kolom `posted_date` hanya berisi tanggal relatif ("Kemarin", "N hari yang lalu") sehingga klaim tahun tidak bisa diverifikasi dari isi file. Detail: `docs/integrasi-glints.md` |
 
 **Penggunaan di aplikasi:** endpoint `GET /pekerjaan/{id}/lowongan`
 menampilkan contoh lowongan Glints per karier; halaman Roadmap punya

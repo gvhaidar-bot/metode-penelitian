@@ -1,6 +1,6 @@
 # Validasi Data Profil Karier terhadap Dataset Riil
 
-Tanggal: 2026-10-11. Tujuan: memvalidasi profil 10 karier (kurasi) terhadap
+Tanggal: 2026-10-11. Tujuan: memvalidasi profil 14 karier (kurasi) terhadap
 data lowongan Indonesia dari Kaggle, sebagai bukti pertanggungjawaban data
 sekunder. Dataset operasional sistem TETAP 10 profil kurasi; dataset riil
 dipakai sebagai pembanding/validasi, bukan pengganti.
@@ -17,7 +17,7 @@ dipakai sebagai pembanding/validasi, bukan pengganti.
 
 ## Metode validasi
 
-- Gaji: judul lowongan dipetakan ke 10 karier via kata kunci, lalu dihitung
+- Gaji: judul lowongan dipetakan ke 14 karier via kata kunci, lalu dihitung
   median/min/maks gaji (dalam juta IDR). Pemetaan kata kunci bersifat kasar;
   n kecil (<10) ditandai.
 - Skill: frekuensi tools pada dataset 2025 (peran data) dibandingkan dengan
