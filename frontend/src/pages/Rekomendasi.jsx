@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { getMeta, getProfil, hitungRekomendasi } from "../api.js";
-import { JudulKartu, Kartu, Kosong, TombolPrimer } from "../components/ui.jsx";
+import { JudulKartu, Kartu, Kosong, TombolPrimer, BadgeAirisk, DisclaimerData } from "../components/ui.jsx";
 
 const persen = (x) => Math.round(x * 100);
 
@@ -193,6 +193,9 @@ export default function Rekomendasi() {
                         <p className="text-sm text-muted mt-1">
                           {h.kategori} | Rp{h.gaji_min}-{h.gaji_max} jt/bulan
                         </p>
+                        <div className="mt-2">
+                          <BadgeAirisk risiko={h.ai_risk} />
+                        </div>
                       </div>
                       <p className="text-2xl font-extrabold text-primary shrink-0">
                         {persen(h.skor_akhir)}%
@@ -261,6 +264,7 @@ export default function Rekomendasi() {
               })}
             </div>
           )}
+          <DisclaimerData className="mt-6 pt-4 border-t border-line" />
         </Kartu>
       )}
     </div>

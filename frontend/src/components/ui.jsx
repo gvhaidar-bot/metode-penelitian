@@ -67,3 +67,33 @@ export function TombolPrimer({ children, ...props }) {
     </button>
   );
 }
+
+/* Badge ketahanan karier terhadap AI. Hanya informasi tampilan,
+   tidak ikut perhitungan skor. */
+const WARNA_RISIKO = {
+  rendah: "bg-success-wash text-success",
+  sedang: "bg-[#fdf6e3] text-[#b07d1e]",
+  tinggi: "bg-[#fdeeee] text-coral",
+};
+
+export function BadgeAirisk({ risiko }) {
+  if (!risiko || !risiko.level || risiko.level === "-") return null;
+  return (
+    <span
+      title={risiko.alasan || ""}
+      className={`inline-block px-3 py-1 rounded-full text-xs font-extrabold ${WARNA_RISIKO[risiko.level] || "bg-wash text-muted"}`}
+    >
+      Risiko AI: {risiko.level}
+    </span>
+  );
+}
+
+export function DisclaimerData({ className = "" }) {
+  return (
+    <p className={`text-xs text-muted leading-relaxed ${className}`}>
+      Data demand dan gaji per Juni 2026 dan dapat berubah mengikuti industri.
+      Rekomendasi ini adalah titik awal, bukan keputusan final. Tinjau ulang
+      pilihan karier Anda setiap 1-2 tahun.
+    </p>
+  );
+}

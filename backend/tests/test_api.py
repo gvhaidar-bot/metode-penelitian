@@ -301,3 +301,19 @@ def test_roc_mempengaruhi_ranking(client):
                                       "Infrastruktur & Keamanan",
                                       "Desain & Manajemen"]})
     assert r1.get_json()["hasil"][0]["id"] != r2.get_json()["hasil"][0]["id"]
+
+
+# ai_risk: info tampilan, tidak ikut hitungan
+def test_ai_risk_ikut_di_hasil(client):
+    r = _rek(client, _token(client), {"skills": ["Python"], "minat": MINAT_LENGKAP})
+    for h in r.get_json()["hasil"]:
+        assert h["ai_risk"]["level"] in ("rendah", "sedang", "tinggi")
+        assert h["ai_risk"]["alasan"]
+
+
+def test_ai_risk_tidak_mengubah_skor():
+    v1 = app_module.hitung_skor(
+        next(j for j in app_module.PEKERJAAN if j["id"] == "data-analyst"),
+        {"python"}, ["Data & AI", "Web", "Mobile",
+                     "Infrastruktur & Keamanan", "Desain & Manajemen"], 14.1)
+    assert v1["ai_risk"]["level"] == "tinggi"

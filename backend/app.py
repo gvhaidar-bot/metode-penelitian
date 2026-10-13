@@ -154,6 +154,9 @@ def hitung_skor(job: dict, skill_user: set, minat: list, max_gaji: float) -> dic
         "gaji_min": job["gaji_min"],
         "gaji_max": job["gaji_max"],
         "demand": job["demand"],
+        # Info ketahanan terhadap AI: hanya informasi tampilan,
+        # TIDAK ikut perhitungan CBF+SAW.
+        "ai_risk": job.get("ai_risk", {"level": "-", "alasan": ""}),
         "skills_cocok": cocok,
         "skills_kurang": kurang,
     }

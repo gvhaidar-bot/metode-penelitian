@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { getPekerjaan } from "../api.js";
 import { FooterPublik } from "./Landing.jsx";
-import { LogoMark } from "../components/ui.jsx";
+import { LogoMark, BadgeAirisk, DisclaimerData } from "../components/ui.jsx";
 
 export default function DataKarier() {
   const [pekerjaan, setPekerjaan] = useState(null);
@@ -47,6 +47,7 @@ export default function DataKarier() {
           skill, kategori bidang, rentang gaji, dan tingkat kebutuhan industri.
           Data inilah yang dibandingkan dengan profil Anda oleh sistem.
         </p>
+        <DisclaimerData className="mt-4 max-w-2xl" />
 
         {galat && (
           <p className="mt-6 text-sm text-red-700 bg-red-50 rounded-xl px-4 py-3">{galat}</p>
@@ -59,6 +60,9 @@ export default function DataKarier() {
                 {p.kategori}
               </p>
               <h2 className="text-lg font-extrabold text-ink mt-2">{p.nama}</h2>
+              <div className="mt-2">
+                <BadgeAirisk risiko={p.ai_risk} />
+              </div>
               <div className="flex gap-4 mt-3 text-sm">
                 <p className="text-muted">
                   <span className="font-extrabold text-ink">{p.skills.length}</span> skill
