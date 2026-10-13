@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import { getPekerjaan } from "../api.js";
+import { getMeta, getPekerjaan } from "../api.js";
 import { LogoMark } from "../components/ui.jsx";
 
 const KRITERIA = [
@@ -61,9 +61,11 @@ export function FooterPublik() {
 
 export default function Landing() {
   const [pekerjaan, setPekerjaan] = useState([]);
+  const [jmlSkill, setJmlSkill] = useState(null);
 
   useEffect(() => {
     getPekerjaan().then(setPekerjaan).catch(() => {});
+    getMeta().then((m) => setJmlSkill((m.skills || []).length)).catch(() => {});
   }, []);
 
   return (
@@ -103,7 +105,7 @@ export default function Landing() {
             ["14", "Profil karier"],
             ["2", "Metode inti"],
             ["4", "Kriteria SAW"],
-            ["100+", "Skill terdaftar"],
+            [jmlSkill === null ? "-" : String(jmlSkill), "Skill terdaftar"],
           ].map(([angka, label]) => (
             <div key={label} className="bg-card rounded-2xl border border-line p-5">
               <p className="text-3xl font-extrabold text-primary">{angka}</p>
