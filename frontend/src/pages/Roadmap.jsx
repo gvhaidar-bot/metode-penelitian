@@ -77,7 +77,7 @@ export default function Roadmap() {
   return (
     <div className="space-y-6">
       <Kartu>
-        <JudulKartu judul="Pilih karier" sub="Quest tersimpan per akun dan terbawa saat Anda masuk dari perangkat lain." />
+        <JudulKartu judul="Pilih karier" sub="Quest tersimpan di akun dan terbawa ke perangkat lain." />
         <label htmlFor="pilih-karier" className="sr-only">
           Pilih karier
         </label>

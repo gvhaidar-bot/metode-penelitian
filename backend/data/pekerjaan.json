@@ -9,13 +9,9 @@
       "Git",
       "HTML",
       "CSS",
-      "PHP",
       "API",
       "Angular",
-      "Vue.js",
-      "MySQL",
-      "Java",
-      "Laravel"
+      "Vue.js"
     ],
     "roadmap": [
       {
@@ -51,7 +47,7 @@
     ],
     "gaji_min": 7.1,
     "gaji_max": 9.1,
-    "demand": 3,
+    "demand": 4,
     "ai_risk": {
       "level": "sedang",
       "alasan": "Kode UI rutin sudah dikerjakan AI dengan baik, tetapi keputusan produk dan integrasi kompleks tetap butuh manusia."
@@ -72,8 +68,7 @@
       "PostgreSQL",
       ".NET",
       "Python",
-      "Git",
-      "HTML/CSS"
+      "Git"
     ],
     "roadmap": [
       {

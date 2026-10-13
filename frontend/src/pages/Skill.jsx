@@ -127,7 +127,7 @@ export default function Skill() {
       <Kartu>
         <JudulKartu
           judul="Usulkan skill baru"
-          sub="Tidak menemukan skill Anda di daftar? Tulis di sini, maksimal 40 karakter."
+          sub="Usulkan skill baru, maksimal 40 karakter."
         />
         <div className="flex gap-2">
           <input

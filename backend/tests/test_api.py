@@ -147,10 +147,24 @@ def test_relevansi_html_css_js_frontend_teratas(client):
               "minat": ["Web", "Mobile", "Data & AI",
                         "Infrastruktur & Keamanan",
                         "Desain & Manajemen"]})
-    # Skill web murni cocok ke frontend-dev maupun fullstack-dev
-    # (keduanya kategori Web); fullstack-dev unggul tipis via cosine
-    # karena profil skill-nya lebih ramping.
+    # Skill web murni: frontend-dev teratas (profilnya paling fokus;
+    # tokenisasi membuat "HTML/CSS" cocok dengan "HTML"+"CSS").
     assert r.get_json()["hasil"][0]["id"] in ("frontend-dev", "fullstack-dev")
+
+
+def test_relevansi_html_css_saja_frontend_teratas(client):
+    # Kasus nyata user: skill "HTML/CSS" saja (satu token garis miring),
+    # minat Web peringkat 1 -> Frontend Developer harus peringkat 1,
+    # Backend Developer tidak boleh ikut hanya karena token "HTML/CSS".
+    r = _rek(client, _token(client),
+             {"skills": ["HTML/CSS"],
+              "minat": ["Web", "Mobile", "Data & AI",
+                        "Desain & Manajemen",
+                        "Infrastruktur & Keamanan"]})
+    hasil = r.get_json()["hasil"]
+    assert hasil[0]["id"] == "frontend-dev", [h["id"] for h in hasil[:3]]
+    be = next(h for h in hasil if h["id"] == "backend-dev")
+    assert be["skor_skill"] == 0.0
 
 
 # Autentikasi

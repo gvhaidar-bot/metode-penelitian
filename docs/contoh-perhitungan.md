@@ -43,7 +43,7 @@ kriteria "minat" tiap pekerjaan dalam SAW.
 | Pekerjaan | Kategori | Jumlah skill | Gaji maks (jt) | Demand (1–5) |
 |---|---|---|---|---|
 | Data Analyst | Data & AI | 11 | 6,8 | 1 |
-| Frontend Developer | Web | 12 | 9,1 | 3 |
+| Frontend Developer | Web | 8 | 9,1 | 4 |
 
 Gaji maks seluruh dataset: 14,1 jt.
 Bobot SAW (`backend/data/bobot.json`): skill 0,45, minat 0,25,
@@ -60,7 +60,7 @@ Rumus: `cos(A,B) = |A ∩ B| / (√|A| × √|B|)`
 
 **Frontend Developer:**
 - Irisan = {} → 0
-- cos = 0 / (√2 × √12) = **0,0000**
+- cos = 0 / (√2 × √8) = **0,0000**
 
 ## Langkah 2 — SAW (4 kriteria, semua benefit)
 
@@ -78,7 +78,7 @@ Untuk minat, `r` langsung memakai bobot ROC kategori pekerjaan
 - r_skill = 0,0000
 - r_minat = 0,2567 (Web peringkat 2)
 - r_gaji = 9,1/14,1 = 0,6454
-- r_demand = 3/5 = 0,6000
+- r_demand = 4/5 = 0,8000
 
 ## Langkah 3 — Nilai preferensi & ranking
 
@@ -89,10 +89,10 @@ V = 0,45×0,4264 + 0,25×0,4567 + 0,15×0,4823 + 0,15×0,2000
   = 0,1919 + 0,1142 + 0,0723 + 0,0300 = **0,4084**
 
 **Frontend Developer:**
-V = 0,45×0,0000 + 0,25×0,2567 + 0,15×0,6454 + 0,15×0,6000
-  = 0,0000 + 0,0642 + 0,0968 + 0,0900 = **0,2510**
+V = 0,45×0,0000 + 0,25×0,2567 + 0,15×0,6454 + 0,15×0,8000
+  = 0,0000 + 0,0642 + 0,0968 + 0,1200 = **0,2810**
 
-**Ranking:** 1. Data Analyst (0,4084) > 2. Frontend Developer (0,2510).
+**Ranking:** 1. Data Analyst (0,4084) > 2. Frontend Developer (0,2810).
 
 Hasil ini konsisten dengan ekspektasi: user yang menguasai Python+SQL
 dan menaruh Data & AI di peringkat minat teratas memang paling cocok
