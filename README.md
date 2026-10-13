@@ -75,10 +75,10 @@ Data sekunder mentah (pembanding/validasi, per `backend/data/README.md`):
 |------|--------|-----|
 | `job_salary_mean.csv` | [kaggle.com/datasets/husnind/indonesia-average-job-salary](https://www.kaggle.com/datasets/husnind/indonesia-average-job-salary) | 32.976 lowongan Jobstreet Indonesia, **2024**, CC BY 4.0 — validasi rentang gaji |
 | `lowongan_data_dan_analytics_jobstreet.csv` | [kaggle.com/datasets/raflirizkya/indonesian-data-and-analytics-jobs-in-jobstreet](https://www.kaggle.com/datasets/raflirizkya/indonesian-data-and-analytics-jobs-in-jobstreet) | 555 lowongan Data & Analytics, **25 Agu–24 Sep 2025** — validasi skill peran data |
-| `glints_jobs.csv` | tidak terdokumentasi di repo | lowongan Glints (mentah) |
+| `glints_jobs.csv` | scraping tim (commit `211db6f5`, 2026-10-12) | 1.133 lowongan Glints Indonesia, diklaim **Mei–Jun 2026** — kolom `posted_date` hanya berisi tanggal relatif ("Kemarin", "N hari yang lalu") sehingga klaim tahun tidak bisa diverifikasi dari isi file |
 
-Catatan: data diambil dari **Kaggle**, bukan GitHub. Dataset terbaru
-adalah September 2025 — repo ini **belum memiliki dataset tahun 2026**.
+Catatan: data diambil dari **Kaggle**, bukan GitHub — kecuali
+`glints_jobs.csv` yang diklaim hasil scraping tim sendiri (Mei–Jun 2026).
 
 ## Prasyarat
 
