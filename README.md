@@ -65,18 +65,20 @@ metode-penelitian/
 
 ## Dataset
 
-Profil 10 karier di `backend/data/pekerjaan.json` disusun dari hasil EDA
-(`backend/data/eda_summary.md`, dibuat 2026-10-10) atas dataset lowongan:
+Profil 10 karier di `backend/data/pekerjaan.json` dikurasi dari dataset
+Kaggle (1.205 lowongan Indonesia dipetakan ke 10 profil; EDA di
+`backend/data/eda_summary.md`, dibuat 2026-10-10).
 
-- IT Jobs Asia-Pacific (Mei-Jun 2024), 32.839 lowongan — 2.290 lowongan
-  Indonesia, 1.205 terpetakan ke 10 karier
-- JobStreet Salary 2024 (rentang gaji per karier)
+Data sekunder mentah (pembanding/validasi, per `backend/data/README.md`):
 
-File mentah (`job_salary_mean.csv`, `lowongan_*_jobstreet.csv`,
-`glints_jobs.csv`) disertakan untuk keterlacakan. Catatan: repo ini
-**belum memiliki dataset tahun 2026** — angka "2026" yang muncul di file
-mentah hanya kebetulan (teks judul lowongan / digit angka gaji), bukan
-data tahun 2026.
+| File | Sumber | Isi |
+|------|--------|-----|
+| `job_salary_mean.csv` | [kaggle.com/datasets/husnind/indonesia-average-job-salary](https://www.kaggle.com/datasets/husnind/indonesia-average-job-salary) | 32.976 lowongan Jobstreet Indonesia, **2024**, CC BY 4.0 — validasi rentang gaji |
+| `lowongan_data_dan_analytics_jobstreet.csv` | [kaggle.com/datasets/raflirizkya/indonesian-data-and-analytics-jobs-in-jobstreet](https://www.kaggle.com/datasets/raflirizkya/indonesian-data-and-analytics-jobs-in-jobstreet) | 555 lowongan Data & Analytics, **25 Agu–24 Sep 2025** — validasi skill peran data |
+| `glints_jobs.csv` | tidak terdokumentasi di repo | lowongan Glints (mentah) |
+
+Catatan: data diambil dari **Kaggle**, bukan GitHub. Dataset terbaru
+adalah September 2025 — repo ini **belum memiliki dataset tahun 2026**.
 
 ## Prasyarat
 
