@@ -15,7 +15,7 @@ CSV_PATH = os.path.join(DATA_DIR, "glints_jobs.csv")
 # Kata kunci judul lowongan -> id karier di pekerjaan.json.
 # Urutan penting: pola yang lebih spesifik dicek lebih dulu.
 PEMETAAN_JUDUL = [
-    ("frontend-dev", [r"front[\s-]?end", r"\breact\b", r"\bvue\b", r"angular"]),
+    ("frontend-dev", [r"front[\s-]?end", r"\breact\b", r"\bvue\b", r"angular", "web developer", "wordpress"]),
     ("backend-dev", [r"back[\s-]?end", "golang", "laravel", r"node\.?js", r"\.net\b", "django", "spring boot"]),
     ("mobile-dev", [r"\bmobile\b", "android", r"\bios\b", "flutter", "react native", "kotlin", "swift"]),
     ("data-analyst", ["data analyst", "data analis", "business intelligence", r"\bbi\b"]),
@@ -23,12 +23,21 @@ PEMETAAN_JUDUL = [
     ("business-analyst", ["business analyst", "business analis", r"\bba\b analyst"]),
     ("system-analyst", ["system analyst", "systems analyst", "analis sistem"]),
     ("fullstack-dev", ["full stack", "fullstack", "full-stack"]),
-    ("ml-engineer", ["machine learning", r"\bml\b", "ai engineer", "data scientist", "deep learning"]),
-    ("devops-engineer", ["devops", "site reliability", r"\bsre\b", "cloud engineer"]),
+    ("ml-engineer", ["machine learning", r"\bml\b", "ai engineer", "deep learning"]),
+    ("devops-engineer", ["devops", "site reliability", r"\bsre\b"]),
+    ("cloud-engineer", ["cloud engineer", "cloud architect", "cloud specialist"]),
+    ("network-engineer", ["network engineer", "network administrator", "teknisi jaringan"]),
+    ("sysadmin", ["system administrator", "sysadmin", r"\bit administrator\b"]),
+    ("game-developer", ["game developer", "game programmer", "unity developer"]),
+    ("dba", ["database administrator", r"\bdba\b"]),
+    ("data-scientist", ["data scientist", "data science"]),
+    ("product-manager", ["product manager", "product owner"]),
+    ("it-support", ["it support", "helpdesk", "technical support"]),
+    ("embedded-engineer", ["embedded", "firmware engineer", "iot engineer"]),
     ("security-analyst", ["cyber", "information security", "penetration", "soc analyst"]),
     ("qa-engineer", ["quality assurance", "software tester", "test engineer", r"\bqa\b"]),
     ("uiux-designer", ["ui/ux", "ui ux", "product designer", "ux designer", "ui designer"]),
-    ("it-pm", ["project manager", "product manager", "scrum master"]),
+    ("it-pm", ["project manager", "scrum master", "project coordinator"]),
 ]
 
 # Untuk judul generik ("Software Engineer"), tebak dari skill di requirements.

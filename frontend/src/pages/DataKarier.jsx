@@ -43,7 +43,7 @@ export default function DataKarier() {
         </p>
         <h1 className="text-3xl font-extrabold text-ink mt-3">Data karier</h1>
         <p className="text-muted mt-3 max-w-2xl">
-          Empat belas profil karier hasil kurasi. Tiap profil memuat daftar
+          {(pekerjaan ? pekerjaan.length : 23)} profil karier hasil kurasi. Tiap profil memuat daftar
           skill, kategori bidang, rentang gaji, dan tingkat kebutuhan industri.
           Data inilah yang dibandingkan dengan profil Anda oleh sistem.
         </p>

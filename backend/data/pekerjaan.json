@@ -11,7 +11,10 @@
       "CSS",
       "API",
       "Angular",
-      "Vue.js"
+      "Vue.js",
+      "TypeScript",
+      "Next.js",
+      "jQuery"
     ],
     "roadmap": [
       {
@@ -68,7 +71,11 @@
       "PostgreSQL",
       ".NET",
       "Python",
-      "Git"
+      "Git",
+      "Go",
+      "Node.js",
+      "Laravel",
+      "Quarkus"
     ],
     "roadmap": [
       {
@@ -121,12 +128,11 @@
       "Git",
       "Java",
       "Swift",
-      "PHP",
       "Android Studio",
-      "MySQL",
-      "C#",
-      "SQL Server",
-      "Laravel"
+      "React Native",
+      "Xcode",
+      "Android Development",
+      "iOS Development"
     ],
     "roadmap": [
       {
@@ -183,7 +189,10 @@
       "SQL Server",
       "Spark",
       "Google Cloud",
-      "R"
+      "R",
+      "Statistics",
+      "Visualisasi Data",
+      "Google Sheets"
     ],
     "roadmap": [
       {
@@ -241,7 +250,8 @@
       "Hadoop",
       "API",
       "Docker",
-      "Azure"
+      "Azure",
+      "Pandas"
     ],
     "roadmap": [
       {
@@ -299,7 +309,11 @@
       "Canva",
       "Photoshop",
       "Adobe Creative Suite",
-      "Adobe Illustrator"
+      "Adobe Illustrator",
+      "UX Design",
+      "UI Design",
+      "Usability Testing",
+      "Prototyping"
     ],
     "roadmap": [
       {
@@ -357,7 +371,8 @@
       "Jenkins",
       "Git",
       "Ansible",
-      "MySQL"
+      "MySQL",
+      "Linux"
     ],
     "roadmap": [
       {
@@ -473,7 +488,9 @@
       "Git",
       "SQL",
       "JavaScript",
-      "TestNG"
+      "TestNG",
+      "Automation Testing",
+      "SDLC"
     ],
     "roadmap": [
       {
@@ -531,7 +548,13 @@
       "MS Excel",
       "Figma",
       "Python",
-      "SQL Server"
+      "SQL Server",
+      "Manajemen Proyek",
+      "Project Planning",
+      "IT Project Management",
+      "Product Analysis",
+      "Manajemen Tim",
+      "Project Coordination"
     ],
     "roadmap": [
       {
@@ -587,7 +610,8 @@
       "Linux",
       "ETL",
       "Airflow",
-      "Kafka"
+      "Kafka",
+      "Pengolahan Data"
     ],
     "roadmap": [
       {
@@ -641,7 +665,10 @@
       "Analisis Bisnis",
       "Dokumentasi",
       "UML",
-      "Komunikasi"
+      "Komunikasi",
+      "Analisis Kebutuhan",
+      "SDLC",
+      "Manajemen Proyek"
     ],
     "roadmap": [
       {
@@ -751,7 +778,9 @@
       "Git",
       "Node.js",
       "Express",
-      "MongoDB"
+      "MongoDB",
+      "Go",
+      "PostgreSQL"
     ],
     "roadmap": [
       {
@@ -792,5 +821,514 @@
       "level": "sedang",
       "alasan": "AI membantu di banyak lapisan, tetapi integrasi ujung-ke-ujung tetap butuh arsitek manusia."
     }
+  },
+  {
+    "id": "network-engineer",
+    "nama": "Network Engineer",
+    "kategori": "Infrastruktur & Keamanan",
+    "skills": [
+      "TCP/IP",
+      "Cisco",
+      "Mikrotik",
+      "Routing",
+      "Switching",
+      "VLAN",
+      "DNS",
+      "DHCP",
+      "Firewall",
+      "Wireshark",
+      "Linux",
+      "Network Troubleshooting"
+    ],
+    "gaji_min": 5.0,
+    "gaji_max": 8.0,
+    "demand": 3,
+    "ai_risk": {
+      "level": "rendah",
+      "alasan": "Jaringan fisik dan troubleshooting lapangan butuh kehadiran dan penilaian langsung."
+    },
+    "roadmap": [
+      {
+        "judul": "Kuasai TCP/IP dan subnetting",
+        "estimasi": "3 minggu",
+        "detail": "Pelajari alamat IP, subnet mask, dan cara membagi jaringan. Latihan hitung subnet sampai lancar tanpa kalkulator."
+      },
+      {
+        "judul": "Praktik routing dan switching",
+        "estimasi": "3 minggu",
+        "detail": "Pahami cara kerja router dan switch, protokol OSPF dasar, dan VLAN. Praktik dengan simulator seperti Cisco Packet Tracer."
+      },
+      {
+        "judul": "Kuasai perangkat Mikrotik/Cisco",
+        "estimasi": "2 minggu",
+        "detail": "Pelajari konfigurasi router: NAT, DHCP server, dan firewall rule. Praktik di perangkat asli atau virtual."
+      },
+      {
+        "judul": "Pelajari DNS, DHCP, dan firewall",
+        "estimasi": "2 minggu",
+        "detail": "Pahami layanan jaringan penting dan cara mengamankannya. Praktik memblokir akses berbahaya melalui firewall."
+      },
+      {
+        "judul": "Kuasai troubleshooting jaringan",
+        "estimasi": "2 minggu",
+        "detail": "Pelajari alur diagnosis: ping, traceroute, dan analisis paket dengan Wireshark. Selesaikan 5 skenario gangguan sebagai latihan."
+      },
+      {
+        "judul": "Bangun lab jaringan mini",
+        "estimasi": "3 minggu",
+        "detail": "Rancang dan bangun satu topologi jaringan kecil lengkap dengan dokumentasinya sebagai portofolio."
+      }
+    ]
+  },
+  {
+    "id": "cloud-engineer",
+    "nama": "Cloud Engineer",
+    "kategori": "Infrastruktur & Keamanan",
+    "skills": [
+      "AWS",
+      "GCP",
+      "Azure",
+      "Docker",
+      "Kubernetes",
+      "Terraform",
+      "Linux",
+      "CI/CD",
+      "IAM",
+      "Monitoring",
+      "Networking"
+    ],
+    "gaji_min": 8.0,
+    "gaji_max": 12.0,
+    "demand": 5,
+    "ai_risk": {
+      "level": "rendah",
+      "alasan": "Arsitektur cloud dan keputusan infrastruktur butuh rekayasa kompleks atas sistem yang selalu berubah."
+    },
+    "roadmap": [
+      {
+        "judul": "Kuasai Linux dan jaringan dasar",
+        "estimasi": "3 minggu",
+        "detail": "Pelajari command line, manajemen proses, SSH, serta konsep DNS dan HTTP. Ini fondasi wajib sebelum menyentuh cloud."
+      },
+      {
+        "judul": "Pelajari satu penyedia cloud",
+        "estimasi": "3 minggu",
+        "detail": "Pilih AWS, GCP, atau Azure. Pelajari layanan komputasi, penyimpanan, dan jaringannya lewat free tier."
+      },
+      {
+        "judul": "Kuasai container dan orkestrasi",
+        "estimasi": "3 minggu",
+        "detail": "Pelajari Docker lalu Kubernetes: deployment, service, dan scaling. Deploy satu aplikasi nyata ke cluster."
+      },
+      {
+        "judul": "Praktik infrastructure as code",
+        "estimasi": "3 minggu",
+        "detail": "Tulis infrastruktur sebagai kode dengan Terraform. Biasakan tidak klik manual di konsol."
+      },
+      {
+        "judul": "Pelajari keamanan cloud (IAM)",
+        "estimasi": "2 minggu",
+        "detail": "Pahami manajemen identitas dan hak akses. Praktik prinsip hak akses minimum pada satu proyek."
+      },
+      {
+        "judul": "Bangun arsitektur tiga lapis",
+        "estimasi": "3 minggu",
+        "detail": "Rancang arsitektur web tiga lapis yang scalable di cloud lengkap dengan estimasi biayanya sebagai portofolio."
+      }
+    ]
+  },
+  {
+    "id": "sysadmin",
+    "nama": "System Administrator",
+    "kategori": "Infrastruktur & Keamanan",
+    "skills": [
+      "Linux",
+      "Windows Server",
+      "Bash",
+      "Active Directory",
+      "DNS",
+      "DHCP",
+      "Backup",
+      "Virtualisasi",
+      "Troubleshooting",
+      "Monitoring",
+      "PowerShell",
+      "SSH"
+    ],
+    "gaji_min": 4.5,
+    "gaji_max": 7.0,
+    "demand": 3,
+    "ai_risk": {
+      "level": "sedang",
+      "alasan": "Tugas administrasi rutin bisa diotomasi, tetapi insiden dan konfigurasi khusus tetap butuh manusia."
+    },
+    "roadmap": [
+      {
+        "judul": "Kuasai administrasi Linux",
+        "estimasi": "3 minggu",
+        "detail": "Pelajari manajemen user, permission, proses, dan log. Praktik di VPS atau virtual machine setiap hari."
+      },
+      {
+        "judul": "Pelajari Windows Server dan AD",
+        "estimasi": "3 minggu",
+        "detail": "Pahami Active Directory: user, group policy, dan DNS Windows. Praktik di lab virtual."
+      },
+      {
+        "judul": "Otomasi dengan scripting",
+        "estimasi": "2 minggu",
+        "detail": "Pelajari Bash dan PowerShell untuk mengotomasi tugas rutin seperti backup dan laporan."
+      },
+      {
+        "judul": "Kuasai backup dan recovery",
+        "estimasi": "2 minggu",
+        "detail": "Pelajari strategi backup 3-2-1 dan praktik restore sampai berhasil, bukan sekadar teori."
+      },
+      {
+        "judul": "Pelajari virtualisasi",
+        "estimasi": "2 minggu",
+        "detail": "Pahami hypervisor dan buat beberapa VM yang saling terhubung sebagai mini data center."
+      },
+      {
+        "judul": "Terapkan monitoring",
+        "estimasi": "2 minggu",
+        "detail": "Pasang pemantauan server (CPU, disk, layanan) dengan alert agar masalah ketahuan sebelum user komplain."
+      }
+    ]
+  },
+  {
+    "id": "game-developer",
+    "nama": "Game Developer",
+    "kategori": "Mobile",
+    "skills": [
+      "Unity",
+      "C#",
+      "Unreal Engine",
+      "C++",
+      "Game Design",
+      "Git",
+      "3D Modeling",
+      "Physics Engine",
+      "Debugging",
+      "Mobile Game"
+    ],
+    "gaji_min": 6.0,
+    "gaji_max": 10.0,
+    "demand": 3,
+    "ai_risk": {
+      "level": "rendah",
+      "alasan": "Kreativitas, game feel, dan desain pengalaman bermain sulit diotomasi."
+    },
+    "roadmap": [
+      {
+        "judul": "Kuasai C# dasar",
+        "estimasi": "3 minggu",
+        "detail": "Pelajari sintaks C#, OOP, dan koleksi data. Fondasi ini dipakai penuh di Unity."
+      },
+      {
+        "judul": "Pelajari dasar Unity",
+        "estimasi": "3 minggu",
+        "detail": "Pahami scene, game object, komponen, dan physics. Ikuti satu tutorial game 2D sampai selesai."
+      },
+      {
+        "judul": "Pahami game mechanics",
+        "estimasi": "2 minggu",
+        "detail": "Pelajari loop gameplay, difficulty curve, dan feedback ke pemain. Analisis 3 game favoritmu."
+      },
+      {
+        "judul": "Buat game 2D pertamamu",
+        "estimasi": "4 minggu",
+        "detail": "Buat satu game 2D sederhana yang bisa dimainkan dari awal sampai akhir, bukan sekadar prototype."
+      },
+      {
+        "judul": "Pelajari build dan publikasi",
+        "estimasi": "2 minggu",
+        "detail": "Pelajari proses build ke Android/Web dan publikasi ke itch.io atau Play Store."
+      },
+      {
+        "judul": "Bangun portofolio game",
+        "estimasi": "3 minggu",
+        "detail": "Poles satu game terbaikmu dan tulis devlog-nya. Satu game jadi lebih berharga dari lima prototype."
+      }
+    ]
+  },
+  {
+    "id": "dba",
+    "nama": "Database Administrator",
+    "kategori": "Data & AI",
+    "skills": [
+      "SQL",
+      "PostgreSQL",
+      "MySQL",
+      "SQL Server",
+      "Oracle",
+      "Backup & Recovery",
+      "Query Tuning",
+      "Replication",
+      "Linux",
+      "Monitoring"
+    ],
+    "gaji_min": 6.0,
+    "gaji_max": 9.0,
+    "demand": 3,
+    "ai_risk": {
+      "level": "sedang",
+      "alasan": "Monitoring rutin bisa diotomasi, tetapi tuning performa dan recovery kritis butuh pengalaman."
+    },
+    "roadmap": [
+      {
+        "judul": "Kuasai SQL tingkat lanjut",
+        "estimasi": "3 minggu",
+        "detail": "Pelajari join kompleks, subquery, window function, dan CTE sampai bisa menulis query analitik."
+      },
+      {
+        "judul": "Administrasi PostgreSQL/MySQL",
+        "estimasi": "3 minggu",
+        "detail": "Pelajari instalasi, konfigurasi, user dan permission. Praktik di server lokal."
+      },
+      {
+        "judul": "Kuasai backup dan recovery",
+        "estimasi": "2 minggu",
+        "detail": "Pelajari full, incremental backup dan praktik restore database sampai berhasil."
+      },
+      {
+        "judul": "Pelajari replikasi",
+        "estimasi": "2 minggu",
+        "detail": "Pahami replikasi master-slave untuk ketersediaan tinggi. Praktik failover sederhana."
+      },
+      {
+        "judul": "Kuasai query tuning",
+        "estimasi": "3 minggu",
+        "detail": "Pelajari index, execution plan, dan cara membaca query lambat. Optimasi 5 query nyata."
+      },
+      {
+        "judul": "Terapkan monitoring database",
+        "estimasi": "2 minggu",
+        "detail": "Pasang pemantauan koneksi, slow query, dan kapasitas disk dengan alert otomatis."
+      }
+    ]
+  },
+  {
+    "id": "data-scientist",
+    "nama": "Data Scientist",
+    "kategori": "Data & AI",
+    "skills": [
+      "Python",
+      "R",
+      "Statistics",
+      "Machine Learning",
+      "Pandas",
+      "SQL",
+      "Data Visualization",
+      "A/B Testing",
+      "Jupyter",
+      "Scikit-learn"
+    ],
+    "gaji_min": 8.0,
+    "gaji_max": 13.0,
+    "demand": 4,
+    "ai_risk": {
+      "level": "rendah",
+      "alasan": "Framing masalah bisnis menjadi eksperimen statistik butuh penilaian mendalam."
+    },
+    "roadmap": [
+      {
+        "judul": "Kuasai statistika dasar",
+        "estimasi": "4 minggu",
+        "detail": "Pelajari distribusi, uji hipotesis, dan regresi. Ini pembeda utama data scientist dari analis biasa."
+      },
+      {
+        "judul": "Kuasai Python untuk data",
+        "estimasi": "3 minggu",
+        "detail": "Pelajari Pandas, NumPy, dan Jupyter untuk eksplorasi data. Kerjakan 3 dataset publik."
+      },
+      {
+        "judul": "Pelajari machine learning",
+        "estimasi": "4 minggu",
+        "detail": "Pahami regresi, klasifikasi, dan evaluasi model dengan Scikit-learn. Fokus pada kapan memakai apa."
+      },
+      {
+        "judul": "Kuasai eksperimen A/B",
+        "estimasi": "2 minggu",
+        "detail": "Pelajari desain eksperimen dan cara membaca hasilnya dengan benar agar keputusan tidak menyesatkan."
+      },
+      {
+        "judul": "Pelajari visualisasi dan storytelling",
+        "estimasi": "2 minggu",
+        "detail": "Latihan mengubah angka menjadi cerita yang dimengerti non-teknis. Buat satu dashboard yang komunikatif."
+      },
+      {
+        "judul": "Selesaikan proyek end-to-end",
+        "estimasi": "4 minggu",
+        "detail": "Ambil satu masalah bisnis, olah datanya, bangun model, dan presentasikan hasilnya sebagai portofolio."
+      }
+    ]
+  },
+  {
+    "id": "product-manager",
+    "nama": "Product Manager",
+    "kategori": "Desain & Manajemen",
+    "skills": [
+      "Product Strategy",
+      "Roadmap",
+      "Agile",
+      "User Research",
+      "Analytics",
+      "Prioritization",
+      "Stakeholder Management",
+      "SQL",
+      "Figma",
+      "Komunikasi"
+    ],
+    "gaji_min": 9.0,
+    "gaji_max": 14.0,
+    "demand": 4,
+    "ai_risk": {
+      "level": "rendah",
+      "alasan": "Strategi produk, negosiasi stakeholder, dan akuntabilitas adalah pekerjaan antarmanusia."
+    },
+    "roadmap": [
+      {
+        "judul": "Pahami peran product manager",
+        "estimasi": "2 minggu",
+        "detail": "Pelajari beda PM, project manager, dan product owner. Baca 2 buku klasik: Inspired dan Hooked."
+      },
+      {
+        "judul": "Pelajari riset pengguna",
+        "estimasi": "3 minggu",
+        "detail": "Praktik wawancara user dan susun persona. Riset 5 pengguna untuk satu aplikasi yang kamu pakai."
+      },
+      {
+        "judul": "Kuasai analytics dasar",
+        "estimasi": "3 minggu",
+        "detail": "Pelajari metrik produk (retensi, konversi) dan SQL dasar untuk menjawab pertanyaan bisnis dari data."
+      },
+      {
+        "judul": "Pelajari framework prioritization",
+        "estimasi": "2 minggu",
+        "detail": "Pahami RICE dan MoSCoW. Latihan memprioritaskan 20 fitur fiktif dengan alasan tertulis."
+      },
+      {
+        "judul": "Tulis PRD pertamamu",
+        "estimasi": "2 minggu",
+        "detail": "Tulis dokumen requirement produk lengkap: latar belakang, user story, dan kriteria sukses."
+      },
+      {
+        "judul": "Buat studi kasus produk",
+        "estimasi": "3 minggu",
+        "detail": "Analisis satu produk nyata: apa yang salah dan bagaimana kamu memperbaikinya. Jadi portofolio PM."
+      }
+    ]
+  },
+  {
+    "id": "it-support",
+    "nama": "IT Support",
+    "kategori": "Infrastruktur & Keamanan",
+    "skills": [
+      "Troubleshooting",
+      "Windows",
+      "Linux",
+      "TCP/IP",
+      "Helpdesk",
+      "Active Directory",
+      "Hardware Maintenance",
+      "Ticketing",
+      "Komunikasi",
+      "MS Office"
+    ],
+    "gaji_min": 4.0,
+    "gaji_max": 6.0,
+    "demand": 3,
+    "ai_risk": {
+      "level": "tinggi",
+      "alasan": "Troubleshooting level 1 sangat mudah diotomasi chatbot dan skrip."
+    },
+    "roadmap": [
+      {
+        "judul": "Kuasai dasar komputer dan OS",
+        "estimasi": "2 minggu",
+        "detail": "Pahami cara kerja Windows dan Linux dari sisi user sampai administrasi dasar."
+      },
+      {
+        "judul": "Pelajari jaringan dasar",
+        "estimasi": "3 minggu",
+        "detail": "Pahami IP, DNS, dan WiFi. 80% tiket support berkaitan dengan jaringan."
+      },
+      {
+        "judul": "Kuasai metode troubleshooting",
+        "estimasi": "2 minggu",
+        "detail": "Pelajari alur diagnosis sistematis: identifikasi, isolasi, solusi, dokumentasi."
+      },
+      {
+        "judul": "Praktik sistem ticketing",
+        "estimasi": "2 minggu",
+        "detail": "Pelajari alur helpdesk: terima tiket, prioritaskan, eskalasi. Praktik dengan tools open source."
+      },
+      {
+        "judul": "Kelola user dan akses",
+        "estimasi": "2 minggu",
+        "detail": "Pelajari reset password, manajemen akun, dan Active Directory dasar."
+      },
+      {
+        "judul": "Siapkan sertifikasi dasar",
+        "estimasi": "4 minggu",
+        "detail": "Pelajari materi CompTIA A+ atau setara sebagai bukti kompetensi saat melamar."
+      }
+    ]
+  },
+  {
+    "id": "embedded-engineer",
+    "nama": "Embedded Systems Engineer",
+    "kategori": "Infrastruktur & Keamanan",
+    "skills": [
+      "C",
+      "C++",
+      "Mikrokontroler",
+      "Arduino",
+      "Raspberry Pi",
+      "RTOS",
+      "IoT",
+      "Elektronika Dasar",
+      "Git",
+      "Debugging"
+    ],
+    "gaji_min": 6.0,
+    "gaji_max": 10.0,
+    "demand": 2,
+    "ai_risk": {
+      "level": "rendah",
+      "alasan": "Pemrograman perangkat keras dan debugging sistem tertanam butuh keahlian khusus."
+    },
+    "roadmap": [
+      {
+        "judul": "Pelajari elektronika dasar",
+        "estimasi": "3 minggu",
+        "detail": "Pahami tegangan, arus, resistor, dan cara membaca datasheet komponen."
+      },
+      {
+        "judul": "Kuasai C untuk mikrokontroler",
+        "estimasi": "4 minggu",
+        "detail": "Pelajari C dengan fokus memori terbatas: pointer, bit operation, dan interrupt."
+      },
+      {
+        "judul": "Praktik dengan Arduino",
+        "estimasi": "3 minggu",
+        "detail": "Buat 5 proyek: sensor suhu, motor, display, dan komunikasi serial."
+      },
+      {
+        "judul": "Pelajari RTOS",
+        "estimasi": "3 minggu",
+        "detail": "Pahami multitasking di perangkat kecil dengan FreeRTOS: task, queue, dan semaphore."
+      },
+      {
+        "judul": "Bangun proyek IoT",
+        "estimasi": "3 minggu",
+        "detail": "Buat perangkat IoT yang kirim data sensor ke cloud via MQTT sampai bisa dimonitor dari HP."
+      },
+      {
+        "judul": "Dokumentasikan proyekmu",
+        "estimasi": "2 minggu",
+        "detail": "Tulis skematik, kode, dan demo video satu proyek terbaik sebagai portofolio."
+      }
+    ]
   }
 ]
