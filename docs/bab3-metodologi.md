@@ -47,7 +47,10 @@ bukan dikumpulkan langsung oleh peneliti):
 - **Basis data:** tabel `kategori`, `pekerjaan`, `skill`,
   `pekerjaan_skill`, `roadmap` (lihat `backend/schema.sql`).
 - **Alur rekomendasi:**
-  1. Pengguna memilih skill + menilai minat per kategori (1–5).
+  1. Pengguna memilih skill + mengurutkan lima kategori minat dari yang
+     paling diminati (ranking, tanpa angka). Urutan ini dikonversi menjadi
+     bobot kriteria minat memakai Rank Order Centroid (Barron & Barrett),
+     sehingga pengguna tidak perlu menginput angka sama sekali.
   2. Sistem menghitung cosine similarity antara vektor skill pengguna
      dan vektor profil skill tiap pekerjaan.
   3. Metode SAW menggabungkan empat kriteria berbobot:

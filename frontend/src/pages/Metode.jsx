@@ -118,13 +118,13 @@ export default function Metode() {
             <div className="bg-wash rounded-xl p-4">
               <p className="font-extrabold text-ink">Frontend Developer</p>
               <p className="text-muted mt-1 font-mono text-xs sm:text-sm">
-                V = 0,45×0,0000 + 0,25×0,2567 + 0,15×0,6454 + 0,15×0,6000 = 0,2510
+                V = 0,45×0,0000 + 0,25×0,2567 + 0,15×0,6454 + 0,15×0,8000 = 0,2810
               </p>
             </div>
           </div>
           <p className="text-sm text-muted mt-4">
             Peringkat: <span className="font-bold text-ink">1. Data Analyst (0,4084)</span> di
-            atas Frontend Developer (0,2510), sesuai skill dan minat pengguna.
+            atas Frontend Developer (0,2810), sesuai skill dan minat pengguna.
           </p>
         </section>
 

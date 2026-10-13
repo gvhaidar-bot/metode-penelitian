@@ -22,7 +22,7 @@ di file `.env`, contoh: `VITE_API_URL=https://api.contoh.id`).
 |---|---|---|
 | `/` | Beranda penelitian (judul, metode, data karier) | — |
 | `/metode` | Penjelasan metode CBF + SAW + contoh hitungan | — |
-| `/data` | 14 profil karier | — |
+| `/data` | 23 profil karier | — |
 | `/masuk` | Masuk / daftar akun | — |
 | `/dashboard` | Ringkasan + rekomendasi terakhir | Ya |
 | `/skill` | Skill Saya: cari, pilih, dan usulkan skill | Ya |

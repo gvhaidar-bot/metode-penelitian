@@ -47,8 +47,8 @@ karier yang direkomendasikan.
 1. Cakupan 23 bidang pekerjaan IT populer di Indonesia.
 2. Data lowongan dan gaji berasal dari dataset Kaggle tahun 2024
    (snapshot, bukan data real-time).
-3. Input sistem berupa skill yang dipilih pengguna dan nilai minat
-   per kategori (skala 1–5); sistem tidak menilai kemampuan secara langsung.
+3. Input sistem berupa skill yang dipilih pengguna dan urutan minat
+   lima kategori (ranking, tanpa angka); sistem tidak menilai kemampuan secara langsung.
 4. Pengujian dilakukan secara black-box (13 test case), evaluasi relevansi
    rekomendasi berbasis skenario, dan analisis sensitivitas bobot SAW.
 
