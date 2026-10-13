@@ -16,7 +16,12 @@ const Roadmap = () => {
 
   // Karier aktif mengikuti query param (?karier=...) agar selalu sinkron
   // dengan URL, termasuk saat navigasi dari halaman hasil rekomendasi.
-  const aktif = params.get("karier") || (daftar[0] ? daftar[0].id : "");
+  // Bila id tidak dikenal, fallback ke karier pertama agar halaman
+  // tidak kosong.
+  const paramId = params.get("karier");
+  const aktif = daftar.some((p) => p.id === paramId)
+    ? paramId
+    : (daftar[0] ? daftar[0].id : "");
 
   const job = daftar.find((p) => p.id === aktif);
 

@@ -160,3 +160,8 @@ def test_auth_me_dan_logout(client):
     assert client.get("/auth/me", headers=h).status_code == 200
     assert client.post("/auth/logout", headers=h).status_code == 200
     assert client.get("/auth/me", headers=h).status_code == 401
+
+
+def test_auth_logout_tanpa_token_ditolak(client):
+    assert client.post("/auth/logout").status_code == 401
+    assert client.post("/auth/logout", headers={"Authorization": "Bearer salah"}).status_code == 401
