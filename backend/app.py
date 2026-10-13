@@ -226,6 +226,9 @@ def auth_me():
 
 @app.post("/auth/logout")
 def auth_logout():
+    ditolak = _butuh_login()
+    if ditolak:
+        return ditolak
     token = auth.token_dari_header(request.headers.get("Authorization", ""))
     hasil, (_, status) = auth.logout(token)
     return jsonify(hasil), status

@@ -52,6 +52,14 @@ async function panggil(path, options = {}) {
   }
   const data = await res.json().catch(() => ({}));
   if (!res.ok) {
+    if (res.status === 401) {
+      // Token basi/invalid: bersihkan sesi dan kembalikan ke halaman login.
+      hapusSesi();
+      if (window.location.pathname !== "/") {
+        window.location.href = "/";
+      }
+      throw new Error("Sesi berakhir. Silakan masuk lagi.");
+    }
     throw new Error(data.detail || "Backend mengembalikan status " + res.status + ".");
   }
   return data;
@@ -104,4 +112,10 @@ export async function keluarAkun() {
     /* abaikan: token kedaluwarsa tetap dibersihkan lokal */
   }
   hapusSesi();
+}
+
+/** Verifikasi token yang tersimpan ke backend; null bila tidak valid. */
+export async function cekSesi() {
+  const data = await panggil("/auth/me");
+  return data.user || null;
 }

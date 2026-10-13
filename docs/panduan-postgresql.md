@@ -33,7 +33,7 @@ Ganti `PASSWORD` dengan password PostgreSQL-mu. Di PowerShell:
 ## 5. Jalankan backend
 ```bash
 set DATABASE_URL=postgresql+psycopg2://postgres:PASSWORD@localhost/karier_it
-flask --app app run --debug --port 8000
+flask --app app run --port 8000
 ```
 Buka http://localhost:8000/pekerjaan untuk mencoba endpoint.
 
