@@ -85,6 +85,23 @@ def normalisasi(skill: str) -> str:
     return skill.strip().lower()
 
 
+def tokenisasi(skill: str) -> set:
+    """Pecah satu nama skill menjadi token: 'HTML/CSS' -> {'html', 'css'}.
+
+    Menangani inkonsistensi penulisan data ('HTML/CSS' di satu profil
+    vs 'HTML' + 'CSS' di profil lain) agar pencocokan adil.
+    """
+    return {t for t in (p.strip().lower() for p in str(skill).split("/")) if t}
+
+
+def token_skill(daftar) -> set:
+    """Gabungan token dari sekumpulan nama skill."""
+    token = set()
+    for s in daftar:
+        token |= tokenisasi(s)
+    return token
+
+
 def cosine_similarity(skill_user: set, skill_job: set) -> float:
     """Cosine similarity antara himpunan skill user dan skill pekerjaan.
 
@@ -118,14 +135,22 @@ def bobot_roc(urutan):
 
 
 def hitung_skor(job: dict, skill_user: set, minat: list, max_gaji: float) -> dict:
-    skills_job = {normalisasi(s) for s in job["skills"]}
+    # Pencocokan memakai token (lihat tokenisasi) agar 'HTML/CSS'
+    # tetap cocok dengan 'HTML' + 'CSS'.
+    token_user = token_skill(skill_user)
+    token_job = token_skill(job["skills"])
+    # Petakan token ke penulisan asli untuk tampilan.
+    asli_job = {}
+    for s in job["skills"]:
+        for t in tokenisasi(s):
+            asli_job.setdefault(t, s)
 
     # Minat diinput sebagai ranking 5 kategori (tanpa angka), lalu
     # dikonversi ke bobot via Rank Order Centroid.
     bobot_minat = bobot_roc(minat or [])
     skor_minat = bobot_minat.get(job["kategori"].strip().lower(), 0.0)
 
-    skor_skill = cosine_similarity(skill_user, skills_job)
+    skor_skill = cosine_similarity(token_user, token_job)
     # Normalisasi SAW baku untuk kriteria benefit: x / max(x).
     # max_gaji dihitung per request dari data aktif agar tidak basi bila
     # data berubah tanpa restart server.
@@ -139,8 +164,8 @@ def hitung_skor(job: dict, skill_user: set, minat: list, max_gaji: float) -> dic
         + BOBOT["demand"] * skor_demand
     )
 
-    cocok = sorted(skill_user & skills_job)
-    kurang = sorted(skills_job - skill_user)
+    cocok = sorted({asli_job[t] for t in token_user & token_job})
+    kurang = sorted({asli_job[t] for t in token_job - token_user})
 
     return {
         "id": job["id"],

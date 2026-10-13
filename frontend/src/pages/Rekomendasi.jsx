@@ -91,7 +91,7 @@ export default function Rekomendasi() {
       <Kartu>
         <JudulKartu
           judul="Skill Anda"
-          sub="Diambil dari profil. Hasil dihitung dari skill ini."
+          sub="Diambil dari profil Skill Saya."
         />
         {skills.length > 0 ? (
           <div className="flex flex-wrap gap-2">
@@ -121,7 +121,7 @@ export default function Rekomendasi() {
       <Kartu>
         <JudulKartu
           judul="Urutan minat"
-          sub="Bidang apa yang paling Anda sukai? Pakai tombol panah untuk menaikkan atau menurunkan. Tidak perlu memberi angka."
+          sub="Urutkan dari bidang yang paling Anda sukai."
         />
         <ol className="space-y-2">
           {minat.map((k, i) => (
@@ -174,7 +174,7 @@ export default function Rekomendasi() {
         <Kartu>
           <JudulKartu
             judul="Hasil rekomendasi"
-            sub="Peringkat lima karier dengan skor kecocokan tertinggi, dihitung dengan Content-Based Filtering + SAW."
+            sub="Lima karier dengan skor tertinggi."
           />
           {hasil.length === 0 ? (
             <Kosong judul="Tidak ada hasil" sub="Coba ubah skill atau urutan minat Anda." />

@@ -154,7 +154,7 @@ export default function Dashboard() {
         ) : (
           <Kosong
             judul="Belum ada rekomendasi"
-            sub="Hasil perhitungan akan muncul di sini setelah Anda menjalankan rekomendasi pertama."
+            sub="Jalankan rekomendasi pertama untuk melihat hasil."
           />
         )}
       </Kartu>
@@ -187,7 +187,7 @@ export default function Dashboard() {
         ) : (
           <Kosong
             judul="Belum ada quest yang dikerjakan"
-            sub="Buka halaman Roadmap, pilih karier, lalu tandai langkah yang sudah Anda selesaikan."
+            sub="Tandai quest yang selesai di halaman Roadmap."
           />
         )}
       </Kartu>

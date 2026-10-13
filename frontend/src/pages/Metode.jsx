@@ -95,12 +95,10 @@ export default function Metode() {
         <section className="bg-card rounded-2xl border border-line p-6 sm:p-8">
           <h2 className="text-xl font-extrabold text-ink">Informasi ketahanan terhadap AI</h2>
           <p className="text-sm text-muted mt-3 leading-relaxed">
-            Setiap karier juga diberi label ketahanan terhadap otomasi AI
-            (rendah, sedang, atau tinggi) beserta alasannya. Label ini hanya
-            informasi tambahan untuk bahan pertimbangan dan{" "}
-            <span className="font-bold text-ink">tidak ikut dalam perhitungan
-            Content-Based Filtering maupun SAW</span>, sehingga metode
-            penelitian tetap dua seperti judul.
+            Setiap karier punya label ketahanan terhadap AI
+            (rendah/sedang/tinggi). Label ini hanya informasi tambahan dan{" "}
+            <span className="font-bold text-ink">tidak ikut perhitungan</span>,
+            sehingga metode tetap dua.
           </p>
         </section>
 

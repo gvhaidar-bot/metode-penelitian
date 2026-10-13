@@ -43,7 +43,7 @@ export default function Riwayat() {
         <Kartu>
           <Kosong
             judul="Belum ada riwayat"
-            sub="Setiap hasil rekomendasi tersimpan otomatis di sini setelah Anda menekan Hitung Rekomendasi."
+            sub="Hasil rekomendasi tersimpan otomatis di sini."
           />
           <div className="text-center mt-2">
             <Link

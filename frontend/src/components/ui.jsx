@@ -91,9 +91,8 @@ export function BadgeAirisk({ risiko }) {
 export function DisclaimerData({ className = "" }) {
   return (
     <p className={`text-xs text-muted leading-relaxed ${className}`}>
-      Data demand dan gaji per Juni 2026 dan dapat berubah mengikuti industri.
-      Rekomendasi ini adalah titik awal, bukan keputusan final. Tinjau ulang
-      pilihan karier Anda setiap 1-2 tahun.
+      Data demand dan gaji per Juni 2026. Rekomendasi ini titik awal,
+      bukan keputusan final; tinjau ulang tiap 1-2 tahun.
     </p>
   );
 }
