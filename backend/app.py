@@ -34,7 +34,7 @@ import auth
 
 app = Flask(__name__)
 
-# --- Konfigurasi aman-by-default -------------------------------------------
+# Konfigurasi: aman secara default (debug mati, CORS dibatasi)
 DEBUG = os.environ.get("FLASK_DEBUG", "").strip() == "1"
 PORT = int(os.environ.get("PORT", "8000"))
 _origins = [o.strip() for o in

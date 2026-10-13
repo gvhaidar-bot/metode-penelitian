@@ -4,7 +4,8 @@ import Dashboard from "./pages/Dashboard";
 import Rekomendasi from "./pages/Rekomendasi";
 import Roadmap from "./pages/Roadmap";
 import Riwayat from "./pages/Riwayat";
-import { AuthProvider, ProtectedRoute } from "./auth";
+import { AuthProvider } from "./auth";
+import { ProtectedRoute } from "./ProtectedRoute";
 
 const App = () => {
   return (

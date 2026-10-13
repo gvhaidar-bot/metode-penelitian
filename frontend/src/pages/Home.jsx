@@ -35,110 +35,129 @@ const Home = () => {
     }
   };
 
-  const inputCls =
-    "w-full bg-transparent text-white placeholder-white/80 border-none outline-none pr-5";
+  const field =
+    "w-full h-12 px-5 rounded-xl bg-white border border-stone-200 text-ink placeholder-stone-400 outline-none focus:border-pine-600 focus:ring-2 focus:ring-pine-100 transition";
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-600 via-blue-400 to-blue-50 relative overflow-hidden px-4">
-      <form
-        onSubmit={handleSubmit}
-        className="w-full max-w-md text-center bg-white/20 backdrop-blur-lg border border-white/30 shadow-2xl rounded-3xl p-8 z-10"
-      >
-        <h1 className="text-white text-3xl font-semibold tracking-wide">
-          {mode === "login" ? "Masuk" : "Daftar"}
-        </h1>
-        <p className="text-white/80 text-sm mt-2 mb-8">
-          {mode === "login"
-            ? "Silakan masuk untuk melanjutkan"
-            : "Buat akun untuk memulai"}
-        </p>
-
-        {error && (
-          <div className="mb-4 text-sm text-left bg-red-500/20 border border-red-200/40 text-white rounded-2xl px-4 py-3">
-            {error}
+    <div className="min-h-screen flex">
+      {/* Panel kiri: brand */}
+      <div className="hidden lg:flex w-[44%] bg-pine-900 text-white flex-col justify-between p-12 relative overflow-hidden">
+        <div
+          className="absolute inset-0 opacity-10"
+          style={{
+            backgroundImage:
+              "radial-gradient(circle at 20% 30%, #e8a93d 0, transparent 40%), radial-gradient(circle at 80% 70%, #1e7a5c 0, transparent 45%)",
+          }}
+        />
+        <div className="relative">
+          <div className="flex items-center gap-3 mb-16">
+            <div className="w-11 h-11 rounded-xl bg-gold-400 flex items-center justify-center">
+              <svg className="w-6 h-6 text-pine-900" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth="2.4">
+                <path strokeLinecap="round" strokeLinejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z" />
+              </svg>
+            </div>
+            <p className="font-extrabold text-lg leading-tight">KarierKu<br />Informatika</p>
           </div>
-        )}
+          <h1 className="text-4xl font-extrabold leading-tight mb-4">
+            Bingung mau jadi apa setelah lulus?
+          </h1>
+          <p className="text-pine-100/90 leading-relaxed max-w-md">
+            Masukkan skill dan minatmu, sistem akan mencocokkannya dengan
+            profil 10 bidang pekerjaan IT dan memberi tahu karier yang
+            paling cocok — lengkap dengan roadmap belajarnya.
+          </p>
+        </div>
+        <ul className="relative space-y-3 text-sm text-pine-100/90">
+          {["Ranking karier berbasis kecocokan skill", "Roadmap belajar tiap bidang", "Info gaji & kebutuhan pasar"].map((t) => (
+            <li key={t} className="flex items-center gap-3">
+              <span className="w-6 h-6 rounded-full bg-pine-700 flex items-center justify-center shrink-0">
+                <svg className="w-3.5 h-3.5 text-gold-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth="3">
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
+                </svg>
+              </span>
+              {t}
+            </li>
+          ))}
+        </ul>
+      </div>
 
-        {mode !== "login" && (
-          <div className="mb-4">
-            <label htmlFor="nama" className="sr-only">Nama lengkap</label>
-            <div className="flex items-center w-full bg-white/20 ring-1 ring-white/30 focus-within:ring-white h-12 rounded-full overflow-hidden pl-5 gap-3 transition-all shadow-inner">
+      {/* Panel kanan: form */}
+      <div className="flex-1 flex items-center justify-center p-6 sm:p-10">
+        <form onSubmit={handleSubmit} className="w-full max-w-md">
+          <div className="lg:hidden flex items-center gap-3 mb-8">
+            <div className="w-10 h-10 rounded-xl bg-pine-800 flex items-center justify-center">
+              <svg className="w-5 h-5 text-gold-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth="2.4">
+                <path strokeLinecap="round" strokeLinejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z" />
+              </svg>
+            </div>
+            <p className="font-extrabold leading-tight">KarierKu<br />Informatika</p>
+          </div>
+
+          <h2 className="text-3xl font-extrabold mb-2">
+            {mode === "login" ? "Selamat datang kembali" : "Buat akun baru"}
+          </h2>
+          <p className="text-stone-500 mb-8">
+            {mode === "login"
+              ? "Masuk untuk melihat rekomendasi kariermu."
+              : "Daftar dulu, gratis — cuma butuh semenit."}
+          </p>
+
+          {error && (
+            <div className="mb-5 text-sm bg-red-50 border border-red-200 text-red-700 rounded-xl px-4 py-3">
+              {error}
+            </div>
+          )}
+
+          {mode !== "login" && (
+            <div className="mb-4">
+              <label htmlFor="nama" className="block text-sm font-semibold mb-1.5">Nama lengkap</label>
               <input
-                id="nama"
-                type="text"
-                name="nama"
-                autoComplete="name"
-                placeholder="Nama lengkap"
-                className={inputCls}
-                value={nama}
-                onChange={(e) => setNama(e.target.value)}
-                required
+                id="nama" type="text" name="nama" autoComplete="name"
+                placeholder="cth. Budi Santoso" className={field}
+                value={nama} onChange={(e) => setNama(e.target.value)} required
               />
             </div>
-          </div>
-        )}
+          )}
 
-        <div className="mb-4">
-          <label htmlFor="email" className="sr-only">Alamat email</label>
-          <div className="flex items-center w-full bg-white/20 ring-1 ring-white/30 focus-within:ring-white h-12 rounded-full overflow-hidden pl-5 gap-3 transition-all shadow-inner">
+          <div className="mb-4">
+            <label htmlFor="email" className="block text-sm font-semibold mb-1.5">Email</label>
             <input
-              id="email"
-              type="email"
-              name="email"
-              autoComplete="email"
-              placeholder="Alamat email"
-              className={inputCls}
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              required
+              id="email" type="email" name="email" autoComplete="email"
+              placeholder="cth. budi@email.com" className={field}
+              value={email} onChange={(e) => setEmail(e.target.value)} required
             />
           </div>
-        </div>
 
-        <div className="mb-6">
-          <label htmlFor="password" className="sr-only">Kata sandi</label>
-          <div className="flex items-center w-full bg-white/20 ring-1 ring-white/30 focus-within:ring-white h-12 rounded-full overflow-hidden pl-5 gap-3 transition-all shadow-inner">
+          <div className="mb-6">
+            <label htmlFor="password" className="block text-sm font-semibold mb-1.5">Kata sandi</label>
             <input
-              id="password"
-              type="password"
-              name="password"
+              id="password" type="password" name="password"
               autoComplete={mode === "login" ? "current-password" : "new-password"}
-              placeholder="Kata sandi (min. 6 karakter)"
-              className={inputCls}
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              required
-              minLength={6}
+              placeholder="Minimal 6 karakter" className={field}
+              value={password} onChange={(e) => setPassword(e.target.value)}
+              required minLength={6}
             />
           </div>
-        </div>
 
-        <button
-          type="submit"
-          disabled={loading}
-          className="w-full h-12 rounded-full text-blue-600 font-semibold bg-white hover:bg-blue-50 hover:shadow-lg transition-all shadow-md disabled:opacity-70"
-        >
-          {loading ? "Memproses..." : mode === "login" ? "Masuk" : "Buat Akun"}
-        </button>
-
-        <p className="text-white text-sm mt-6 mb-2">
-          {mode === "login" ? "Belum punya akun? " : "Sudah punya akun? "}
           <button
-            type="button"
-            onClick={() => {
-              setMode((m) => (m === "login" ? "register" : "login"));
-              setError(null);
-            }}
-            className="text-blue-100 font-medium hover:text-white hover:underline transition ml-1"
+            type="submit" disabled={loading}
+            className="w-full h-12 rounded-xl bg-pine-800 hover:bg-pine-700 disabled:opacity-60 text-white font-bold transition active:scale-[0.99]"
           >
-            {mode === "login" ? "Daftar di sini" : "Masuk di sini"}
+            {loading ? "Memproses..." : mode === "login" ? "Masuk" : "Daftar Sekarang"}
           </button>
-        </p>
-      </form>
 
-      {/* Lingkaran dekoratif */}
-      <div className="absolute top-[-10%] left-[-10%] w-96 h-96 bg-white/10 rounded-full blur-3xl pointer-events-none" />
-      <div className="absolute bottom-[-10%] right-[-5%] w-80 h-80 bg-blue-300/30 rounded-full blur-3xl pointer-events-none" />
+          <p className="text-sm text-stone-500 text-center mt-6">
+            {mode === "login" ? "Belum punya akun? " : "Sudah punya akun? "}
+            <button
+              type="button"
+              onClick={() => { setMode((m) => (m === "login" ? "register" : "login")); setError(null); }}
+              className="font-bold text-pine-700 hover:underline"
+            >
+              {mode === "login" ? "Daftar di sini" : "Masuk di sini"}
+            </button>
+          </p>
+        </form>
+      </div>
     </div>
   );
 };
