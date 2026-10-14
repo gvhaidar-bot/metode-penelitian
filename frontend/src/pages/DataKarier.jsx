@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { getPekerjaan } from "../api.js";
 import { FooterPublik } from "./Landing.jsx";
-import { LogoMark, BadgeAirisk, DisclaimerData } from "../components/ui.jsx";
+import { LogoMark, DisclaimerData } from "../components/ui.jsx";
 
 export default function DataKarier() {
   const [pekerjaan, setPekerjaan] = useState(null);
