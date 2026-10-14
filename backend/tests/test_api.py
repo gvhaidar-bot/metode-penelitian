@@ -333,6 +333,6 @@ def test_ai_risk_tidak_mengubah_skor():
         next(j for j in app_module.PEKERJAAN if j["id"] == "data-analyst"),
         {"python"}, ["Data & AI", "Web", "Mobile",
                      "Infrastruktur & Keamanan", "Desain & Manajemen"], 14.1)
-    # sumber: Frey & Osborne (2013), Statisticians p=0.22 -> sedang
-    assert v1["ai_risk"]["level"] == "sedang"
-    assert v1["ai_risk"]["sumber"] == "Frey & Osborne (2013)"
+    # sumber: Felten, Raj & Seamans (2023), Statisticians skor 1.243 -> tinggi
+    assert v1["ai_risk"]["level"] == "tinggi"
+    assert v1["ai_risk"]["sumber"] == "Felten, Raj & Seamans (2023)"

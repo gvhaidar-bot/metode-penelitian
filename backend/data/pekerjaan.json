@@ -53,10 +53,10 @@
     "demand": 5,
     "ai_risk": {
       "level": "sedang",
-      "probabilitas": 0.21,
-      "sumber": "Frey & Osborne (2013)",
-      "jabatan_soc": "Web Developers (15-1179)",
-      "alasan": "Probabilitas otomasi 21% untuk Web Developers (15-1179) menurut Frey & Osborne (2013)."
+      "skor": 0.789,
+      "sumber": "Felten, Raj & Seamans (2023)",
+      "jabatan_soc": "Web Developers (15-1134)",
+      "alasan": "Skor exposure AI 0.79 untuk Web Developers (15-1134) menurut Felten, Raj & Seamans (2023)."
     },
     "gaji_sumber": "Glints n=73",
     "demand_sumber": "Glints n=73"
@@ -118,11 +118,11 @@
     "gaji_max": 10.0,
     "demand": 5,
     "ai_risk": {
-      "level": "rendah",
-      "probabilitas": 0.042,
-      "sumber": "Frey & Osborne (2013)",
+      "level": "sedang",
+      "skor": 0.882,
+      "sumber": "Felten, Raj & Seamans (2023)",
       "jabatan_soc": "Software Developers, Applications (15-1132)",
-      "alasan": "Probabilitas otomasi 4% untuk Software Developers, Applications (15-1132) menurut Frey & Osborne (2013)."
+      "alasan": "Skor exposure AI 0.88 untuk Software Developers, Applications (15-1132) menurut Felten, Raj & Seamans (2023)."
     },
     "gaji_sumber": "Glints n=47",
     "demand_sumber": "Glints n=47"
@@ -181,11 +181,11 @@
     "gaji_max": 9.5,
     "demand": 4,
     "ai_risk": {
-      "level": "rendah",
-      "probabilitas": 0.042,
-      "sumber": "Frey & Osborne (2013)",
+      "level": "sedang",
+      "skor": 0.882,
+      "sumber": "Felten, Raj & Seamans (2023)",
       "jabatan_soc": "Software Developers, Applications (15-1132)",
-      "alasan": "Probabilitas otomasi 4% untuk Software Developers, Applications (15-1132) menurut Frey & Osborne (2013)."
+      "alasan": "Skor exposure AI 0.88 untuk Software Developers, Applications (15-1132) menurut Felten, Raj & Seamans (2023)."
     },
     "gaji_sumber": "Glints n=45",
     "demand_sumber": "Glints n=45"
@@ -243,11 +243,11 @@
     "gaji_max": 6.0,
     "demand": 5,
     "ai_risk": {
-      "level": "sedang",
-      "probabilitas": 0.22,
-      "sumber": "Frey & Osborne (2013)",
+      "level": "tinggi",
+      "skor": 1.243,
+      "sumber": "Felten, Raj & Seamans (2023)",
       "jabatan_soc": "Statisticians (15-2041)",
-      "alasan": "Probabilitas otomasi 22% untuk Statisticians (15-2041) menurut Frey & Osborne (2013)."
+      "alasan": "Skor exposure AI 1.24 untuk Statisticians (15-2041) menurut Felten, Raj & Seamans (2023)."
     },
     "gaji_sumber": "Glints n=79",
     "demand_sumber": "Glints n=79"
@@ -307,11 +307,11 @@
     "gaji_max": 8.0,
     "demand": 4,
     "ai_risk": {
-      "level": "sedang",
-      "probabilitas": 0.13,
-      "sumber": "Frey & Osborne (2013)",
+      "level": "tinggi",
+      "skor": 1.166,
+      "sumber": "Felten, Raj & Seamans (2023)",
       "jabatan_soc": "Software Developers, Systems Software (15-1133)",
-      "alasan": "Probabilitas otomasi 13% untuk Software Developers, Systems Software (15-1133) menurut Frey & Osborne (2013)."
+      "alasan": "Skor exposure AI 1.17 untuk Software Developers, Systems Software (15-1133) menurut Felten, Raj & Seamans (2023)."
     },
     "gaji_sumber": "Glints n=26",
     "demand_sumber": "Glints n=26"
@@ -374,11 +374,11 @@
     "gaji_max": 5.5,
     "demand": 5,
     "ai_risk": {
-      "level": "rendah",
-      "probabilitas": 0.082,
-      "sumber": "Frey & Osborne (2013)",
+      "level": "sedang",
+      "skor": 0.527,
+      "sumber": "Felten, Raj & Seamans (2023)",
       "jabatan_soc": "Graphic Designers (27-1024)",
-      "alasan": "Probabilitas otomasi 8% untuk Graphic Designers (27-1024) menurut Frey & Osborne (2013)."
+      "alasan": "Skor exposure AI 0.53 untuk Graphic Designers (27-1024) menurut Felten, Raj & Seamans (2023)."
     },
     "gaji_sumber": "Glints n=49",
     "demand_sumber": "Glints n=49"
@@ -440,10 +440,10 @@
     "demand": 4,
     "ai_risk": {
       "level": "rendah",
-      "probabilitas": 0.03,
-      "sumber": "Frey & Osborne (2013)",
+      "skor": 0.475,
+      "sumber": "Felten, Raj & Seamans (2023)",
       "jabatan_soc": "Network and Computer Systems Administrators (15-1142)",
-      "alasan": "Probabilitas otomasi 3% untuk Network and Computer Systems Administrators (15-1142) menurut Frey & Osborne (2013)."
+      "alasan": "Skor exposure AI 0.47 untuk Network and Computer Systems Administrators (15-1142) menurut Felten, Raj & Seamans (2023)."
     },
     "gaji_sumber": "Glints n=34",
     "demand_sumber": "Glints n=34"
@@ -503,11 +503,11 @@
     "gaji_max": 6.0,
     "demand": 3,
     "ai_risk": {
-      "level": "sedang",
-      "probabilitas": 0.21,
-      "sumber": "Frey & Osborne (2013)",
-      "jabatan_soc": "Information Security Analysts (15-1179)",
-      "alasan": "Probabilitas otomasi 21% untuk Information Security Analysts (15-1179) menurut Frey & Osborne (2013)."
+      "level": "tinggi",
+      "skor": 1.045,
+      "sumber": "Felten, Raj & Seamans (2023)",
+      "jabatan_soc": "Information Security Analysts (15-1122)",
+      "alasan": "Skor exposure AI 1.04 untuk Information Security Analysts (15-1122) menurut Felten, Raj & Seamans (2023)."
     },
     "gaji_sumber": "Glints n=11",
     "demand_sumber": "Glints n=11"
@@ -569,11 +569,11 @@
     "gaji_max": 8.0,
     "demand": 5,
     "ai_risk": {
-      "level": "sedang",
-      "probabilitas": 0.22,
-      "sumber": "Frey & Osborne (2013)",
-      "jabatan_soc": "Computer Occupations, All Other (15-1199)",
-      "alasan": "Probabilitas otomasi 22% untuk Computer Occupations, All Other (15-1199) menurut Frey & Osborne (2013)."
+      "level": "tinggi",
+      "skor": 1.025,
+      "sumber": "Felten, Raj & Seamans (2023)",
+      "jabatan_soc": "Computer Programmers (15-1131)",
+      "alasan": "Skor exposure AI 1.02 untuk Computer Programmers (15-1131) menurut Felten, Raj & Seamans (2023)."
     },
     "gaji_sumber": "Glints n=49",
     "demand_sumber": "Glints n=49"
@@ -635,11 +635,11 @@
     "gaji_max": 12.0,
     "demand": 4,
     "ai_risk": {
-      "level": "rendah",
-      "probabilitas": 0.035,
-      "sumber": "Frey & Osborne (2013)",
+      "level": "sedang",
+      "skor": 0.945,
+      "sumber": "Felten, Raj & Seamans (2023)",
       "jabatan_soc": "Computer and Information Systems Managers (11-3021)",
-      "alasan": "Probabilitas otomasi 4% untuk Computer and Information Systems Managers (11-3021) menurut Frey & Osborne (2013)."
+      "alasan": "Skor exposure AI 0.94 untuk Computer and Information Systems Managers (11-3021) menurut Felten, Raj & Seamans (2023)."
     },
     "gaji_sumber": "Glints n=34",
     "demand_sumber": "Glints n=34"
@@ -697,11 +697,11 @@
     "gaji_max": 10.0,
     "demand": 4,
     "ai_risk": {
-      "level": "rendah",
-      "probabilitas": 0.03,
-      "sumber": "Frey & Osborne (2013)",
+      "level": "sedang",
+      "skor": 0.996,
+      "sumber": "Felten, Raj & Seamans (2023)",
       "jabatan_soc": "Database Administrators (15-1141)",
-      "alasan": "Probabilitas otomasi 3% untuk Database Administrators (15-1141) menurut Frey & Osborne (2013)."
+      "alasan": "Skor exposure AI 1.00 untuk Database Administrators (15-1141) menurut Felten, Raj & Seamans (2023)."
     },
     "gaji_sumber": "Glints n=26",
     "demand_sumber": "Glints n=26"
@@ -762,11 +762,11 @@
     "gaji_max": 10.5,
     "demand": 4,
     "ai_risk": {
-      "level": "sedang",
-      "probabilitas": 0.13,
-      "sumber": "Frey & Osborne (2013)",
+      "level": "tinggi",
+      "skor": 1.548,
+      "sumber": "Felten, Raj & Seamans (2023)",
       "jabatan_soc": "Management Analysts (13-1111)",
-      "alasan": "Probabilitas otomasi 13% untuk Management Analysts (13-1111) menurut Frey & Osborne (2013)."
+      "alasan": "Skor exposure AI 1.55 untuk Management Analysts (13-1111) menurut Felten, Raj & Seamans (2023)."
     },
     "gaji_sumber": "Glints n=32",
     "demand_sumber": "Glints n=32"
@@ -825,11 +825,11 @@
     "gaji_max": 7.75,
     "demand": 3,
     "ai_risk": {
-      "level": "rendah",
-      "probabilitas": 0.009,
-      "sumber": "Frey & Osborne (2013)",
-      "jabatan_soc": "Computer Systems Analysts",
-      "alasan": "Probabilitas otomasi 1% untuk Computer Systems Analysts menurut Frey & Osborne (2013)."
+      "level": "tinggi",
+      "skor": 1.046,
+      "sumber": "Felten, Raj & Seamans (2023)",
+      "jabatan_soc": "Computer Systems Analysts (15-1121)",
+      "alasan": "Skor exposure AI 1.05 untuk Computer Systems Analysts (15-1121) menurut Felten, Raj & Seamans (2023)."
     },
     "gaji_sumber": "Glints n=10",
     "demand_sumber": "Glints n=10"
@@ -888,11 +888,11 @@
     "gaji_max": 7.0,
     "demand": 4,
     "ai_risk": {
-      "level": "rendah",
-      "probabilitas": 0.042,
-      "sumber": "Frey & Osborne (2013)",
+      "level": "sedang",
+      "skor": 0.882,
+      "sumber": "Felten, Raj & Seamans (2023)",
       "jabatan_soc": "Software Developers, Applications (15-1132)",
-      "alasan": "Probabilitas otomasi 4% untuk Software Developers, Applications (15-1132) menurut Frey & Osborne (2013)."
+      "alasan": "Skor exposure AI 0.88 untuk Software Developers, Applications (15-1132) menurut Felten, Raj & Seamans (2023)."
     },
     "gaji_sumber": "Glints n=38",
     "demand_sumber": "Glints n=38"
@@ -922,10 +922,10 @@
     "demand": 1,
     "ai_risk": {
       "level": "rendah",
-      "probabilitas": 0.03,
-      "sumber": "Frey & Osborne (2013)",
+      "skor": 0.475,
+      "sumber": "Felten, Raj & Seamans (2023)",
       "jabatan_soc": "Network and Computer Systems Administrators (15-1142)",
-      "alasan": "Probabilitas otomasi 3% untuk Network and Computer Systems Administrators (15-1142) menurut Frey & Osborne (2013)."
+      "alasan": "Skor exposure AI 0.47 untuk Network and Computer Systems Administrators (15-1142) menurut Felten, Raj & Seamans (2023)."
     },
     "roadmap": [
       {
@@ -985,10 +985,10 @@
     "demand": 1,
     "ai_risk": {
       "level": "rendah",
-      "probabilitas": 0.03,
-      "sumber": "Frey & Osborne (2013)",
+      "skor": 0.475,
+      "sumber": "Felten, Raj & Seamans (2023)",
       "jabatan_soc": "Network and Computer Systems Administrators (15-1142)",
-      "alasan": "Probabilitas otomasi 3% untuk Network and Computer Systems Administrators (15-1142) menurut Frey & Osborne (2013)."
+      "alasan": "Skor exposure AI 0.47 untuk Network and Computer Systems Administrators (15-1142) menurut Felten, Raj & Seamans (2023)."
     },
     "roadmap": [
       {
@@ -1048,10 +1048,10 @@
     "demand": 2,
     "ai_risk": {
       "level": "rendah",
-      "probabilitas": 0.03,
-      "sumber": "Frey & Osborne (2013)",
+      "skor": 0.475,
+      "sumber": "Felten, Raj & Seamans (2023)",
       "jabatan_soc": "Network and Computer Systems Administrators (15-1142)",
-      "alasan": "Probabilitas otomasi 3% untuk Network and Computer Systems Administrators (15-1142) menurut Frey & Osborne (2013)."
+      "alasan": "Skor exposure AI 0.47 untuk Network and Computer Systems Administrators (15-1142) menurut Felten, Raj & Seamans (2023)."
     },
     "roadmap": [
       {
@@ -1108,11 +1108,11 @@
     "gaji_max": 12.0,
     "demand": 1,
     "ai_risk": {
-      "level": "rendah",
-      "probabilitas": 0.042,
-      "sumber": "Frey & Osborne (2013)",
+      "level": "sedang",
+      "skor": 0.882,
+      "sumber": "Felten, Raj & Seamans (2023)",
       "jabatan_soc": "Software Developers, Applications (15-1132)",
-      "alasan": "Probabilitas otomasi 4% untuk Software Developers, Applications (15-1132) menurut Frey & Osborne (2013)."
+      "alasan": "Skor exposure AI 0.88 untuk Software Developers, Applications (15-1132) menurut Felten, Raj & Seamans (2023)."
     },
     "roadmap": [
       {
@@ -1170,11 +1170,11 @@
     "gaji_max": 12.5,
     "demand": 1,
     "ai_risk": {
-      "level": "rendah",
-      "probabilitas": 0.03,
-      "sumber": "Frey & Osborne (2013)",
+      "level": "sedang",
+      "skor": 0.996,
+      "sumber": "Felten, Raj & Seamans (2023)",
       "jabatan_soc": "Database Administrators (15-1141)",
-      "alasan": "Probabilitas otomasi 3% untuk Database Administrators (15-1141) menurut Frey & Osborne (2013)."
+      "alasan": "Skor exposure AI 1.00 untuk Database Administrators (15-1141) menurut Felten, Raj & Seamans (2023)."
     },
     "roadmap": [
       {
@@ -1231,11 +1231,11 @@
     "gaji_max": 8.3,
     "demand": 3,
     "ai_risk": {
-      "level": "sedang",
-      "probabilitas": 0.22,
-      "sumber": "Frey & Osborne (2013)",
+      "level": "tinggi",
+      "skor": 1.243,
+      "sumber": "Felten, Raj & Seamans (2023)",
       "jabatan_soc": "Statisticians (15-2041)",
-      "alasan": "Probabilitas otomasi 22% untuk Statisticians (15-2041) menurut Frey & Osborne (2013)."
+      "alasan": "Skor exposure AI 1.24 untuk Statisticians (15-2041) menurut Felten, Raj & Seamans (2023)."
     },
     "roadmap": [
       {
@@ -1292,11 +1292,11 @@
     "gaji_max": 10.0,
     "demand": 4,
     "ai_risk": {
-      "level": "rendah",
-      "probabilitas": 0.035,
-      "sumber": "Frey & Osborne (2013)",
+      "level": "sedang",
+      "skor": 0.945,
+      "sumber": "Felten, Raj & Seamans (2023)",
       "jabatan_soc": "Computer and Information Systems Managers (11-3021)",
-      "alasan": "Probabilitas otomasi 4% untuk Computer and Information Systems Managers (11-3021) menurut Frey & Osborne (2013)."
+      "alasan": "Skor exposure AI 0.94 untuk Computer and Information Systems Managers (11-3021) menurut Felten, Raj & Seamans (2023)."
     },
     "roadmap": [
       {
@@ -1353,11 +1353,11 @@
     "gaji_max": 6.41,
     "demand": 1,
     "ai_risk": {
-      "level": "tinggi",
-      "probabilitas": 0.65,
-      "sumber": "Frey & Osborne (2013)",
-      "jabatan_soc": "Computer Support Specialists",
-      "alasan": "Probabilitas otomasi 65% untuk Computer Support Specialists menurut Frey & Osborne (2013)."
+      "level": "rendah",
+      "skor": 0.326,
+      "sumber": "Felten, Raj & Seamans (2023)",
+      "jabatan_soc": "Computer User Support Specialists (15-1151)",
+      "alasan": "Skor exposure AI 0.33 untuk Computer User Support Specialists (15-1151) menurut Felten, Raj & Seamans (2023)."
     },
     "roadmap": [
       {
@@ -1415,10 +1415,10 @@
     "demand": 1,
     "ai_risk": {
       "level": "rendah",
-      "probabilitas": 0.025,
-      "sumber": "Frey & Osborne (2013)",
+      "skor": 0.457,
+      "sumber": "Felten, Raj & Seamans (2023)",
       "jabatan_soc": "Electronics Engineers, Except Computer (17-2072)",
-      "alasan": "Probabilitas otomasi 2% untuk Electronics Engineers, Except Computer (17-2072) menurut Frey & Osborne (2013)."
+      "alasan": "Skor exposure AI 0.46 untuk Electronics Engineers, Except Computer (17-2072) menurut Felten, Raj & Seamans (2023)."
     },
     "roadmap": [
       {
