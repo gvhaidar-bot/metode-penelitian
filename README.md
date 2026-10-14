@@ -50,9 +50,8 @@ metode-penelitian/
 │   ├── data/
 │   │   ├── pekerjaan.json  # 23 profil karier (skill, gaji, demand, roadmap)
 │   │   ├── bobot.json      # bobot kriteria SAW
-│   │   ├── job_salary_mean.csv                      # dataset gaji (mentah)
-│   │   ├── lowongan_data_dan_analytics_jobstreet.csv # lowongan JobStreet (mentah)
-│   │   └── glints_jobs.csv                          # lowongan Glints (mentah)
+│   │   ├── glints_jobs.csv # 1.133 lowongan Glints (untuk endpoint lowongan)
+│   │   └── glints_stats.json # ringkasan pemetaan Glints per karier
 │   ├── tests/test_api.py   # test otomatis (pytest, 31 test)
 │   └── requirements.txt
 ├── frontend/
@@ -72,13 +71,17 @@ Profil 23 karier di `backend/data/pekerjaan.json` dikurasi dari dataset
 Kaggle (1.205 lowongan Indonesia dipetakan ke 10 profil pada EDA 2026-10-10,
 sebelum perluasan ke 23 karier; EDA di `backend/data/eda_summary.md`).
 
-Data sekunder mentah (pembanding/validasi, per `backend/data/README.md`):
+Data sekunder mentah (per `backend/data/README.md`):
 
 | File | Sumber | Isi |
 |------|--------|-----|
-| `job_salary_mean.csv` | [kaggle.com/datasets/husnind/indonesia-average-job-salary](https://www.kaggle.com/datasets/husnind/indonesia-average-job-salary) | 32.976 lowongan Jobstreet Indonesia, **2024**, CC BY 4.0 — validasi rentang gaji |
-| `lowongan_data_dan_analytics_jobstreet.csv` | [kaggle.com/datasets/raflirizkya/indonesian-data-and-analytics-jobs-in-jobstreet](https://www.kaggle.com/datasets/raflirizkya/indonesian-data-and-analytics-jobs-in-jobstreet) | 555 lowongan Data & Analytics, **25 Agu–24 Sep 2025** — validasi skill peran data |
 | `glints_jobs.csv` | scraping tim (commit `211db6f5`, 2026-10-12) | 1.133 lowongan Glints Indonesia, diklaim **Mei–Jun 2026** — 597 terpetakan ke 23 karier via `backend/glints.py`; kolom `posted_date` hanya berisi tanggal relatif ("Kemarin", "N hari yang lalu") sehingga klaim tahun tidak bisa diverifikasi dari isi file. Detail: `docs/integrasi-glints.md` |
+
+Dataset Kaggle (husnind/indonesia-average-job-salary 2024; raflirizkya JobStreet
+data & analytics Agu–Sep 2025) dipakai sebagai sumber angka gaji 3 karier
+(network, dba, it-support) lalu file mentahnya dihapus dari repo — nilainya
+sudah dibakukan di `pekerjaan.json` beserta sumbernya
+(`docs/provenance-data.md`).
 
 **Penggunaan di aplikasi:** endpoint `GET /pekerjaan/{id}/lowongan`
 menampilkan contoh lowongan Glints per karier; halaman Roadmap punya
