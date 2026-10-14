@@ -21,7 +21,7 @@ nilainya dibakukan di `pekerjaan.json`.
 | Dataset Kaggle husnind/indonesia-average-job-salary (2024) | Gaji network-engineer, dba, it-support |
 | dinaspajak.com | Gaji cloud-engineer, embedded-engineer |
 | radarbaru.com | Gaji game-developer |
-| Frey & Osborne (2013), Oxford Martin School | Label risiko AI per karier (`ai_risk`) |
+| Felten, Raj & Seamans (2023) | Label risiko AI per karier (`ai_risk`) |
 
 ## Dihapus 2026-10-14 (tidak dibaca kode mana pun)
 
