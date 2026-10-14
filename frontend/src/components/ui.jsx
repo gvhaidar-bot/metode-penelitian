@@ -76,18 +76,6 @@ const WARNA_RISIKO = {
   tinggi: "bg-[#fdeeee] text-coral",
 };
 
-export function BadgeAirisk({ risiko }) {
-  if (!risiko || !risiko.level || risiko.level === "-") return null;
-  return (
-    <span
-      title={risiko.alasan || ""}
-      className={`inline-block px-3 py-1 rounded-full text-xs font-extrabold ${WARNA_RISIKO[risiko.level] || "bg-wash text-muted"}`}
-    >
-      Risiko AI: {risiko.level}
-    </span>
-  );
-}
-
 export function DisclaimerData({ className = "" }) {
   return (
     <p className={`text-xs text-muted leading-relaxed ${className}`}>

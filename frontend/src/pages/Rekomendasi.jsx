@@ -193,9 +193,6 @@ export default function Rekomendasi() {
                         <p className="text-sm text-muted mt-1">
                           {h.kategori} | Rp{h.gaji_min}-{h.gaji_max} jt/bulan
                         </p>
-                        <div className="mt-2">
-                          <BadgeAirisk risiko={h.ai_risk} />
-                        </div>
                       </div>
                       <p className="text-2xl font-extrabold text-primary shrink-0">
                         {persen(h.skor_akhir)}%

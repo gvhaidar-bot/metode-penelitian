@@ -139,7 +139,7 @@ Variabel lingkungan (opsional):
 ```bash
 cd backend
 pip install -r requirements.txt
-pytest -q        # 31 test: TC-01..TC-08 + relevansi + auth + ai_risk + tokenisasi
+pytest -q        # 29 test: TC-01..TC-08 + relevansi + auth + tokenisasi
 ```
 
 ```bash

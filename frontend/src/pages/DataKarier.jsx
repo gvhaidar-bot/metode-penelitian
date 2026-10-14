@@ -60,9 +60,6 @@ export default function DataKarier() {
                 {p.kategori}
               </p>
               <h2 className="text-lg font-extrabold text-ink mt-2">{p.nama}</h2>
-              <div className="mt-2">
-                <BadgeAirisk risiko={p.ai_risk} />
-              </div>
               <div className="flex gap-4 mt-3 text-sm">
                 <p className="text-muted">
                   <span className="font-extrabold text-ink">{p.skills.length}</span> skill
