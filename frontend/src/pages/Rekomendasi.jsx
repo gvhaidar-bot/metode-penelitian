@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { getMeta, getProfil, hitungRekomendasi } from "../api.js";
-import { JudulKartu, Kartu, Kosong, TombolPrimer, BadgeAirisk, DisclaimerData } from "../components/ui.jsx";
+import { JudulKartu, Kartu, Kosong, TombolPrimer, DisclaimerData } from "../components/ui.jsx";
 
 const persen = (x) => Math.round(x * 100);
 
