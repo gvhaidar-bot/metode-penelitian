@@ -10,21 +10,34 @@ karier berasal. Ditulis agar dapat disitasi apa adanya di skripsi.
 | 14 profil karier awal (skill, gaji, demand) | Dataset Kaggle + kurasi tim | Lihat `build_dataset.py`: IT Jobs in Asia-Pacific (sergeychekurin) + Indonesia Average Job Salary (husnind). 4 karier (Data Engineer, Business Analyst, System Analyst, Full Stack) ditambahkan dari analisis `glints_jobs.csv`. |
 | 9 profil karier tambahan (network-engineer, cloud-engineer, sysadmin, game-developer, dba, data-scientist, product-manager, it-support, embedded-engineer) | Kurasi peneliti | Disusun dari pengetahuan umum industri IT (daftar skill, estimasi gaji pasar Indonesia, roadmap belajar). **Bukan dari dataset Kaggle/GitHub, bukan hasil scraping.** |
 | Pengayaan skill (±40 skill baru: TypeScript, Next.js, Go, Node.js, Pandas, Linux, dsb.) | `glints_jobs.csv` (1.133 lowongan, klaim tim: Mei–Jun 2026, tidak terverifikasi dari isi file) | Tag skill asli dari kolom `job_requirements`, diagregasi per karier lalu dikurasi manual (noise seperti "Remote", "Social Media" dibuang). |
-| Gaji 9 karier baru | Estimasi peneliti | Berdasarkan pengetahuan pasar kerja IT Indonesia. Dataset gaji Kaggle (husnind, 32.976 baris) dicek tetapi sampel untuk peran-peran ini terlalu kecil (n=1–8) sehingga tidak dijadikan acuan utama. |
-| Demand (1–5) | Penilaian peneliti | Subjektif, belum divalidasi pakar. Catat sebagai keterbatasan. |
+| Gaji 17 karier terpetakan | Median `glints_jobs.csv` (1.133 lowongan) | `gaji_min_median_jt` / `gaji_max_median_jt` per karier dari `glints_stats.json`. Sumber: `gaji_sumber` per karier di `pekerjaan.json`. |
+| Gaji network-engineer (6,0–8,15) | Dataset Kaggle husnind (n=7) | Min–maks Gaji_Rata2 untuk judul mengandung "network engineer". |
+| Gaji dba (10,07–12,5) | Dataset Kaggle husnind (n=2) | Dua baris "Database Administrator". |
+| Gaji it-support (4,5–6,41) | Dataset Kaggle husnind (n=15) | Rentang Q1–Q3 (dua pencilan atas dibuang). |
+| Gaji cloud-engineer (10–20) | dinaspajak.com (estimasi PT Universal Tekno Reksajaya 2026) | Rentang publikasi; Kaggle hanya 1 baris (8,29 jt). |
+| Gaji game-developer (6–12) | radarbaru.com (2026) | Rentang entry level; didukung masoemuniversity.ac.id (junior 5,5–9 jt). |
+| Gaji embedded-engineer (8–16) | dinaspajak.com (estimasi PT Universal Tekno Reksajaya 2026) | Rentang publikasi; didukung worldsalaries.com (rata-rata 13,4 jt/bln). |
+| Demand (1–5) | Jumlah lowongan Glints per karier (formula) | `demand = 1 + round(4 × log(1+n) / log(1+n_maks))`, n = jumlah lowongan terpetakan (n_maks = 79). Enam karier tak terpetakan mendapat 1 — keterbatasan sampel, bukan penilaian peneliti. |
 | Bobot SAW | Penilaian peneliti | Lihat `_keterangan` di `bobot.json`. Belum divalidasi pakar/AHP. Catat sebagai keterbatasan. |
 | Label ketahanan AI (`ai_risk`) | Kurasi peneliti | Informasi tampilan saja, tidak ikut perhitungan. |
 
 ## Yang boleh diklaim di skripsi
 
 - "Profil skill diperkaya dari 1.133 lowongan kerja nyata (dataset Glints)."
-- "9 karier tambahan dikurasi peneliti berdasarkan pengetahuan industri;
-  gaji dan demand merupakan estimasi peneliti."
+- "Gaji 17 karier dari median lowongan Glints; 6 sisanya dari dataset gaji
+  Kaggle (husnind, CC BY 4.0) dan publikasi web yang disitasi."
+- "Demand dihitung formulaik dari jumlah lowongan per karier pada dataset
+  Glints (skala log 1–5)."
+- "9 karier tambahan dirumuskan peneliti dari pengetahuan industri; angka
+  gaji dan demand-nya kini bersumber publik (bukan estimasi)."
 
 ## Yang tidak boleh diklaim
 
-- Jangan klaim 9 karier baru berasal dari Kaggle/GitHub/scraping.
-- Jangan klaim demand/bobot sudah divalidasi pakar (belum).
+- Jangan klaim gaji/demand berasal dari satu dataset tunggal — tiap karier
+  mencantumkan sumbernya di `gaji_sumber` / `demand_sumber`.
+- Jangan klaim bobot SAW sudah divalidasi pakar (belum).
+- Rentang gaji web (cloud, game, embedded) adalah publikasi estimasi —
+  sitasi jelas, bukan data primer penelitian.
 
 ## Batasan yang disarankan untuk Bab 1 / Bab 5
 
