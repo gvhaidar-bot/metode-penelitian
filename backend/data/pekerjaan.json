@@ -51,13 +51,6 @@
     "gaji_min": 4.8,
     "gaji_max": 6.25,
     "demand": 5,
-    "ai_risk": {
-      "level": "sedang",
-      "probabilitas": 0.21,
-      "sumber": "Frey & Osborne (2013)",
-      "jabatan_soc": "Web Developers (15-1179)",
-      "alasan": "Probabilitas otomasi 21% untuk Web Developers (15-1179) menurut Frey & Osborne (2013)."
-    },
     "gaji_sumber": "Glints n=73",
     "demand_sumber": "Glints n=73"
   },
@@ -117,13 +110,6 @@
     "gaji_min": 6.9,
     "gaji_max": 10.0,
     "demand": 5,
-    "ai_risk": {
-      "level": "rendah",
-      "probabilitas": 0.042,
-      "sumber": "Frey & Osborne (2013)",
-      "jabatan_soc": "Software Developers, Applications (15-1132)",
-      "alasan": "Probabilitas otomasi 4% untuk Software Developers, Applications (15-1132) menurut Frey & Osborne (2013)."
-    },
     "gaji_sumber": "Glints n=47",
     "demand_sumber": "Glints n=47"
   },
@@ -180,13 +166,6 @@
     "gaji_min": 7.0,
     "gaji_max": 9.5,
     "demand": 4,
-    "ai_risk": {
-      "level": "rendah",
-      "probabilitas": 0.042,
-      "sumber": "Frey & Osborne (2013)",
-      "jabatan_soc": "Software Developers, Applications (15-1132)",
-      "alasan": "Probabilitas otomasi 4% untuk Software Developers, Applications (15-1132) menurut Frey & Osborne (2013)."
-    },
     "gaji_sumber": "Glints n=45",
     "demand_sumber": "Glints n=45"
   },
@@ -242,13 +221,6 @@
     "gaji_min": 5.0,
     "gaji_max": 6.0,
     "demand": 5,
-    "ai_risk": {
-      "level": "sedang",
-      "probabilitas": 0.22,
-      "sumber": "Frey & Osborne (2013)",
-      "jabatan_soc": "Statisticians (15-2041)",
-      "alasan": "Probabilitas otomasi 22% untuk Statisticians (15-2041) menurut Frey & Osborne (2013)."
-    },
     "gaji_sumber": "Glints n=79",
     "demand_sumber": "Glints n=79"
   },
@@ -306,13 +278,6 @@
     "gaji_min": 6.5,
     "gaji_max": 8.0,
     "demand": 4,
-    "ai_risk": {
-      "level": "sedang",
-      "probabilitas": 0.13,
-      "sumber": "Frey & Osborne (2013)",
-      "jabatan_soc": "Software Developers, Systems Software (15-1133)",
-      "alasan": "Probabilitas otomasi 13% untuk Software Developers, Systems Software (15-1133) menurut Frey & Osborne (2013)."
-    },
     "gaji_sumber": "Glints n=26",
     "demand_sumber": "Glints n=26"
   },
@@ -373,13 +338,6 @@
     "gaji_min": 4.0,
     "gaji_max": 5.5,
     "demand": 5,
-    "ai_risk": {
-      "level": "rendah",
-      "probabilitas": 0.082,
-      "sumber": "Frey & Osborne (2013)",
-      "jabatan_soc": "Graphic Designers (27-1024)",
-      "alasan": "Probabilitas otomasi 8% untuk Graphic Designers (27-1024) menurut Frey & Osborne (2013)."
-    },
     "gaji_sumber": "Glints n=49",
     "demand_sumber": "Glints n=49"
   },
@@ -438,13 +396,6 @@
     "gaji_min": 8.0,
     "gaji_max": 12.0,
     "demand": 4,
-    "ai_risk": {
-      "level": "rendah",
-      "probabilitas": 0.03,
-      "sumber": "Frey & Osborne (2013)",
-      "jabatan_soc": "Network and Computer Systems Administrators (15-1142)",
-      "alasan": "Probabilitas otomasi 3% untuk Network and Computer Systems Administrators (15-1142) menurut Frey & Osborne (2013)."
-    },
     "gaji_sumber": "Glints n=34",
     "demand_sumber": "Glints n=34"
   },
@@ -502,13 +453,6 @@
     "gaji_min": 4.0,
     "gaji_max": 6.0,
     "demand": 3,
-    "ai_risk": {
-      "level": "sedang",
-      "probabilitas": 0.21,
-      "sumber": "Frey & Osborne (2013)",
-      "jabatan_soc": "Information Security Analysts (15-1179)",
-      "alasan": "Probabilitas otomasi 21% untuk Information Security Analysts (15-1179) menurut Frey & Osborne (2013)."
-    },
     "gaji_sumber": "Glints n=11",
     "demand_sumber": "Glints n=11"
   },
@@ -568,13 +512,6 @@
     "gaji_min": 6.3,
     "gaji_max": 8.0,
     "demand": 5,
-    "ai_risk": {
-      "level": "sedang",
-      "probabilitas": 0.22,
-      "sumber": "Frey & Osborne (2013)",
-      "jabatan_soc": "Computer Occupations, All Other (15-1199)",
-      "alasan": "Probabilitas otomasi 22% untuk Computer Occupations, All Other (15-1199) menurut Frey & Osborne (2013)."
-    },
     "gaji_sumber": "Glints n=49",
     "demand_sumber": "Glints n=49"
   },
@@ -634,13 +571,6 @@
     "gaji_min": 8.0,
     "gaji_max": 12.0,
     "demand": 4,
-    "ai_risk": {
-      "level": "rendah",
-      "probabilitas": 0.035,
-      "sumber": "Frey & Osborne (2013)",
-      "jabatan_soc": "Computer and Information Systems Managers (11-3021)",
-      "alasan": "Probabilitas otomasi 4% untuk Computer and Information Systems Managers (11-3021) menurut Frey & Osborne (2013)."
-    },
     "gaji_sumber": "Glints n=34",
     "demand_sumber": "Glints n=34"
   },
@@ -696,13 +626,6 @@
     "gaji_min": 7.0,
     "gaji_max": 10.0,
     "demand": 4,
-    "ai_risk": {
-      "level": "rendah",
-      "probabilitas": 0.03,
-      "sumber": "Frey & Osborne (2013)",
-      "jabatan_soc": "Database Administrators (15-1141)",
-      "alasan": "Probabilitas otomasi 3% untuk Database Administrators (15-1141) menurut Frey & Osborne (2013)."
-    },
     "gaji_sumber": "Glints n=26",
     "demand_sumber": "Glints n=26"
   },
@@ -761,13 +684,6 @@
     "gaji_min": 7.05,
     "gaji_max": 10.5,
     "demand": 4,
-    "ai_risk": {
-      "level": "sedang",
-      "probabilitas": 0.13,
-      "sumber": "Frey & Osborne (2013)",
-      "jabatan_soc": "Management Analysts (13-1111)",
-      "alasan": "Probabilitas otomasi 13% untuk Management Analysts (13-1111) menurut Frey & Osborne (2013)."
-    },
     "gaji_sumber": "Glints n=32",
     "demand_sumber": "Glints n=32"
   },
@@ -824,13 +740,6 @@
     "gaji_min": 5.5,
     "gaji_max": 7.75,
     "demand": 3,
-    "ai_risk": {
-      "level": "rendah",
-      "probabilitas": 0.009,
-      "sumber": "Frey & Osborne (2013)",
-      "jabatan_soc": "Computer Systems Analysts",
-      "alasan": "Probabilitas otomasi 1% untuk Computer Systems Analysts menurut Frey & Osborne (2013)."
-    },
     "gaji_sumber": "Glints n=10",
     "demand_sumber": "Glints n=10"
   },
@@ -887,13 +796,6 @@
     "gaji_min": 5.0,
     "gaji_max": 7.0,
     "demand": 4,
-    "ai_risk": {
-      "level": "rendah",
-      "probabilitas": 0.042,
-      "sumber": "Frey & Osborne (2013)",
-      "jabatan_soc": "Software Developers, Applications (15-1132)",
-      "alasan": "Probabilitas otomasi 4% untuk Software Developers, Applications (15-1132) menurut Frey & Osborne (2013)."
-    },
     "gaji_sumber": "Glints n=38",
     "demand_sumber": "Glints n=38"
   },
@@ -920,13 +822,6 @@
     "gaji_min": 6.0,
     "gaji_max": 8.15,
     "demand": 1,
-    "ai_risk": {
-      "level": "rendah",
-      "probabilitas": 0.03,
-      "sumber": "Frey & Osborne (2013)",
-      "jabatan_soc": "Network and Computer Systems Administrators (15-1142)",
-      "alasan": "Probabilitas otomasi 3% untuk Network and Computer Systems Administrators (15-1142) menurut Frey & Osborne (2013)."
-    },
     "roadmap": [
       {
         "judul": "Kuasai TCP/IP dan subnetting",
@@ -983,13 +878,6 @@
     "gaji_min": 10.0,
     "gaji_max": 20.0,
     "demand": 1,
-    "ai_risk": {
-      "level": "rendah",
-      "probabilitas": 0.03,
-      "sumber": "Frey & Osborne (2013)",
-      "jabatan_soc": "Network and Computer Systems Administrators (15-1142)",
-      "alasan": "Probabilitas otomasi 3% untuk Network and Computer Systems Administrators (15-1142) menurut Frey & Osborne (2013)."
-    },
     "roadmap": [
       {
         "judul": "Kuasai Linux dan jaringan dasar",
@@ -1046,13 +934,6 @@
     "gaji_min": 3.75,
     "gaji_max": 5.5,
     "demand": 2,
-    "ai_risk": {
-      "level": "rendah",
-      "probabilitas": 0.03,
-      "sumber": "Frey & Osborne (2013)",
-      "jabatan_soc": "Network and Computer Systems Administrators (15-1142)",
-      "alasan": "Probabilitas otomasi 3% untuk Network and Computer Systems Administrators (15-1142) menurut Frey & Osborne (2013)."
-    },
     "roadmap": [
       {
         "judul": "Kuasai administrasi Linux",
@@ -1107,13 +988,6 @@
     "gaji_min": 6.0,
     "gaji_max": 12.0,
     "demand": 1,
-    "ai_risk": {
-      "level": "rendah",
-      "probabilitas": 0.042,
-      "sumber": "Frey & Osborne (2013)",
-      "jabatan_soc": "Software Developers, Applications (15-1132)",
-      "alasan": "Probabilitas otomasi 4% untuk Software Developers, Applications (15-1132) menurut Frey & Osborne (2013)."
-    },
     "roadmap": [
       {
         "judul": "Kuasai C# dasar",
@@ -1169,13 +1043,6 @@
     "gaji_min": 10.07,
     "gaji_max": 12.5,
     "demand": 1,
-    "ai_risk": {
-      "level": "rendah",
-      "probabilitas": 0.03,
-      "sumber": "Frey & Osborne (2013)",
-      "jabatan_soc": "Database Administrators (15-1141)",
-      "alasan": "Probabilitas otomasi 3% untuk Database Administrators (15-1141) menurut Frey & Osborne (2013)."
-    },
     "roadmap": [
       {
         "judul": "Kuasai SQL tingkat lanjut",
@@ -1230,13 +1097,6 @@
     "gaji_min": 5.85,
     "gaji_max": 8.3,
     "demand": 3,
-    "ai_risk": {
-      "level": "sedang",
-      "probabilitas": 0.22,
-      "sumber": "Frey & Osborne (2013)",
-      "jabatan_soc": "Statisticians (15-2041)",
-      "alasan": "Probabilitas otomasi 22% untuk Statisticians (15-2041) menurut Frey & Osborne (2013)."
-    },
     "roadmap": [
       {
         "judul": "Kuasai statistika dasar",
@@ -1291,13 +1151,6 @@
     "gaji_min": 5.7,
     "gaji_max": 10.0,
     "demand": 4,
-    "ai_risk": {
-      "level": "rendah",
-      "probabilitas": 0.035,
-      "sumber": "Frey & Osborne (2013)",
-      "jabatan_soc": "Computer and Information Systems Managers (11-3021)",
-      "alasan": "Probabilitas otomasi 4% untuk Computer and Information Systems Managers (11-3021) menurut Frey & Osborne (2013)."
-    },
     "roadmap": [
       {
         "judul": "Pahami peran product manager",
@@ -1352,13 +1205,6 @@
     "gaji_min": 4.5,
     "gaji_max": 6.41,
     "demand": 1,
-    "ai_risk": {
-      "level": "tinggi",
-      "probabilitas": 0.65,
-      "sumber": "Frey & Osborne (2013)",
-      "jabatan_soc": "Computer Support Specialists",
-      "alasan": "Probabilitas otomasi 65% untuk Computer Support Specialists menurut Frey & Osborne (2013)."
-    },
     "roadmap": [
       {
         "judul": "Kuasai dasar komputer dan OS",
@@ -1413,13 +1259,6 @@
     "gaji_min": 8.0,
     "gaji_max": 16.0,
     "demand": 1,
-    "ai_risk": {
-      "level": "rendah",
-      "probabilitas": 0.025,
-      "sumber": "Frey & Osborne (2013)",
-      "jabatan_soc": "Electronics Engineers, Except Computer (17-2072)",
-      "alasan": "Probabilitas otomasi 2% untuk Electronics Engineers, Except Computer (17-2072) menurut Frey & Osborne (2013)."
-    },
     "roadmap": [
       {
         "judul": "Pelajari elektronika dasar",

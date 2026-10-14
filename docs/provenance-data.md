@@ -19,7 +19,7 @@ karier berasal. Ditulis agar dapat disitasi apa adanya di skripsi.
 | Gaji embedded-engineer (8–16) | dinaspajak.com (estimasi PT Universal Tekno Reksajaya 2026) | Rentang publikasi; didukung worldsalaries.com (rata-rata 13,4 jt/bln). |
 | Demand (1–5) | Jumlah lowongan Glints per karier (formula) | `demand = 1 + round(4 × log(1+n) / log(1+n_maks))`, n = jumlah lowongan terpetakan (n_maks = 79). Enam karier tak terpetakan mendapat 1 — keterbatasan sampel, bukan penilaian peneliti. |
 | Bobot SAW | Penilaian peneliti | Lihat `_keterangan` di `bobot.json`. Belum divalidasi pakar/AHP. Catat sebagai keterbatasan. |
-| Label risiko AI (`ai_risk`) | Frey & Osborne (2013), "The Future of Employment", Oxford Martin School | Probabilitas otomasi per jabatan (kode SOC 2010 AS); tiap karier dipetakan ke jabatan terdekat (lihat `jabatan_soc`). Ambang: p<0,1 rendah; 0,1–0,4 sedang; p>0,4 tinggi. Dipakai karena mengukur probabilitas *digantikan* (bukan sekadar exposure). Informasi tampilan saja, tidak ikut perhitungan. |
+| Demand (1–5) | Jumlah lowongan Glints per karier (formula) | `demand = 1 + round(4 × log(1+n) / log(1+n_maks))`, n = jumlah lowongan terpetakan (n_maks = 79). Enam karier tak terpetakan mendapat 1 — keterbatasan sampel, bukan penilaian peneliti. |
 
 ## Yang boleh diklaim di skripsi
 
