@@ -48,13 +48,15 @@
         "estimasi": "3 minggu"
       }
     ],
-    "gaji_min": 7.1,
-    "gaji_max": 9.1,
-    "demand": 4,
+    "gaji_min": 4.8,
+    "gaji_max": 6.25,
+    "demand": 5,
     "ai_risk": {
       "level": "sedang",
       "alasan": "Kode UI rutin sudah dikerjakan AI dengan baik, tetapi keputusan produk dan integrasi kompleks tetap butuh manusia."
-    }
+    },
+    "gaji_sumber": "Glints n=73",
+    "demand_sumber": "Glints n=73"
   },
   {
     "id": "backend-dev",
@@ -109,13 +111,15 @@
         "estimasi": "2 minggu"
       }
     ],
-    "gaji_min": 7.2,
-    "gaji_max": 9.5,
+    "gaji_min": 6.9,
+    "gaji_max": 10.0,
     "demand": 5,
     "ai_risk": {
       "level": "sedang",
       "alasan": "Boilerplate API bisa diotomasi, tetapi desain arsitektur dan debugging sistem terdistribusi tetap butuh pengalaman."
-    }
+    },
+    "gaji_sumber": "Glints n=47",
+    "demand_sumber": "Glints n=47"
   },
   {
     "id": "mobile-dev",
@@ -167,13 +171,15 @@
         "estimasi": "2 minggu"
       }
     ],
-    "gaji_min": 7.5,
-    "gaji_max": 11.5,
-    "demand": 1,
+    "gaji_min": 7.0,
+    "gaji_max": 9.5,
+    "demand": 4,
     "ai_risk": {
       "level": "sedang",
       "alasan": "Pola UI mobile mudah digenerasi AI, tetapi perilaku platform dan optimasi native tetap butuh keahlian."
-    }
+    },
+    "gaji_sumber": "Glints n=45",
+    "demand_sumber": "Glints n=45"
   },
   {
     "id": "data-analyst",
@@ -224,13 +230,15 @@
         "estimasi": "3 minggu"
       }
     ],
-    "gaji_min": 5.9,
-    "gaji_max": 6.8,
-    "demand": 1,
+    "gaji_min": 5.0,
+    "gaji_max": 6.0,
+    "demand": 5,
     "ai_risk": {
       "level": "tinggi",
       "alasan": "Dashboard dan query rutin sangat mudah diotomasi AI; nilai manusia bergeser ke interpretasi dan keputusan bisnis."
-    }
+    },
+    "gaji_sumber": "Glints n=79",
+    "demand_sumber": "Glints n=79"
   },
   {
     "id": "ml-engineer",
@@ -284,12 +292,14 @@
       }
     ],
     "gaji_min": 6.5,
-    "gaji_max": 7.9,
-    "demand": 1,
+    "gaji_max": 8.0,
+    "demand": 4,
     "ai_risk": {
       "level": "rendah",
       "alasan": "Membangun sistem AI sendiri; butuh riset dan rekayasa tingkat lanjut yang belum tergantikan."
-    }
+    },
+    "gaji_sumber": "Glints n=26",
+    "demand_sumber": "Glints n=26"
   },
   {
     "id": "uiux-designer",
@@ -345,13 +355,15 @@
         "estimasi": "3 minggu"
       }
     ],
-    "gaji_min": 5.2,
-    "gaji_max": 6.0,
-    "demand": 1,
+    "gaji_min": 4.0,
+    "gaji_max": 5.5,
+    "demand": 5,
     "ai_risk": {
       "level": "sedang",
       "alasan": "AI cepat menghasilkan mockup, tetapi riset pengguna dan strategi produk tetap butuh empati manusia."
-    }
+    },
+    "gaji_sumber": "Glints n=49",
+    "demand_sumber": "Glints n=49"
   },
   {
     "id": "devops-engineer",
@@ -405,13 +417,15 @@
         "estimasi": "3 minggu"
       }
     ],
-    "gaji_min": 4.3,
-    "gaji_max": 8.2,
-    "demand": 3,
+    "gaji_min": 8.0,
+    "gaji_max": 12.0,
+    "demand": 4,
     "ai_risk": {
       "level": "rendah",
       "alasan": "Infrastruktur dan respons insiden butuh penilaian kompleks atas sistem yang selalu berubah."
-    }
+    },
+    "gaji_sumber": "Glints n=34",
+    "demand_sumber": "Glints n=34"
   },
   {
     "id": "security-analyst",
@@ -464,13 +478,15 @@
         "estimasi": "2 minggu"
       }
     ],
-    "gaji_min": 5.6,
-    "gaji_max": 8.9,
-    "demand": 1,
+    "gaji_min": 4.0,
+    "gaji_max": 6.0,
+    "demand": 3,
     "ai_risk": {
       "level": "rendah",
       "alasan": "Berpikir adversarial dan respons insiden tidak bisa diserahkan penuh ke otomasi."
-    }
+    },
+    "gaji_sumber": "Glints n=11",
+    "demand_sumber": "Glints n=11"
   },
   {
     "id": "qa-engineer",
@@ -525,13 +541,15 @@
         "estimasi": "2 minggu"
       }
     ],
-    "gaji_min": 4.8,
-    "gaji_max": 9.2,
-    "demand": 1,
+    "gaji_min": 6.3,
+    "gaji_max": 8.0,
+    "demand": 5,
     "ai_risk": {
       "level": "tinggi",
       "alasan": "Generasi dan eksekusi test case sangat mudah diotomasi; testing eksploratif tetap bernilai."
-    }
+    },
+    "gaji_sumber": "Glints n=49",
+    "demand_sumber": "Glints n=49"
   },
   {
     "id": "it-pm",
@@ -586,13 +604,15 @@
         "estimasi": "4 minggu"
       }
     ],
-    "gaji_min": 10.5,
-    "gaji_max": 14.1,
-    "demand": 1,
+    "gaji_min": 8.0,
+    "gaji_max": 12.0,
+    "demand": 4,
     "ai_risk": {
       "level": "rendah",
       "alasan": "Negosiasi, manajemen stakeholder, dan akuntabilitas adalah pekerjaan antarmanusia."
-    }
+    },
+    "gaji_sumber": "Glints n=34",
+    "demand_sumber": "Glints n=34"
   },
   {
     "id": "data-engineer",
@@ -643,13 +663,15 @@
         "estimasi": "3 minggu"
       }
     ],
-    "gaji_min": 6.0,
-    "gaji_max": 8.5,
+    "gaji_min": 7.0,
+    "gaji_max": 10.0,
     "demand": 4,
     "ai_risk": {
       "level": "rendah",
       "alasan": "Arsitektur pipeline dan pemodelan data skala besar butuh rekayasa yang kompleks."
-    }
+    },
+    "gaji_sumber": "Glints n=26",
+    "demand_sumber": "Glints n=26"
   },
   {
     "id": "business-analyst",
@@ -703,13 +725,15 @@
         "estimasi": "3 minggu"
       }
     ],
-    "gaji_min": 5.5,
-    "gaji_max": 7.5,
+    "gaji_min": 7.05,
+    "gaji_max": 10.5,
     "demand": 4,
     "ai_risk": {
       "level": "sedang",
       "alasan": "Menggali kebutuhan dari manusia dan menyelaraskan kepentingan bisnis sulit diotomasi penuh."
-    }
+    },
+    "gaji_sumber": "Glints n=32",
+    "demand_sumber": "Glints n=32"
   },
   {
     "id": "system-analyst",
@@ -761,13 +785,15 @@
         "estimasi": "3 minggu"
       }
     ],
-    "gaji_min": 6.0,
-    "gaji_max": 8.0,
+    "gaji_min": 5.5,
+    "gaji_max": 7.75,
     "demand": 3,
     "ai_risk": {
       "level": "rendah",
       "alasan": "Menerjemahkan kebutuhan bisnis menjadi desain sistem butuh penilaian menyeluruh."
-    }
+    },
+    "gaji_sumber": "Glints n=10",
+    "demand_sumber": "Glints n=10"
   },
   {
     "id": "fullstack-dev",
@@ -819,13 +845,15 @@
         "estimasi": "2 minggu"
       }
     ],
-    "gaji_min": 7.5,
-    "gaji_max": 10.0,
+    "gaji_min": 5.0,
+    "gaji_max": 7.0,
     "demand": 4,
     "ai_risk": {
       "level": "sedang",
       "alasan": "AI membantu di banyak lapisan, tetapi integrasi ujung-ke-ujung tetap butuh arsitek manusia."
-    }
+    },
+    "gaji_sumber": "Glints n=38",
+    "demand_sumber": "Glints n=38"
   },
   {
     "id": "network-engineer",
@@ -847,9 +875,9 @@
       "Troubleshooting",
       "Networking"
     ],
-    "gaji_min": 5.0,
-    "gaji_max": 8.0,
-    "demand": 3,
+    "gaji_min": 6.0,
+    "gaji_max": 8.15,
+    "demand": 1,
     "ai_risk": {
       "level": "rendah",
       "alasan": "Jaringan fisik dan troubleshooting lapangan butuh kehadiran dan penilaian langsung."
@@ -885,7 +913,9 @@
         "estimasi": "3 minggu",
         "detail": "Rancang dan bangun satu topologi jaringan kecil lengkap dengan dokumentasinya sebagai portofolio."
       }
-    ]
+    ],
+    "gaji_sumber": "Kaggle n=7",
+    "demand_sumber": "Glints n=0"
   },
   {
     "id": "cloud-engineer",
@@ -905,9 +935,9 @@
       "S3",
       "Lambda"
     ],
-    "gaji_min": 8.0,
-    "gaji_max": 12.0,
-    "demand": 5,
+    "gaji_min": 10.0,
+    "gaji_max": 20.0,
+    "demand": 1,
     "ai_risk": {
       "level": "rendah",
       "alasan": "Arsitektur cloud dan keputusan infrastruktur butuh rekayasa kompleks atas sistem yang selalu berubah."
@@ -943,7 +973,9 @@
         "estimasi": "3 minggu",
         "detail": "Rancang arsitektur web tiga lapis yang scalable di cloud lengkap dengan estimasi biayanya sebagai portofolio."
       }
-    ]
+    ],
+    "gaji_sumber": "dinaspajak.com",
+    "demand_sumber": "Glints n=0"
   },
   {
     "id": "sysadmin",
@@ -963,9 +995,9 @@
       "PowerShell",
       "SSH"
     ],
-    "gaji_min": 4.5,
-    "gaji_max": 7.0,
-    "demand": 3,
+    "gaji_min": 3.75,
+    "gaji_max": 5.5,
+    "demand": 2,
     "ai_risk": {
       "level": "sedang",
       "alasan": "Tugas administrasi rutin bisa diotomasi, tetapi insiden dan konfigurasi khusus tetap butuh manusia."
@@ -1001,7 +1033,9 @@
         "estimasi": "2 minggu",
         "detail": "Pasang pemantauan server (CPU, disk, layanan) dengan alert agar masalah ketahuan sebelum user komplain."
       }
-    ]
+    ],
+    "gaji_sumber": "Glints n=3",
+    "demand_sumber": "Glints n=3"
   },
   {
     "id": "game-developer",
@@ -1020,8 +1054,8 @@
       "Mobile Game"
     ],
     "gaji_min": 6.0,
-    "gaji_max": 10.0,
-    "demand": 3,
+    "gaji_max": 12.0,
+    "demand": 1,
     "ai_risk": {
       "level": "rendah",
       "alasan": "Kreativitas, game feel, dan desain pengalaman bermain sulit diotomasi."
@@ -1057,7 +1091,9 @@
         "estimasi": "3 minggu",
         "detail": "Poles satu game terbaikmu dan tulis devlog-nya. Satu game jadi lebih berharga dari lima prototype."
       }
-    ]
+    ],
+    "gaji_sumber": "radarbaru.com",
+    "demand_sumber": "Glints n=0"
   },
   {
     "id": "dba",
@@ -1076,9 +1112,9 @@
       "Monitoring",
       "Database"
     ],
-    "gaji_min": 6.0,
-    "gaji_max": 9.0,
-    "demand": 3,
+    "gaji_min": 10.07,
+    "gaji_max": 12.5,
+    "demand": 1,
     "ai_risk": {
       "level": "sedang",
       "alasan": "Monitoring rutin bisa diotomasi, tetapi tuning performa dan recovery kritis butuh pengalaman."
@@ -1114,7 +1150,9 @@
         "estimasi": "2 minggu",
         "detail": "Pasang pemantauan koneksi, slow query, dan kapasitas disk dengan alert otomatis."
       }
-    ]
+    ],
+    "gaji_sumber": "Kaggle n=2",
+    "demand_sumber": "Glints n=0"
   },
   {
     "id": "data-scientist",
@@ -1132,9 +1170,9 @@
       "Jupyter",
       "Scikit-learn"
     ],
-    "gaji_min": 8.0,
-    "gaji_max": 13.0,
-    "demand": 4,
+    "gaji_min": 5.85,
+    "gaji_max": 8.3,
+    "demand": 3,
     "ai_risk": {
       "level": "rendah",
       "alasan": "Framing masalah bisnis menjadi eksperimen statistik butuh penilaian mendalam."
@@ -1170,7 +1208,9 @@
         "estimasi": "4 minggu",
         "detail": "Ambil satu masalah bisnis, olah datanya, bangun model, dan presentasikan hasilnya sebagai portofolio."
       }
-    ]
+    ],
+    "gaji_sumber": "Glints n=8",
+    "demand_sumber": "Glints n=8"
   },
   {
     "id": "product-manager",
@@ -1188,8 +1228,8 @@
       "Figma",
       "Komunikasi"
     ],
-    "gaji_min": 9.0,
-    "gaji_max": 14.0,
+    "gaji_min": 5.7,
+    "gaji_max": 10.0,
     "demand": 4,
     "ai_risk": {
       "level": "rendah",
@@ -1226,7 +1266,9 @@
         "estimasi": "3 minggu",
         "detail": "Analisis satu produk nyata: apa yang salah dan bagaimana kamu memperbaikinya. Jadi portofolio PM."
       }
-    ]
+    ],
+    "gaji_sumber": "Glints n=33",
+    "demand_sumber": "Glints n=33"
   },
   {
     "id": "it-support",
@@ -1244,9 +1286,9 @@
       "Komunikasi",
       "MS Office"
     ],
-    "gaji_min": 4.0,
-    "gaji_max": 6.0,
-    "demand": 3,
+    "gaji_min": 4.5,
+    "gaji_max": 6.41,
+    "demand": 1,
     "ai_risk": {
       "level": "tinggi",
       "alasan": "Troubleshooting level 1 sangat mudah diotomasi chatbot dan skrip."
@@ -1282,7 +1324,9 @@
         "estimasi": "4 minggu",
         "detail": "Pelajari materi CompTIA A+ atau setara sebagai bukti kompetensi saat melamar."
       }
-    ]
+    ],
+    "gaji_sumber": "Kaggle n=15, Q1-Q3",
+    "demand_sumber": "Glints n=0"
   },
   {
     "id": "embedded-engineer",
@@ -1300,9 +1344,9 @@
       "Git",
       "Debugging"
     ],
-    "gaji_min": 6.0,
-    "gaji_max": 10.0,
-    "demand": 2,
+    "gaji_min": 8.0,
+    "gaji_max": 16.0,
+    "demand": 1,
     "ai_risk": {
       "level": "rendah",
       "alasan": "Pemrograman perangkat keras dan debugging sistem tertanam butuh keahlian khusus."
@@ -1338,6 +1382,8 @@
         "estimasi": "2 minggu",
         "detail": "Tulis skematik, kode, dan demo video satu proyek terbaik sebagai portofolio."
       }
-    ]
+    ],
+    "gaji_sumber": "dinaspajak.com",
+    "demand_sumber": "Glints n=0"
   }
 ]
