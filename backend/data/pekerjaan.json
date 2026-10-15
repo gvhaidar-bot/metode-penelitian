@@ -817,7 +817,12 @@
       "Linux",
       "Network Troubleshooting",
       "Troubleshooting",
-      "Networking"
+      "Networking",
+      "Network Security",
+      "Penetration Testing",
+      "Network Monitoring",
+      "OSPF",
+      "Palo Alto"
     ],
     "gaji_min": 6.0,
     "gaji_max": 8.15,
@@ -873,7 +878,9 @@
       "Monitoring",
       "Networking",
       "S3",
-      "Lambda"
+      "Lambda",
+      "CI/CD",
+      "Jenkins"
     ],
     "gaji_min": 10.0,
     "gaji_max": 20.0,
@@ -929,7 +936,8 @@
       "Troubleshooting",
       "Monitoring",
       "PowerShell",
-      "SSH"
+      "SSH",
+      "Ansible"
     ],
     "gaji_min": 3.75,
     "gaji_max": 5.5,
@@ -1038,7 +1046,8 @@
       "Replication",
       "Linux",
       "Monitoring",
-      "Database"
+      "Database",
+      "Database Monitoring"
     ],
     "gaji_min": 10.07,
     "gaji_max": 12.5,
@@ -1092,7 +1101,10 @@
       "Data Visualization",
       "A/B Testing",
       "Jupyter",
-      "Scikit-learn"
+      "Scikit-learn",
+      "Predictive Analytics",
+      "Data Modeling",
+      "Tableau"
     ],
     "gaji_min": 5.85,
     "gaji_max": 8.3,
@@ -1146,7 +1158,9 @@
       "Stakeholder Management",
       "SQL",
       "Figma",
-      "Komunikasi"
+      "Komunikasi",
+      "Product Analysis",
+      "JIRA"
     ],
     "gaji_min": 5.7,
     "gaji_max": 10.0,
@@ -1254,7 +1268,9 @@
       "IoT",
       "Elektronika Dasar",
       "Git",
-      "Debugging"
+      "Debugging",
+      "PCB Design",
+      "MATLAB"
     ],
     "gaji_min": 8.0,
     "gaji_max": 16.0,
