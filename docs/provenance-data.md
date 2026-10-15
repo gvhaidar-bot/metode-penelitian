@@ -8,7 +8,7 @@ karier berasal. Ditulis agar dapat disitasi apa adanya di skripsi.
 | Komponen | Sumber | Keterangan |
 |---|---|---|
 | 14 profil karier awal (skill, gaji, demand) | Dataset Kaggle + kurasi tim | Lihat `build_dataset.py`: IT Jobs in Asia-Pacific (sergeychekurin) + Indonesia Average Job Salary (husnind). 4 karier (Data Engineer, Business Analyst, System Analyst, Full Stack) ditambahkan dari analisis `glints_jobs.csv`. |
-| 9 profil karier tambahan (network-engineer, cloud-engineer, sysadmin, game-developer, dba, data-scientist, product-manager, it-support, embedded-engineer) | Kurasi peneliti | Disusun dari pengetahuan umum industri IT (daftar skill, estimasi gaji pasar Indonesia, roadmap belajar). **Bukan dari dataset Kaggle/GitHub, bukan hasil scraping.** |
+| 9 profil karier tambahan (network-engineer, cloud-engineer, sysadmin, game-developer, dba, data-scientist, product-manager, it-support, embedded-engineer) | Kurasi peneliti + validasi scraping Glints 15 Okt 2026 | Awalnya disusun dari pengetahuan umum industri IT. Skill diperkaya/divalidasi dengan 180 lowongan hasil scraping Glints (30 per karier, 15 Okt 2026, file `glints_scrape_20251015.csv`): network-engineer +5 skill (Network Security, Penetration Testing, Network Monitoring, OSPF, Palo Alto), cloud-engineer +2 (CI/CD, Jenkins), dba +1 (Database Monitoring), embedded-engineer +2 (PCB Design, MATLAB), product-manager +2 (Product Analysis, JIRA, dari `glints_jobs.csv`), data-scientist +3 (Predictive Analytics, Data Modeling, Tableau, dari `glints_jobs.csv`), sysadmin +1 (Ansible, dari `glints_jobs.csv`). Noise (Teamwork, Customer Service, Hybrid, dsb.) dibuang manual. |
 | Pengayaan skill (±40 skill baru: TypeScript, Next.js, Go, Node.js, Pandas, Linux, dsb.) | `glints_jobs.csv` (1.133 lowongan, klaim tim: Mei–Jun 2026, tidak terverifikasi dari isi file) | Tag skill asli dari kolom `job_requirements`, diagregasi per karier lalu dikurasi manual (noise seperti "Remote", "Social Media" dibuang). |
 | Gaji 17 karier terpetakan | Median `glints_jobs.csv` (1.133 lowongan) | `gaji_min_median_jt` / `gaji_max_median_jt` per karier dari `glints_stats.json`. Sumber: `gaji_sumber` per karier di `pekerjaan.json`. |
 | Gaji network-engineer (6,0–8,15) | Dataset Kaggle husnind (n=7) | Min–maks Gaji_Rata2 untuk judul mengandung "network engineer". |
@@ -47,10 +47,10 @@ karier berasal. Ditulis agar dapat disitasi apa adanya di skripsi.
 - Pengembangan lanjutan: validasi pakar (kuesioner) untuk profil, gaji,
   demand, dan bobot SAW.
 
-## Narasi pertahanan untuk sidang (9 karier kurasi peneliti)
+## Narasi pertahanan untuk sidang (9 karier tambahan)
 
-Bila penguji mempertanyakan 9 dari 23 karier (~39%) yang dikurasi
-peneliti tanpa dataset pendukung, gunakan bingkai berikut:
+Bila penguji mempertanyakan 9 dari 23 karier (~39%) yang awalnya dikurasi
+peneliti, gunakan bingkai berikut (diperbarui 15 Okt 2026):
 
 1. **Keputusan desain sistematis, bukan ad-hoc.** Sembilan karier dipilih
    dengan kriteria eksplisit: (a) peran IT yang umum dibuka di Indonesia
@@ -59,8 +59,14 @@ peneliti tanpa dataset pendukung, gunakan bingkai berikut:
    dukungan teknis), (c) tiap profil memakai struktur data yang sama
    dengan 14 karier berbasis dataset (skill, gaji_min/max, demand 1–5,
    roadmap 6 quest).
-2. **Transparansi penuh.** Dokumen ini mencatat jujur komponen mana yang
-   dari dataset dan mana yang estimasi peneliti; tidak ada klaim palsu
+2. **Skill kini didukung data scraping.** Pada 15 Okt 2026 dilakukan
+   scraping 180 lowongan Glints (30 per karier) untuk memvalidasi dan
+   memperkaya profil skill 9 karier tersebut; 16 skill baru ditambahkan
+   dari tag lowongan asli setelah noise dibuang. Keberadaan keenam peran
+   yang tidak terpetakan di dataset lama juga diverifikasi langsung di
+   web Glints (lowongan aktif ditemukan untuk semuanya).
+3. **Transparansi penuh.** Dokumen ini mencatat jujur komponen mana yang
+   dari dataset dan mana yang kurasi peneliti; tidak ada klaim palsu
    yang bisa dibongkar.
 3. **Keterbatasan dinyatakan terbuka.** Gaji, demand, dan bobot SAW yang
    belum divalidasi pakar dicatat sebagai keterbatasan penelitian, dengan

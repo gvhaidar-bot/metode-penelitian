@@ -1,0 +1,368 @@
+{
+  "network-engineer": {
+    "jumlah_lowongan": 30,
+    "top_skills": [
+      {
+        "skill": "Network Security",
+        "count": 4
+      },
+      {
+        "skill": "Penetration Testing",
+        "count": 3
+      },
+      {
+        "skill": "Network Monitoring",
+        "count": 2
+      },
+      {
+        "skill": "Teamwork",
+        "count": 2
+      },
+      {
+        "skill": "Analytical Skills",
+        "count": 1
+      },
+      {
+        "skill": "Network Troubleshooting",
+        "count": 1
+      },
+      {
+        "skill": "Telecommunications",
+        "count": 1
+      },
+      {
+        "skill": "Application Monitoring",
+        "count": 1
+      },
+      {
+        "skill": "OSPF",
+        "count": 1
+      },
+      {
+        "skill": "Firewall",
+        "count": 1
+      },
+      {
+        "skill": "Palo Alto",
+        "count": 1
+      },
+      {
+        "skill": "DevOps",
+        "count": 1
+      },
+      {
+        "skill": "Software Documentation",
+        "count": 1
+      },
+      {
+        "skill": "Cisco",
+        "count": 1
+      },
+      {
+        "skill": "Network Configuration",
+        "count": 1
+      }
+    ]
+  },
+  "cloud-engineer": {
+    "jumlah_lowongan": 30,
+    "top_skills": [
+      {
+        "skill": "Amazon Web Services (AWS)",
+        "count": 4
+      },
+      {
+        "skill": "CI/CD",
+        "count": 3
+      },
+      {
+        "skill": "Jenkins",
+        "count": 2
+      },
+      {
+        "skill": "Kubernetes",
+        "count": 1
+      },
+      {
+        "skill": "L2",
+        "count": 1
+      },
+      {
+        "skill": "Tcp/Ip",
+        "count": 1
+      },
+      {
+        "skill": "User Acceptance Test",
+        "count": 1
+      },
+      {
+        "skill": "UiPath",
+        "count": 1
+      },
+      {
+        "skill": "Communication Skills",
+        "count": 1
+      },
+      {
+        "skill": "Ticket Automation",
+        "count": 1
+      },
+      {
+        "skill": "Docker",
+        "count": 1
+      },
+      {
+        "skill": "React.js",
+        "count": 1
+      },
+      {
+        "skill": "GCP",
+        "count": 1
+      },
+      {
+        "skill": "Help Desk",
+        "count": 1
+      },
+      {
+        "skill": "Linux",
+        "count": 1
+      }
+    ]
+  },
+  "game-developer": {
+    "jumlah_lowongan": 30,
+    "top_skills": [
+      {
+        "skill": "Teamwork",
+        "count": 4
+      },
+      {
+        "skill": "Customer Service",
+        "count": 3
+      },
+      {
+        "skill": "TikTok",
+        "count": 2
+      },
+      {
+        "skill": "Communication Skills",
+        "count": 2
+      },
+      {
+        "skill": "Game Design",
+        "count": 1
+      },
+      {
+        "skill": "3D Design",
+        "count": 1
+      },
+      {
+        "skill": "Ground Promotion",
+        "count": 1
+      },
+      {
+        "skill": "Online Promotion",
+        "count": 1
+      },
+      {
+        "skill": "Computer Operator",
+        "count": 1
+      },
+      {
+        "skill": "Live Streaming",
+        "count": 1
+      },
+      {
+        "skill": "Science",
+        "count": 1
+      },
+      {
+        "skill": "Troubleshooting & Maintenance Mesin",
+        "count": 1
+      },
+      {
+        "skill": "Game Product Operation",
+        "count": 1
+      },
+      {
+        "skill": "Radio Host",
+        "count": 1
+      },
+      {
+        "skill": "English Language",
+        "count": 1
+      }
+    ]
+  },
+  "dba": {
+    "jumlah_lowongan": 30,
+    "top_skills": [
+      {
+        "skill": "Customer Service",
+        "count": 2
+      },
+      {
+        "skill": "Microsoft SQL Server",
+        "count": 2
+      },
+      {
+        "skill": "MySQL",
+        "count": 2
+      },
+      {
+        "skill": "Communication",
+        "count": 2
+      },
+      {
+        "skill": "Presentation Skills",
+        "count": 1
+      },
+      {
+        "skill": "SQL",
+        "count": 1
+      },
+      {
+        "skill": "Database Management",
+        "count": 1
+      },
+      {
+        "skill": "Microsoft Excel",
+        "count": 1
+      },
+      {
+        "skill": "PostgreSQL",
+        "count": 1
+      },
+      {
+        "skill": "Sql & Query Optimization",
+        "count": 1
+      },
+      {
+        "skill": "Database Monitoring",
+        "count": 1
+      },
+      {
+        "skill": "Teamwork",
+        "count": 1
+      },
+      {
+        "skill": "Microsoft Word",
+        "count": 1
+      },
+      {
+        "skill": "Sales Operations",
+        "count": 1
+      },
+      {
+        "skill": "Accounts Receivable",
+        "count": 1
+      }
+    ]
+  },
+  "it-support": {
+    "jumlah_lowongan": 30,
+    "top_skills": [
+      {
+        "skill": "Microsoft Office",
+        "count": 2
+      },
+      {
+        "skill": "Hardware Maintenance",
+        "count": 2
+      },
+      {
+        "skill": "Computer Vision",
+        "count": 1
+      },
+      {
+        "skill": "Classroom Management",
+        "count": 1
+      },
+      {
+        "skill": "Project Planning",
+        "count": 1
+      },
+      {
+        "skill": "Teamwork",
+        "count": 1
+      },
+      {
+        "skill": "Entraid",
+        "count": 1
+      },
+      {
+        "skill": "Customer Service",
+        "count": 1
+      },
+      {
+        "skill": "IT Support",
+        "count": 1
+      }
+    ]
+  },
+  "embedded-engineer": {
+    "jumlah_lowongan": 30,
+    "top_skills": [
+      {
+        "skill": "PCB Design",
+        "count": 2
+      },
+      {
+        "skill": "Internet of Things (IoT)",
+        "count": 2
+      },
+      {
+        "skill": "Communication Skills",
+        "count": 2
+      },
+      {
+        "skill": "Team Management",
+        "count": 2
+      },
+      {
+        "skill": "MATLAB",
+        "count": 1
+      },
+      {
+        "skill": "Linux",
+        "count": 1
+      },
+      {
+        "skill": "Mqtt",
+        "count": 1
+      },
+      {
+        "skill": "Bom, Engineering Drawing & Technical Documentation",
+        "count": 1
+      },
+      {
+        "skill": "Public Speaking",
+        "count": 1
+      },
+      {
+        "skill": "FreeRTOS",
+        "count": 1
+      },
+      {
+        "skill": "Natural Language Processing (NLP)",
+        "count": 1
+      },
+      {
+        "skill": "Data Engineering",
+        "count": 1
+      },
+      {
+        "skill": "Mandarin Communication",
+        "count": 1
+      },
+      {
+        "skill": "Electrical Engineering",
+        "count": 1
+      },
+      {
+        "skill": "C++",
+        "count": 1
+      }
+    ]
+  }
+}
