@@ -50,11 +50,11 @@ Contoh body `POST /rekomendasi` (header `Authorization: Bearer <token>`):
    terhadap profil skill tiap pekerjaan. Keterbatasan: skill diperlakukan
    biner (dikuasai/tidak) tanpa level penguasaan.
 2. **SAW** — skor akhir = w1 × skill + w2 × minat + w3 × gaji + w4 × demand.
-   Bobot dibaca dari `data/bobot.json` (total harus = 1); ubah file itu
-   untuk eksperimen sensitivitas tanpa menyentuh kode.
+   Bobot dibaca dari tabel `bobot_saw` di PostgreSQL (total harus = 1);
+   ubah isi tabel itu untuk eksperimen sensitivitas tanpa menyentuh kode.
 
-Data profil pekerjaan: `data/pekerjaan.json` (23 karier IT). Pengguna
-tersimpan di `data/users.json` (password ter-hash, dibuat otomatis).
+Seluruh data persisten (profil pekerjaan, bobot, lowongan, akun,
+quest, riwayat) wajib dari PostgreSQL — tidak ada fallback ke file.
 
 ## Test otomatis
 

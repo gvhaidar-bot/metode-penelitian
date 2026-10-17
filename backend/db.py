@@ -1,21 +1,27 @@
 """Lapisan database (PostgreSQL via SQLAlchemy), skema 3NF.
 
+Database WAJIB tersedia: backend membaca seluruh data persisten dari
+PostgreSQL (karier, bobot SAW, lowongan Glints, akun, quest, riwayat).
+Tidak ada lagi fallback ke file JSON. File JSON/CSV di backend/data
+hanya bahan seed/dataset (pekerjaan.json -> seed.sql, glints_jobs.csv
+-> load_glints.py), tidak dibaca aplikasi saat berjalan.
+
 Aktif bila environment variable DATABASE_URL diisi, contoh:
     postgresql+psycopg2://postgres:password@localhost/karier_it
-
-Bila tidak diisi / koneksi gagal, backend otomatis memakai pekerjaan.json
-(mode fallback) sehingga tetap bisa jalan tanpa PostgreSQL.
 """
 import json
 import os
+from datetime import datetime
 from pathlib import Path
 
 DATABASE_URL = os.environ.get("DATABASE_URL", "").strip()
 
 try:
-    from sqlalchemy import (Column, DECIMAL, ForeignKey, Integer, String, Text,
-                            UniqueConstraint, create_engine)
+    from sqlalchemy import (Column, DECIMAL, DateTime, ForeignKey, Integer,
+                            String, Text, UniqueConstraint, create_engine)
+    from sqlalchemy.dialects.postgresql import JSONB
     from sqlalchemy.orm import declarative_base, relationship, sessionmaker
+    from sqlalchemy.types import JSON
 
     Base = declarative_base()
 
@@ -61,9 +67,93 @@ try:
         estimasi = Column(String(30), nullable=False)
         __table_args__ = (UniqueConstraint("pekerjaan_id", "urutan"),)
 
+    class Users(Base):
+        __tablename__ = "users"
+        id = Column(Integer, primary_key=True, autoincrement=True)
+        nama = Column(String(100), nullable=False)
+        email = Column(String(200), nullable=False, unique=True)
+        password_hash = Column(Text, nullable=False)
+        dibuat = Column(DateTime, nullable=False, default=datetime.now)
+
+    class Sesi(Base):
+        __tablename__ = "sesi"
+        token_hash = Column(String(64), primary_key=True)
+        user_id = Column(Integer, ForeignKey("users.id", ondelete="CASCADE"),
+                         nullable=False)
+        exp = Column(DateTime, nullable=False)
+        user = relationship("Users")
+
+    class ProfilSkill(Base):
+        __tablename__ = "profil_skill"
+        user_id = Column(Integer, ForeignKey("users.id", ondelete="CASCADE"),
+                         primary_key=True)
+        skill = Column(String(40), primary_key=True)
+        urutan = Column(Integer, nullable=False)
+
+    class QuestProgress(Base):
+        __tablename__ = "quest_progress"
+        user_id = Column(Integer, ForeignKey("users.id", ondelete="CASCADE"),
+                         primary_key=True)
+        karier_id = Column(String(50), ForeignKey("pekerjaan.id",
+                           ondelete="CASCADE"), primary_key=True)
+        langkah = Column(Integer, primary_key=True)
+
+    class Riwayat(Base):
+        __tablename__ = "riwayat"
+        id = Column(Integer, primary_key=True, autoincrement=True)
+        user_id = Column(Integer, ForeignKey("users.id", ondelete="CASCADE"),
+                         nullable=False)
+        waktu = Column(DateTime, nullable=False, default=datetime.now)
+        skills = Column(JSON().with_variant(JSONB, "postgresql"),
+                        nullable=False, default=list)
+        minat = Column(JSON().with_variant(JSONB, "postgresql"),
+                       nullable=False, default=list)
+        hasil = Column(JSON().with_variant(JSONB, "postgresql"),
+                       nullable=False, default=list)
+
+    class BobotSaw(Base):
+        __tablename__ = "bobot_saw"
+        kriteria = Column(String(20), primary_key=True)
+        nilai = Column(DECIMAL(4, 3), nullable=False)
+
+    class LowonganGlints(Base):
+        __tablename__ = "lowongan_glints"
+        id = Column(Integer, primary_key=True, autoincrement=True)
+        karier_id = Column(String(50), ForeignKey("pekerjaan.id",
+                           ondelete="SET NULL"))
+        judul = Column(String(300), nullable=False)
+        perusahaan = Column(String(200), nullable=False)
+        lokasi = Column(String(200), nullable=False, default="")
+        gaji_teks = Column(String(200), nullable=False, default="")
+        gaji_min = Column(DECIMAL(6, 1))
+        gaji_max = Column(DECIMAL(6, 1))
+        tipe = Column(String(50), nullable=False, default="")
+        pengalaman = Column(String(100), nullable=False, default="")
+
     _HAS_SQLA = True
 except ImportError:
     _HAS_SQLA = False
+
+
+_ENGINE = None
+
+
+def engine():
+    """Satu engine SQLAlchemy untuk seluruh aplikasi (dibuat sekali)."""
+    global _ENGINE
+    if _ENGINE is None:
+        if not (_HAS_SQLA and DATABASE_URL):
+            raise RuntimeError("DATABASE_URL belum diisi")
+        _ENGINE = create_engine(DATABASE_URL, pool_pre_ping=True)
+    return _ENGINE
+
+
+def sesi_db():
+    """Session SQLAlchemy baru (panggil .close() setelah dipakai)."""
+    return sessionmaker(bind=engine())()
+
+
+BOBOT_SAW_DEFAULT = {"skill": 0.45, "minat": 0.25, "gaji": 0.15, "demand": 0.15}
 
 
 def muat_dari_db():
@@ -71,9 +161,7 @@ def muat_dari_db():
     if not (_HAS_SQLA and DATABASE_URL):
         return None
     try:
-        engine = create_engine(DATABASE_URL, pool_pre_ping=True)
-        Session = sessionmaker(bind=engine)
-        with Session() as s:
+        with sesi_db() as s:
             rows = s.query(Pekerjaan).all()
             if not rows:
                 return None
@@ -89,8 +177,20 @@ def muat_dari_db():
                 "demand": int(p.demand),
             } for p in rows]
     except Exception as e:
-        print(f"[db] PostgreSQL tidak terjangkau ({e}); pakai pekerjaan.json")
+        print(f"[db] PostgreSQL tidak terjangkau ({e})")
         return None
+
+
+def muat_bobot_dari_db():
+    """Baca bobot SAW dari tabel bobot_saw; gagal bila DB tidak tersedia
+    atau total bobot != 1."""
+    with sesi_db() as s:
+        rows = s.query(BobotSaw).all()
+        bobot = {r.kriteria: float(r.nilai) for r in rows}
+    total = sum(bobot.values())
+    if not bobot or abs(total - 1.0) > 1e-9:
+        raise ValueError(f"Total bobot SAW harus = 1, dapat {total}")
+    return bobot
 
 
 def muat_dari_json():
@@ -108,14 +208,15 @@ def _dapat_atau_buat(s, model, **kwargs):
 
 
 def seed_dari_json():
-    """Isi tabel PostgreSQL dari pekerjaan.json (aman dijalankan ulang)."""
+    """Isi tabel PostgreSQL dari pekerjaan.json + bobot SAW (aman diulang)."""
     if not (_HAS_SQLA and DATABASE_URL):
         raise RuntimeError("DATABASE_URL belum diisi")
-    engine = create_engine(DATABASE_URL)
-    Base.metadata.create_all(engine)
-    Session = sessionmaker(bind=engine)
+    Base.metadata.create_all(engine())
     data = muat_dari_json()
-    with Session() as s:
+    with sesi_db() as s:
+        for kriteria, nilai in BOBOT_SAW_DEFAULT.items():
+            if s.get(BobotSaw, kriteria) is None:
+                s.add(BobotSaw(kriteria=kriteria, nilai=nilai))
         for job in data:
             if s.get(Pekerjaan, job["id"]):
                 continue

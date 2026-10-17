@@ -75,6 +75,14 @@ def main():
     out.append(",\n".join(baris))
     out.append("ON CONFLICT (pekerjaan_id, urutan) DO NOTHING;")
     out.append("")
+    out.append("-- Bobot SAW (harus sama dengan yang dijelaskan di skripsi; total = 1).")
+    out.append("INSERT INTO bobot_saw (kriteria, nilai) VALUES")
+    out.append("  ('skill', 0.45),")
+    out.append("  ('minat', 0.25),")
+    out.append("  ('gaji', 0.15),")
+    out.append("  ('demand', 0.15)")
+    out.append("ON CONFLICT (kriteria) DO NOTHING;")
+    out.append("")
 
     with open(SEED_PATH, "w", encoding="utf-8") as f:
         f.write("\n".join(out))

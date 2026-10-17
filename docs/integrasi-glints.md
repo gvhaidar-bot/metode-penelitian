@@ -31,26 +31,29 @@ Hasil pemetaan (dihasilkan `backend/data/build_glints.py`):
 | Karier | Lowongan | Median gaji (jt) |
 |---|---|---|
 | data-analyst | 79 | 5,0–6,0 |
-| backend-dev | 53 | 6,0–8,5 |
-| frontend-dev | 49 | 6,0–7,5 |
-| it-pm | 56 | 8,0–12,0 |
+| frontend-dev | 73 | 4,8–6,25 |
 | qa-engineer | 49 | 6,3–8,0 |
 | uiux-designer | 49 | 4,0–5,5 |
-| mobile-dev | 47 | 6,9–9,0 |
-| fullstack-dev | 40 | 5,0–7,0 |
-| ml-engineer | 34 | 6,0–8,0 |
+| backend-dev | 47 | 6,9–10,0 |
+| mobile-dev | 45 | 7,0–9,5 |
+| fullstack-dev | 38 | 5,0–7,0 |
 | devops-engineer | 34 | 8,0–12,0 |
-| business-analyst | 32 | 7,1–10,5 |
+| it-pm | 34 | 8,0–12,0 |
+| product-manager | 33 | 5,7–10,0 |
+| business-analyst | 32 | 7,05–10,5 |
 | data-engineer | 26 | 7,0–10,0 |
+| ml-engineer | 26 | 6,5–8,0 |
 | security-analyst | 11 | 4,0–6,0 |
-| system-analyst | 10 | 5,5–7,8 |
-| Tak terpetakan | 564 | — |
+| system-analyst | 10 | 5,5–7,75 |
+| data-scientist | 8 | 5,85–8,3 |
+| sysadmin | 3 | 3,75–5,5 |
+| Tak terpetakan | 536 | — |
 
-Total terpetakan: 569 dari 1.133 (50%). Yang tak terpetakan umumnya
+Total terpetakan: 597 dari 1.133 (53%). Yang tak terpetakan umumnya
 berjudul generik tanpa petunjuk skill yang jelas di requirements.
 
-Statistik tersimpan di `backend/data/glints_stats.json`. Untuk
-menghasilkan ulang:
+Statistik dihitung dari tabel `lowongan_glints` di PostgreSQL. Untuk
+menghitung ulang:
 
 ```bash
 cd backend

@@ -1,15 +1,42 @@
 """Test otomatis backend (pytest): memetakan TC-01..TC-08 dari
 docs/rencana-pengujian.md plus pengujian autentikasi.
 
+Backend wajib membaca dari database, jadi tes memakai database SQLite
+sementara (dibuat + di-seed sebelum app diimpor, dihapus setelahnya).
+
 Jalankan dari folder backend/:
     pytest -q
 """
+import atexit
 import os
 import sys
+import tempfile
 
 import pytest
 
 sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+
+# Database tes: SQLite sementara, disiapkan SEBELUM app diimpor
+# (app gagal cepat bila DATABASE_URL tidak tersedia).
+_DB_TES = tempfile.NamedTemporaryFile(suffix=".db", delete=False)
+_DB_TES.close()
+os.environ["DATABASE_URL"] = f"sqlite:///{_DB_TES.name}"
+
+
+def _hapus_db_tes():
+    try:
+        os.unlink(_DB_TES.name)
+    except OSError:
+        pass
+
+
+atexit.register(_hapus_db_tes)
+
+import db as db_module  # noqa: E402
+from glints import impor_csv_ke_db  # noqa: E402
+
+db_module.seed_dari_json()
+impor_csv_ke_db()
 
 import app as app_module  # noqa: E402
 

@@ -34,7 +34,7 @@ Filtering dan Simple Additive Weighting (SAW)*.
    skill pengguna dengan vektor skill tiap pekerjaan.
 2. **SAW (Simple Additive Weighting)** — merangking hasil dari 4 kriteria:
    kecocokan skill (bobot 0,45), minat (0,25), gaji (0,15), kebutuhan pasar
-   (0,15). Bobot tersimpan di `backend/data/bobot.json` sehingga mudah
+   (0,15). Bobot tersimpan di tabel `bobot_saw` di PostgreSQL sehingga mudah
    diubah tanpa menyentuh kode.
 
 Simulasi perhitungan manual: `docs/contoh-perhitungan.md`.
@@ -46,12 +46,10 @@ metode-penelitian/
 ├── backend/
 │   ├── app.py              # Flask REST API (auth, rekomendasi, pekerjaan)
 │   ├── auth.py             # register/login/logout + token
-│   ├── db.py               # akses data (PostgreSQL / fallback JSON)
+│   ├── db.py               # akses data (PostgreSQL, wajib)
 │   ├── data/
-│   │   ├── pekerjaan.json  # 23 profil karier (skill, gaji, demand, roadmap)
-│   │   ├── bobot.json      # bobot kriteria SAW
-│   │   ├── glints_jobs.csv # 1.133 lowongan Glints (untuk endpoint lowongan)
-│   │   └── glints_stats.json # ringkasan pemetaan Glints per karier
+│   │   ├── pekerjaan.json  # 23 profil karier (bahan seed -> seed.sql)
+│   │   ├── glints_jobs.csv # 1.133 lowongan Glints (bahan impor -> tabel lowongan_glints)
 │   ├── tests/test_api.py   # test otomatis (pytest, 31 test)
 │   └── requirements.txt
 ├── frontend/

@@ -5,35 +5,40 @@ Metode:
      terhadap profil skill tiap pekerjaan.
   2. SAW (Simple Additive Weighting)             -> gabungan skor akhir dari
      kecocokan skill, minat, gaji, dan kebutuhan pasar (demand).
-     Bobot dibaca dari data/bobot.json (total harus = 1).
+     Bobot dibaca dari tabel bobot_saw (total harus = 1).
 
 Autentikasi: register/login memakai token (lihat auth.py). Endpoint
 POST /rekomendasi membutuhkan header "Authorization: Bearer <token>".
+
+Seluruh data persisten WAJIB dari PostgreSQL (karier, bobot SAW,
+lowongan Glints, akun, quest, riwayat). Tidak ada fallback ke file JSON:
+bila DATABASE_URL kosong atau database tidak terjangkau, backend
+berhenti dengan pesan jelas. File JSON/CSV di backend/data hanya
+bahan seed/dataset, tidak dibaca saat berjalan.
 
 Konfigurasi via environment variable:
   FLASK_DEBUG=1   aktifkan debug mode (default MATI)
   CORS_ORIGINS    daftar origin dipisah koma, default http://localhost:5173
   PORT            port server, default 8000
-  DATABASE_URL    bila diisi, data dibaca dari PostgreSQL (lihat db.py);
-                  bila kosong/gagal, otomatis memakai data/pekerjaan.json.
+  DATABASE_URL    WAJIB, contoh:
+                  postgresql+psycopg2://postgres:password@localhost/karier_it
 
 Jalankan (dari folder backend/):
     python app.py
 atau:
     flask --app app run --port 8000
 """
-import json
 import math
 import os
 import re
 import time
-from pathlib import Path
 
 from flask import Flask, jsonify, request
 from flask_cors import CORS
 
 import auth
 import glints
+from db import muat_bobot_dari_db, muat_dari_db
 
 app = Flask(__name__)
 
@@ -45,41 +50,20 @@ _origins = [o.strip() for o in
             if o.strip()]
 CORS(app, resources={r"/*": {"origins": _origins}})
 
-DATA_DIR = Path(__file__).parent / "data"
-DATA_PATH = DATA_DIR / "pekerjaan.json"
-BOBOT_PATH = DATA_DIR / "bobot.json"
-PEKERJAAN = json.loads(DATA_PATH.read_text(encoding="utf-8"))
-
-
-def muat_bobot():
-    """Baca bobot SAW dari bobot.json; validasi total = 1."""
-    try:
-        bobot = json.loads(BOBOT_PATH.read_text(encoding="utf-8"))
-        bobot = {k: float(v) for k, v in bobot.items()
-                 if not k.startswith("_")}
-    except (OSError, ValueError, json.JSONDecodeError):
-        bobot = {"skill": 0.45, "minat": 0.25, "gaji": 0.15, "demand": 0.15}
-    total = sum(bobot.values())
-    if not bobot or abs(total - 1.0) > 1e-9:
-        raise ValueError(f"Total bobot SAW harus = 1, dapat {total}")
-    return bobot
-
-
-BOBOT = muat_bobot()
-
-# Coba muat dari PostgreSQL bila DATABASE_URL tersedia; fallback ke JSON
+# Data WAJIB dari PostgreSQL — gagal cepat bila DB tidak tersedia.
 try:
-    from db import muat_dari_db
-    _dari_db = muat_dari_db()
-    if _dari_db:
-        PEKERJAAN = _dari_db
-        print(f"[app] Memakai data dari PostgreSQL ({len(PEKERJAAN)} pekerjaan)")
-    else:
-        print(f"[app] Memakai data dari pekerjaan.json ({len(PEKERJAAN)} pekerjaan)")
+    BOBOT = muat_bobot_dari_db()
 except Exception as e:
-    # Peringatan eksplisit: kegagalan DB jangan sampai tidak disadari.
-    print(f"[app] PERINGATAN: PostgreSQL tidak dipakai ({e}); "
-          f"memakai pekerjaan.json ({len(PEKERJAAN)} pekerjaan)")
+    raise RuntimeError(
+        "DATABASE_URL belum diisi atau PostgreSQL tidak terjangkau "
+        f"({e}); backend wajib membaca dari PostgreSQL.") from e
+
+PEKERJAAN = muat_dari_db()
+if PEKERJAAN is None:
+    raise RuntimeError(
+        "DATABASE_URL belum diisi atau PostgreSQL tidak terjangkau; "
+        "backend wajib membaca dari PostgreSQL.")
+print(f"[app] Memakai data dari PostgreSQL ({len(PEKERJAAN)} pekerjaan)")
 
 
 def normalisasi(skill: str) -> str:

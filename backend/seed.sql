@@ -670,3 +670,11 @@ INSERT INTO roadmap (pekerjaan_id, urutan, judul, detail, estimasi) VALUES
   ('embedded-engineer', 5, 'Bangun proyek IoT', 'Buat perangkat IoT yang kirim data sensor ke cloud via MQTT sampai bisa dimonitor dari HP.', '3 minggu'),
   ('embedded-engineer', 6, 'Dokumentasikan proyekmu', 'Tulis skematik, kode, dan demo video satu proyek terbaik sebagai portofolio.', '2 minggu')
 ON CONFLICT (pekerjaan_id, urutan) DO NOTHING;
+
+-- Bobot SAW (harus sama dengan yang dijelaskan di skripsi; total = 1).
+INSERT INTO bobot_saw (kriteria, nilai) VALUES
+  ('skill', 0.45),
+  ('minat', 0.25),
+  ('gaji', 0.15),
+  ('demand', 0.15)
+ON CONFLICT (kriteria) DO NOTHING;

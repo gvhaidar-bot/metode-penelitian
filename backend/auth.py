@@ -1,11 +1,11 @@
-"""Autentikasi sederhana untuk prototype.
+"""Autentikasi + data per akun, seluruhnya di PostgreSQL.
 
-- Pengguna disimpan di ``backend/data/users.json`` (dibuat otomatis saat
-  register pertama). Password TIDAK disimpan mentah, melainkan hash
-  werkzeug (scrypt).
-- Sesi memakai token acak (secrets) yang disimpan di memori server dengan
-  masa berlaku 24 jam. Untuk prototype/skripsi ini cukup; untuk produksi
-  gunakan JWT / sesi database.
+- Akun tersimpan di tabel ``users``. Password TIDAK disimpan mentah,
+  melainkan hash werkzeug (scrypt).
+- Sesi memakai token acak (secrets); yang tersimpan di tabel ``sesi``
+  hanya hash SHA-256 token, dengan masa berlaku 24 jam.
+- Skill profil di ``profil_skill``, progress quest di ``quest_progress``,
+  riwayat rekomendasi di ``riwayat``.
 
 Endpoint (didaftarkan di app.py):
   POST /auth/register  {name, email, password} -> 201 {token, user}
@@ -13,61 +13,46 @@ Endpoint (didaftarkan di app.py):
   GET  /auth/me        (Authorization: Bearer <token>) -> 200 {user}
   POST /auth/logout    (Authorization: Bearer <token>) -> 200 {ok: true}
 """
-import json
+import hashlib
 import re
 import secrets
-import time
-from pathlib import Path
+from datetime import datetime, timedelta
 
 from werkzeug.security import check_password_hash, generate_password_hash
 
-DATA_DIR = Path(__file__).parent / "data"
-USERS_PATH = DATA_DIR / "users.json"
+from db import (ProfilSkill, QuestProgress, Riwayat, Sesi, Users, sesi_db)
 
-# Token -> {"email": str, "name": str, "exp": float}
-_SESI = {}
 MASA_BERLAKU_DETIK = 24 * 3600
 EMAIL_RE = re.compile(r"^[^@\s]+@[^@\s]+\.[^@\s]+$")
+_FMT_WAKTU = "%Y-%m-%d %H:%M:%S"
 
 
-def _muat_users():
-    if not USERS_PATH.exists():
-        return {}
-    try:
-        data = json.loads(USERS_PATH.read_text(encoding="utf-8"))
-        return data if isinstance(data, dict) else {}
-    except (json.JSONDecodeError, OSError):
-        return {}
+def _hash_token(token):
+    return hashlib.sha256(token.encode("utf-8")).hexdigest()
 
 
-def _simpan_users(users):
-    DATA_DIR.mkdir(parents=True, exist_ok=True)
-    USERS_PATH.write_text(json.dumps(users, ensure_ascii=False, indent=2),
-                          encoding="utf-8")
-
-
-def _buat_token(email, name):
+def _buat_token(user_id):
     token = secrets.token_urlsafe(32)
-    _SESI[token] = {"email": email, "name": name,
-                    "exp": time.time() + MASA_BERLAKU_DETIK}
+    with sesi_db() as s:
+        s.add(Sesi(token_hash=_hash_token(token), user_id=user_id,
+                   exp=datetime.now() + timedelta(seconds=MASA_BERLAKU_DETIK)))
+        s.commit()
     return token
-
-
-def _bersihkan_sesi_kadaluarsa():
-    now = time.time()
-    for tok in [t for t, s in _SESI.items() if s["exp"] < now]:
-        del _SESI[tok]
 
 
 def user_dari_token(token):
     """Kembalikan {"email", "name"} bila token valid, else None."""
     if not token:
         return None
-    _bersihkan_sesi_kadaluarsa()
-    sesi = _SESI.get(token)
-    if not sesi:
-        return None
-    return {"email": sesi["email"], "name": sesi["name"]}
+    with sesi_db() as s:
+        sesi = s.query(Sesi).filter_by(token_hash=_hash_token(token)).first()
+        if not sesi:
+            return None
+        if sesi.exp < datetime.now():
+            s.delete(sesi)
+            s.commit()
+            return None
+        return {"email": sesi.user.email, "name": sesi.user.nama}
 
 
 def token_dari_header(auth_header):
@@ -86,60 +71,54 @@ def register(name, email, password):
         return None, ("Format email tidak valid", 400)
     if len(password) < 6:
         return None, ("Password minimal 6 karakter", 400)
-    users = _muat_users()
-    if email in users:
-        return None, ("Email sudah terdaftar", 409)
-    users[email] = {
-        "name": name,
-        "password_hash": generate_password_hash(password),
-        "dibuat": time.strftime("%Y-%m-%d %H:%M:%S"),
-    }
-    _simpan_users(users)
-    token = _buat_token(email, name)
+    with sesi_db() as s:
+        if s.query(Users).filter_by(email=email).first():
+            return None, ("Email sudah terdaftar", 409)
+        user = Users(nama=name, email=email,
+                     password_hash=generate_password_hash(password))
+        s.add(user)
+        s.commit()
+        user_id = user.id
+    token = _buat_token(user_id)
     return {"token": token, "user": {"email": email, "name": name}}, (None, 201)
 
 
 def login(email, password):
     email = (email or "").strip().lower()
-    users = _muat_users()
-    rec = users.get(email)
-    if not rec or not check_password_hash(rec.get("password_hash", ""),
-                                          password or ""):
-        return None, ("Email atau password salah", 401)
-    token = _buat_token(email, rec["name"])
+    with sesi_db() as s:
+        rec = s.query(Users).filter_by(email=email).first()
+        if not rec or not check_password_hash(rec.password_hash,
+                                              password or ""):
+            return None, ("Email atau password salah", 401)
+        user_id, nama = rec.id, rec.nama
+    token = _buat_token(user_id)
     return {"token": token,
-            "user": {"email": email, "name": rec["name"]}}, (None, 200)
+            "user": {"email": email, "name": nama}}, (None, 200)
 
 
 def logout(token):
-    if token in _SESI:
-        del _SESI[token]
+    if token:
+        with sesi_db() as s:
+            sesi = s.query(Sesi).filter_by(token_hash=_hash_token(token)).first()
+            if sesi:
+                s.delete(sesi)
+                s.commit()
     return {"ok": True}, (None, 200)
 
 
 # ---------------------------------------------------------------------------
-# Profil, quest roadmap, dan riwayat (tersimpan per akun di users.json).
-# Inilah fungsi login: data pengguna mengikuti akunnya di mana pun ia masuk.
+# Profil, quest roadmap, dan riwayat (tersimpan per akun di PostgreSQL).
 # ---------------------------------------------------------------------------
 
-def _default_profil():
-    return {"skills": [], "quests": {}, "riwayat": []}
-
-
-def get_user_record(email):
-    """Kembalikan record user lengkap (atau None)."""
-    return _muat_users().get((email or "").strip().lower())
-
-
 def get_profil(email):
-    rec = get_user_record(email)
-    if not rec:
-        return None
-    return {
-        "name": rec.get("name", ""),
-        "email": (email or "").strip().lower(),
-        "skills": list(rec.get("skills", [])),
-    }
+    email = (email or "").strip().lower()
+    with sesi_db() as s:
+        rec = s.query(Users).filter_by(email=email).first()
+        if not rec:
+            return None
+        skills = [r.skill for r in s.query(ProfilSkill)
+                  .filter_by(user_id=rec.id).order_by(ProfilSkill.urutan)]
+        return {"name": rec.nama, "email": email, "skills": skills}
 
 
 def simpan_skills(email, skills):
@@ -147,8 +126,8 @@ def simpan_skills(email, skills):
     email = (email or "").strip().lower()
     bersih = []
     terlihat = set()
-    for s in skills or []:
-        nama = (s or "").strip()
+    for sk in skills or []:
+        nama = (sk or "").strip()
         if not nama or len(nama) > 40:
             continue
         kunci = nama.lower()
@@ -157,56 +136,89 @@ def simpan_skills(email, skills):
             bersih.append(nama)
         if len(bersih) >= 60:
             break
-    users = _muat_users()
-    rec = users.get(email)
-    if not rec:
-        return False, "Akun tidak ditemukan"
-    rec["skills"] = bersih
-    _simpan_users(users)
+    with sesi_db() as s:
+        rec = s.query(Users).filter_by(email=email).first()
+        if not rec:
+            return False, "Akun tidak ditemukan"
+        s.query(ProfilSkill).filter_by(user_id=rec.id).delete()
+        for i, nama in enumerate(bersih):
+            s.add(ProfilSkill(user_id=rec.id, skill=nama, urutan=i))
+        s.commit()
     return True, None
 
 
 def get_quests(email):
-    rec = get_user_record(email)
-    return dict(rec.get("quests", {})) if rec else {}
+    email = (email or "").strip().lower()
+    with sesi_db() as s:
+        rec = s.query(Users).filter_by(email=email).first()
+        if not rec:
+            return {}
+        rows = (s.query(QuestProgress).filter_by(user_id=rec.id)
+                .order_by(QuestProgress.karier_id, QuestProgress.langkah))
+        quests = {}
+        for r in rows:
+            quests.setdefault(r.karier_id, []).append(r.langkah)
+        return quests
 
 
 def set_quest(email, karier_id, langkah, selesai):
     """Tandai satu langkah quest selesai/belum. Kembalikan (ok, pesan)."""
     email = (email or "").strip().lower()
-    users = _muat_users()
-    rec = users.get(email)
-    if not rec:
-        return False, "Akun tidak ditemukan"
-    try:
-        langkah = int(langkah)
-    except (TypeError, ValueError):
-        return False, "Nomor langkah tidak valid"
-    quests = rec.setdefault("quests", {})
-    daftar = quests.setdefault(karier_id, [])
-    if selesai and langkah not in daftar:
-        daftar.append(langkah)
-    elif not selesai and langkah in daftar:
-        daftar.remove(langkah)
-    quests[karier_id] = sorted(daftar)
-    _simpan_users(users)
+    with sesi_db() as s:
+        rec = s.query(Users).filter_by(email=email).first()
+        if not rec:
+            return False, "Akun tidak ditemukan"
+        try:
+            langkah = int(langkah)
+        except (TypeError, ValueError):
+            return False, "Nomor langkah tidak valid"
+        baris = (s.query(QuestProgress)
+                 .filter_by(user_id=rec.id, karier_id=karier_id,
+                            langkah=langkah).first())
+        if selesai and not baris:
+            s.add(QuestProgress(user_id=rec.id, karier_id=karier_id,
+                                langkah=langkah))
+        elif not selesai and baris:
+            s.delete(baris)
+        s.commit()
     return True, None
 
 
 def tambah_riwayat(email, entri):
     """Simpan satu hasil rekomendasi ke riwayat akun (maks 50)."""
     email = (email or "").strip().lower()
-    users = _muat_users()
-    rec = users.get(email)
-    if not rec:
-        return False
-    riwayat = rec.setdefault("riwayat", [])
-    riwayat.insert(0, entri)
-    del riwayat[50:]
-    _simpan_users(users)
+    try:
+        waktu = datetime.strptime(entri.get("waktu", ""), _FMT_WAKTU)
+    except (ValueError, TypeError):
+        waktu = datetime.now()
+    with sesi_db() as s:
+        rec = s.query(Users).filter_by(email=email).first()
+        if not rec:
+            return False
+        s.add(Riwayat(user_id=rec.id, waktu=waktu,
+                      skills=entri.get("skills", []),
+                      minat=entri.get("minat", []),
+                      hasil=entri.get("hasil", [])))
+        s.commit()
+        dipertahankan = [r.id for r in s.query(Riwayat)
+                         .filter_by(user_id=rec.id)
+                         .order_by(Riwayat.id.desc()).limit(50)]
+        s.query(Riwayat).filter(
+            Riwayat.user_id == rec.id,
+            ~Riwayat.id.in_(dipertahankan)).delete(synchronize_session=False)
+        s.commit()
     return True
 
 
 def get_riwayat(email):
-    rec = get_user_record(email)
-    return list(rec.get("riwayat", [])) if rec else []
+    email = (email or "").strip().lower()
+    with sesi_db() as s:
+        rec = s.query(Users).filter_by(email=email).first()
+        if not rec:
+            return []
+        rows = (s.query(Riwayat).filter_by(user_id=rec.id)
+                .order_by(Riwayat.id.desc()))
+        return [{"waktu": r.waktu.strftime(_FMT_WAKTU),
+                 "skills": list(r.skills or []),
+                 "minat": list(r.minat or []),
+                 "hasil": list(r.hasil or [])} for r in rows]

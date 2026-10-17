@@ -46,7 +46,7 @@ kriteria "minat" tiap pekerjaan dalam SAW.
 | Frontend Developer | Web | 11 | 6,25 | 5 |
 
 Gaji maks seluruh dataset: 20,0 jt (Cloud Engineer, dinaspajak.com).
-Bobot SAW (`backend/data/bobot.json`): skill 0,45, minat 0,25,
+Bobot SAW (tabel `bobot_saw` di PostgreSQL): skill 0,45, minat 0,25,
 gaji 0,15, demand 0,15.
 
 Sumber angka gaji dan demand: lihat `docs/provenance-data.md`

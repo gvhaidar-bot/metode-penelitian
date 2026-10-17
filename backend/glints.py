@@ -1,13 +1,17 @@
-"""Akses data lowongan Glints (backend/data/glints_jobs.csv).
+"""Akses data lowongan Glints dari tabel ``lowongan_glints`` di PostgreSQL.
 
-File CSV diklaim tim sebagai 1.133 lowongan Glints Indonesia Mei-Jun 2026
-(commit 211db6f5). Kolom posted_date hanya berisi tanggal relatif
-("Kemarin", "N hari yang lalu") sehingga klaim tahun tidak bisa
-diverifikasi dari isi file — lihat docs/integrasi-glints.md.
+Sumber dataset: backend/data/glints_jobs.csv (1.133 lowongan Glints
+Indonesia, diklaim tim Mei-Jun 2026) yang diimpor ke database lewat
+``impor_csv_ke_db()`` / backend/data/load_glints.py. File CSV tidak
+dibaca aplikasi saat berjalan. Kolom posted_date CSV hanya berisi
+tanggal relatif ("Kemarin", "N hari yang lalu") sehingga klaim tahun
+tidak bisa diverifikasi dari isi file — lihat docs/integrasi-glints.md.
 """
 import csv
 import os
 import re
+
+from db import LowonganGlints, sesi_db
 
 DATA_DIR = os.path.join(os.path.dirname(__file__), "data")
 CSV_PATH = os.path.join(DATA_DIR, "glints_jobs.csv")
@@ -80,37 +84,69 @@ def parse_gaji(teks):
     return None, None
 
 
-_cache = None
+def _ke_dict(row):
+    return {
+        "judul": row.judul,
+        "perusahaan": row.perusahaan,
+        "lokasi": row.lokasi,
+        "gaji": row.gaji_teks,
+        "gaji_min": float(row.gaji_min) if row.gaji_min is not None else None,
+        "gaji_max": float(row.gaji_max) if row.gaji_max is not None else None,
+        "tipe": row.tipe,
+        "pengalaman": row.pengalaman,
+        "karier_id": row.karier_id,
+    }
 
 
 def muat_lowongan():
-    """Baca CSV sekali lalu cache. Tiap item: dict + karier_id + gaji_min/max."""
-    global _cache
-    if _cache is not None:
-        return _cache
-    hasil = []
-    if not os.path.exists(CSV_PATH):
-        _cache = hasil
-        return hasil
-    with open(CSV_PATH, encoding="utf-8-sig", newline="") as f:
-        for baris in csv.DictReader(f):
-            gmin, gmax = parse_gaji(baris.get("salary_range", ""))
-            hasil.append({
-                "judul": (baris.get("job_title") or "").strip(),
-                "perusahaan": (baris.get("company_name") or "").strip(),
-                "lokasi": (baris.get("location") or "").strip(),
-                "gaji": (baris.get("salary_range") or "").replace("\xa0", " ").strip(),
-                "gaji_min": gmin,
-                "gaji_max": gmax,
-                "tipe": (baris.get("job_type") or "").strip(),
-                "pengalaman": (baris.get("experience_level") or "").strip(),
-                "karier_id": petakan_karier(baris.get("job_title"), baris.get("job_requirements")),
-            })
-    _cache = hasil
-    return hasil
+    """Seluruh lowongan dari database. Tiap item: dict + karier_id + gaji_min/max."""
+    try:
+        with sesi_db() as s:
+            return [_ke_dict(r) for r in s.query(LowonganGlints).order_by(LowonganGlints.id)]
+    except Exception:
+        return []
 
 
 def lowongan_untuk_karier(karier_id, batas=5):
     """Ambil lowongan yang terpetakan ke satu karier (maksimal `batas`)."""
-    semua = [l for l in muat_lowongan() if l["karier_id"] == karier_id]
-    return semua[:batas], len(semua)
+    try:
+        with sesi_db() as s:
+            total = s.query(LowonganGlints).filter_by(karier_id=karier_id).count()
+            rows = (s.query(LowonganGlints).filter_by(karier_id=karier_id)
+                    .order_by(LowonganGlints.id).limit(batas))
+            return [_ke_dict(r) for r in rows], total
+    except Exception:
+        return [], 0
+
+
+def impor_csv_ke_db():
+    """Impor ulang glints_jobs.csv ke tabel lowongan_glints (hapus + isi ulang).
+
+    Kembalikan (total, terpetakan, tak_terpetakan). Jalankan setelah
+    schema.sql + seed.sql (karier harus sudah ada untuk FK).
+    """
+    with open(CSV_PATH, encoding="utf-8-sig", newline="") as f:
+        baris_csv = list(csv.DictReader(f))
+    total = len(baris_csv)
+    terpetakan = 0
+    with sesi_db() as s:
+        s.query(LowonganGlints).delete()
+        for baris in baris_csv:
+            gmin, gmax = parse_gaji(baris.get("salary_range", ""))
+            karier_id = petakan_karier(baris.get("job_title"),
+                                        baris.get("job_requirements"))
+            if karier_id:
+                terpetakan += 1
+            s.add(LowonganGlints(
+                karier_id=karier_id,
+                judul=(baris.get("job_title") or "").strip(),
+                perusahaan=(baris.get("company_name") or "").strip(),
+                lokasi=(baris.get("location") or "").strip(),
+                gaji_teks=(baris.get("salary_range") or "").replace("\xa0", " ").strip(),
+                gaji_min=gmin,
+                gaji_max=gmax,
+                tipe=(baris.get("job_type") or "").strip(),
+                pengalaman=(baris.get("experience_level") or "").strip(),
+            ))
+        s.commit()
+    return total, terpetakan, total - terpetakan

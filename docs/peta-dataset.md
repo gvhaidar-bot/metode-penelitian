@@ -6,13 +6,14 @@ nilainya dibakukan di `pekerjaan.json`.
 
 ## Dipakai aplikasi (jangan hapus)
 
-| File | Dibaca oleh | Dipakai di bagian |
+Backend membaca seluruh data dari PostgreSQL (lihat `docs/erd.md`).
+File di bawah ini adalah **bahan seed/dataset** — tidak dibaca aplikasi
+saat berjalan, tapi jangan dihapus karena database dibuat dari sini.
+
+| File | Peran | Dipakai di bagian |
 |------|-------------|-------------------|
-| `pekerjaan.json` | `backend/app.py` (`PEKERJAAN`) | Profil 23 karier: skill (CBF cosine), kategori minat, gaji_min/max + gaji_sumber (kriteria gaji SAW), demand + demand_sumber (kriteria demand SAW), roadmap quest (halaman Roadmap) |
-| `bobot.json` | `backend/app.py` | Bobot kriteria SAW: skill 0,45, minat 0,25, gaji 0,15, demand 0,15 |
-| `glints_jobs.csv` | `backend/glints.py` | Endpoint `GET /pekerjaan/{id}/lowongan` — contoh lowongan nyata per karier; tampil di halaman Roadmap ("Lowongan terkait di Glints") |
-| `glints_stats.json` | `backend/data/build_glints.py` (output) | Ringkasan pemetaan: jumlah lowongan + median gaji per karier. Sumber angka gaji 17 karier dan demand (formula log) di `pekerjaan.json` |
-| `users.json` | `backend/db.py` | Akun pengguna (runtime, bukan dataset penelitian) |
+| `pekerjaan.json` | Bahan seed: `backend/data/generate_seed.py` → `backend/seed.sql` | Profil 23 karier: skill (CBF cosine), kategori minat, gaji_min/max + gaji_sumber (kriteria gaji SAW), demand + demand_sumber (kriteria demand SAW), roadmap quest (halaman Roadmap) |
+| `glints_jobs.csv` | Bahan impor: `backend/data/load_glints.py` → tabel `lowongan_glints` | Endpoint `GET /pekerjaan/{id}/lowongan` — contoh lowongan nyata per karier; tampil di halaman Roadmap ("Lowongan terkait di Glints") |
 
 ## Sumber publik di luar repo (disitasi, tidak disimpan)
 

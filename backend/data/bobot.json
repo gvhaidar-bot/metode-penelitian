@@ -1,1 +1,0 @@
-{"_keterangan":"Bobot SAW untuk skor akhir rekomendasi. Total harus = 1. Nilai awal dari pertimbangan peneliti: kecocokan skill paling menentukan (0.45), minat kedua (0.25), gaji dan kebutuhan pasar sebagai faktor pendukung (0.15 masing-masing). Untuk justifikasi formal, ganti dengan hasil kuesioner pakar/AHP bila tersedia.","demand":0.15,"gaji":0.15,"minat":0.25,"skill":0.45}
