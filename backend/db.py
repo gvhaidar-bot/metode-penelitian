@@ -56,7 +56,9 @@ try:
         pekerjaan_id = Column(String(50), ForeignKey("pekerjaan.id",
                                ondelete="CASCADE"), nullable=False)
         urutan = Column(Integer, nullable=False)
-        langkah = Column(Text, nullable=False)
+        judul = Column(String(100), nullable=False)
+        detail = Column(Text, nullable=False)
+        estimasi = Column(String(30), nullable=False)
         __table_args__ = (UniqueConstraint("pekerjaan_id", "urutan"),)
 
     _HAS_SQLA = True
@@ -80,7 +82,8 @@ def muat_dari_db():
                 "nama": p.nama,
                 "kategori": p.kategori.nama,
                 "skills": [rs.skill.nama for rs in p.relasi_skill],
-                "roadmap": [r.langkah for r in sorted(p.roadmaps, key=lambda r: r.urutan)],
+                "roadmap": [{"judul": r.judul, "detail": r.detail, "estimasi": r.estimasi}
+                            for r in sorted(p.roadmaps, key=lambda r: r.urutan)],
                 "gaji_min": float(p.gaji_min),
                 "gaji_max": float(p.gaji_max),
                 "demand": int(p.demand),
@@ -123,7 +126,8 @@ def seed_dari_json():
             for sk in job["skills"]:
                 skill = _dapat_atau_buat(s, Skill, nama=sk)
                 p.relasi_skill.append(PekerjaanSkill(skill_id=skill.id))
-            p.roadmaps = [Roadmap(urutan=i + 1, langkah=lk)
+            p.roadmaps = [Roadmap(urutan=i + 1, judul=lk["judul"],
+                                  detail=lk["detail"], estimasi=lk["estimasi"])
                           for i, lk in enumerate(job["roadmap"])]
             s.add(p)
         s.commit()

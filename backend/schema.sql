@@ -28,7 +28,9 @@ CREATE TABLE IF NOT EXISTS roadmap (
   id SERIAL PRIMARY KEY,
   pekerjaan_id VARCHAR(50) NOT NULL REFERENCES pekerjaan(id) ON DELETE CASCADE,
   urutan SMALLINT NOT NULL,
-  langkah TEXT NOT NULL,
+  judul VARCHAR(100) NOT NULL,
+  detail TEXT NOT NULL,
+  estimasi VARCHAR(30) NOT NULL,
   UNIQUE (pekerjaan_id, urutan)
 );
 CREATE INDEX IF NOT EXISTS idx_roadmap_pekerjaan ON roadmap(pekerjaan_id);
