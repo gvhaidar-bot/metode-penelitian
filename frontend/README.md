@@ -1,16 +1,38 @@
-# React + Vite
+# Frontend — Sistem Rekomendasi Karier IT
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+React 19 + Vite + Tailwind CSS + React Router. Terhubung ke backend Flask
+via REST API (lihat `../backend/README.md`).
 
-Currently, two official plugins are available:
+## Cara menjalankan
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+```bash
+cd frontend
+npm install
+npm run dev
+```
 
-## React Compiler
+Buka http://localhost:5173, daftar akun, lalu masuk.
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+Backend harus jalan di http://localhost:8000 (atau set `VITE_API_URL`
+di file `.env`, contoh: `VITE_API_URL=https://api.contoh.id`).
 
-## Expanding the ESLint configuration
+## Halaman
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+| Route | Keterangan | Butuh login |
+|---|---|---|
+| `/` | Beranda penelitian (judul, metode, data karier) | — |
+| `/metode` | Penjelasan metode CBF + SAW + contoh hitungan | — |
+| `/data` | 23 profil karier | — |
+| `/masuk` | Masuk / daftar akun | — |
+| `/dashboard` | Ringkasan + rekomendasi terakhir | Ya |
+| `/skill` | Skill Saya: cari, pilih, dan usulkan skill | Ya |
+| `/rekomendasi` | Pilih skill + urutkan minat → ranking karier | Ya |
+| `/roadmap` | Roadmap belajar per karier (quest checklist) | Ya |
+| `/riwayat` | Riwayat rekomendasi (tersimpan di akun, server-side) | Ya |
+
+## Build produksi
+
+```bash
+npm run build   # hasil di frontend/dist/
+npm run lint    # cek ESLint
+```

@@ -1,230 +1,270 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import { Sidebar } from "../components/sidebar";
-import { getMeta, kirimRekomendasi } from "../api.js";
+import { getMeta, getProfil, hitungRekomendasi } from "../api.js";
+import { JudulKartu, Kartu, Kosong, TombolPrimer, DisclaimerData } from "../components/ui.jsx";
 
-const simpanRiwayat = (skills, hasil) => {
-  try {
-    const lama = JSON.parse(localStorage.getItem("riwayat-rekomendasi") || "[]");
-    lama.unshift({
-      tanggal: new Date().toLocaleString("id-ID"),
-      skills,
-      teratas: hasil.slice(0, 3).map((h) => ({ nama: h.nama, skor: h.skor_akhir })),
-    });
-    localStorage.setItem("riwayat-rekomendasi", JSON.stringify(lama.slice(0, 20)));
-  } catch { /* abaikan */ }
-};
+const persen = (x) => Math.round(x * 100);
 
-const Rekomendasi = () => {
-  const [daftarSkill, setDaftarSkill] = useState([]);
-  const [kategori, setKategori] = useState([]);
+function IkonPanah({ arah }) {
+  return (
+    <svg
+      className="w-4 h-4"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="2.2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      aria-hidden="true"
+    >
+      {arah === "atas" ? <path d="m18 15-6-6-6 6" /> : <path d="m6 9 6 6 6-6" />}
+    </svg>
+  );
+}
+
+export default function Rekomendasi() {
+  const [minat, setMinat] = useState([]);
   const [skills, setSkills] = useState([]);
-  const [minat, setMinat] = useState({});
   const [hasil, setHasil] = useState(null);
-  const [loading, setLoading] = useState(false);
-  const [memuat, setMemuat] = useState(true);
-  const [error, setError] = useState(null);
+  const [terbuka, setTerbuka] = useState(null);
+  const [galat, setGalat] = useState("");
+  const [sibuk, setSibuk] = useState(false);
 
   useEffect(() => {
-    getMeta()
-      .then((m) => {
-        setDaftarSkill(m.skills);
-        setKategori(m.kategori);
-        setMinat(Object.fromEntries(m.kategori.map((k) => [k, 3])));
+    let batal = false;
+    Promise.all([getMeta(), getProfil()])
+      .then(([m, p]) => {
+        if (!batal) {
+          setMinat(m.kategori || []);
+          setSkills(p.skills || []);
+        }
       })
-      .catch((e) => setError(e.message))
-      .finally(() => setMemuat(false));
+      .catch((e) => {
+        if (!batal) setGalat(e.message);
+      });
+    return () => {
+      batal = true;
+    };
   }, []);
 
-  const toggleSkill = (s) =>
-    setSkills((prev) => (prev.includes(s) ? prev.filter((x) => x !== s) : [...prev, s]));
+  const geser = (index, arah) => {
+    setMinat((lama) => {
+      const tujuan = index + arah;
+      if (tujuan < 0 || tujuan >= lama.length) return lama;
+      const baru = [...lama];
+      [baru[index], baru[tujuan]] = [baru[tujuan], baru[index]];
+      return baru;
+    });
+  };
 
-  const proses = async () => {
-    if (skills.length === 0) return;
-    setLoading(true);
-    setError(null);
+  const hitung = async () => {
+    setGalat("");
+    setHasil(null);
+    if (skills.length === 0) {
+      setGalat("Isi dulu skill di halaman Skill Saya sebelum menghitung.");
+      return;
+    }
+    setSibuk(true);
     try {
-      const data = await kirimRekomendasi({ skills, minat, top_n: 5 });
-      setHasil(data);
-      simpanRiwayat(skills, data.hasil);
+      const d = await hitungRekomendasi({ skills, minat, top_n: 5 });
+      setHasil(d.hasil || []);
     } catch (e) {
-      setError(e.message);
+      setGalat(e.message);
     } finally {
-      setLoading(false);
+      setSibuk(false);
     }
   };
 
   return (
-    <div className="flex bg-slate-50 min-h-screen font-sans text-slate-800">
-      <Sidebar />
-      <div className="lg:ml-72 p-6 lg:p-10 w-full max-w-7xl mx-auto">
-        <div className="mb-8 mt-12 lg:mt-0">
-          <h1 className="text-3xl font-bold text-slate-900 mb-2 tracking-tight">Rekomendasi Karier</h1>
-          <p className="text-slate-500 mt-1">
-            Pilih skill yang kamu kuasai dan nilai minatmu — sistem akan mencocokkannya
-            dengan profil 10 bidang pekerjaan IT memakai Content-Based Filtering + Cosine Similarity.
-          </p>
-        </div>
+    <div className="space-y-6">
+      {/* Penanda langkah agar alur jelas */}
+      <div className="flex items-center gap-2 text-xs font-bold">
+        <span className="px-3 py-1.5 rounded-full bg-primary-wash text-primary">1. Skill</span>
+        <span className="text-muted">→</span>
+        <span className="px-3 py-1.5 rounded-full bg-primary-wash text-primary">2. Minat</span>
+        <span className="text-muted">→</span>
+        <span className={`px-3 py-1.5 rounded-full ${hasil ? "bg-primary-wash text-primary" : "bg-wash text-muted"}`}>
+          3. Hasil
+        </span>
+      </div>
 
-        {error && (
-          <div className="bg-red-50 border border-red-200 rounded-2xl p-5 mb-6">
-            <p className="font-bold text-red-800 mb-1">Backend tidak terjangkau</p>
-            <p className="text-sm text-red-700">{error}</p>
-          </div>
-        )}
-
-        {memuat && !error && (
-          <p className="text-slate-500 mb-6">Memuat data dari backend...</p>
-        )}
-
-        {/* Form skill */}
-        <div className="bg-white rounded-2xl border border-slate-200 shadow-sm p-6 lg:p-8 mb-6">
-          <h2 className="text-lg font-bold text-slate-900 mb-1">1. Skill yang kamu kuasai</h2>
-          <p className="text-sm text-slate-500 mb-4">Klik untuk memilih (boleh lebih dari satu).</p>
+      <Kartu>
+        <JudulKartu
+          judul="Skill Anda"
+          sub="Diambil dari profil Skill Saya."
+        />
+        {skills.length > 0 ? (
           <div className="flex flex-wrap gap-2">
-            {daftarSkill.map((s) => {
-              const aktif = skills.includes(s);
-              return (
-                <button
-                  key={s}
-                  type="button"
-                  onClick={() => toggleSkill(s)}
-                  className={`px-4 py-2 rounded-full text-sm font-medium border transition-all ${
-                    aktif
-                      ? "bg-indigo-600 text-white border-indigo-600 shadow-sm"
-                      : "bg-white text-slate-600 border-slate-200 hover:border-indigo-300 hover:text-indigo-700"
-                  }`}
-                >
-                  {s}
-                </button>
-              );
-            })}
-          </div>
-          <p className="text-sm text-slate-500 mt-3">{skills.length} skill dipilih</p>
-        </div>
-
-        {/* Form minat */}
-        <div className="bg-white rounded-2xl border border-slate-200 shadow-sm p-6 lg:p-8 mb-6">
-          <h2 className="text-lg font-bold text-slate-900 mb-1">2. Nilai minatmu per bidang</h2>
-          <p className="text-sm text-slate-500 mb-4">Geser ke kanan kalau kamu tertarik (1 = tidak minat, 5 = sangat minat).</p>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-4">
-            {kategori.map((k) => (
-              <div key={k}>
-                <div className="flex justify-between text-sm mb-1">
-                  <span className="font-medium text-slate-700">{k}</span>
-                  <span className="font-bold text-indigo-600">{minat[k]}</span>
-                </div>
-                <input
-                  type="range"
-                  min="1"
-                  max="5"
-                  value={minat[k]}
-                  onChange={(e) => setMinat((p) => ({ ...p, [k]: Number(e.target.value) }))}
-                  className="w-full accent-indigo-600"
-                />
-              </div>
+            {skills.map((s) => (
+              <span
+                key={s}
+                className="px-3.5 py-1.5 rounded-full text-sm font-semibold bg-primary-wash text-primary"
+              >
+                {s}
+              </span>
             ))}
           </div>
-        </div>
-
-        <button
-          onClick={proses}
-          disabled={skills.length === 0 || loading || memuat}
-          className="w-full md:w-auto px-8 py-3.5 bg-indigo-600 hover:bg-indigo-700 disabled:bg-slate-300 text-white font-semibold rounded-xl transition-all shadow-sm active:scale-[0.98] mb-10"
+        ) : (
+          <Kosong
+            judul="Belum ada skill di profil"
+            sub="Tambahkan skill terlebih dahulu agar rekomendasi bisa dihitung."
+          />
+        )}
+        <Link
+          to="/skill"
+          className="inline-block mt-4 text-sm font-bold text-primary hover:text-primary-deep"
         >
-          {loading ? "Menghitung..." : "Lihat Rekomendasi"}
-        </button>
+          Ubah di Skill Saya
+        </Link>
+      </Kartu>
 
-        {/* Hasil */}
-        {hasil && (
-          <div className="pb-10">
-            <h2 className="text-xl font-bold text-slate-900 mb-4">
-              Hasil Rekomendasi
-              <span className="ml-3 text-xs font-medium text-slate-500 bg-slate-100 px-2.5 py-1 rounded-full align-middle">
-                sumber: {hasil.sumber}
+      <Kartu>
+        <JudulKartu
+          judul="Urutan minat"
+          sub="Urutkan dari bidang yang paling Anda sukai."
+        />
+        <ol className="space-y-2">
+          {minat.map((k, i) => (
+            <li
+              key={k}
+              className="flex items-center gap-3 bg-wash rounded-xl px-4 py-3"
+            >
+              <span
+                className={`w-8 h-8 rounded-full flex items-center justify-center text-sm font-extrabold shrink-0 ${
+                  i === 0 ? "bg-primary text-white" : "bg-white text-muted border border-line"
+                }`}
+              >
+                {i + 1}
               </span>
-            </h2>
+              <span className="flex-1 text-sm font-bold text-ink">{k}</span>
+              <div className="flex gap-1">
+                <button
+                  type="button"
+                  onClick={() => geser(i, -1)}
+                  disabled={i === 0}
+                  aria-label={"Naikkan " + k}
+                  className="p-2 rounded-lg text-muted hover:bg-white hover:text-primary disabled:opacity-30 disabled:cursor-not-allowed"
+                >
+                  <IkonPanah arah="atas" />
+                </button>
+                <button
+                  type="button"
+                  onClick={() => geser(i, 1)}
+                  disabled={i === minat.length - 1}
+                  aria-label={"Turunkan " + k}
+                  className="p-2 rounded-lg text-muted hover:bg-white hover:text-primary disabled:opacity-30 disabled:cursor-not-allowed"
+                >
+                  <IkonPanah arah="bawah" />
+                </button>
+              </div>
+            </li>
+          ))}
+        </ol>
+        {galat && (
+          <p className="mt-4 text-sm text-red-700 bg-red-50 rounded-xl px-4 py-2.5">{galat}</p>
+        )}
+        <div className="mt-4 flex justify-end">
+          <TombolPrimer onClick={hitung} disabled={sibuk || minat.length !== 5}>
+            {sibuk ? "Menghitung..." : "Hitung Rekomendasi"}
+          </TombolPrimer>
+        </div>
+      </Kartu>
+
+      {hasil && (
+        <Kartu>
+          <JudulKartu
+            judul="Hasil rekomendasi"
+            sub="Lima karier dengan skor tertinggi."
+          />
+          {hasil.length === 0 ? (
+            <Kosong judul="Tidak ada hasil" sub="Coba ubah skill atau urutan minat Anda." />
+          ) : (
             <div className="space-y-4">
-              {hasil.hasil.map((h, i) => (
-                <div key={h.id} className="bg-white rounded-2xl border border-slate-200 shadow-sm p-6">
-                  <div className="flex flex-wrap items-start justify-between gap-4 mb-3">
-                    <div>
-                      <div className="flex items-center gap-3">
-                        <span className={`w-9 h-9 rounded-xl flex items-center justify-center font-bold text-white ${i === 0 ? "bg-indigo-600" : "bg-slate-300"}`}>
-                          {i + 1}
-                        </span>
+              {hasil.map((h, i) => {
+                const buka = terbuka === h.id;
+                return (
+                  <div key={h.id} className="border border-line rounded-2xl p-5">
+                    <div className="flex items-start justify-between gap-4">
+                      <div>
+                        <p className="text-xs font-bold text-muted">Peringkat {i + 1}</p>
+                        <h3 className="text-lg font-extrabold text-ink mt-0.5">
+                          {h.nama}
+                        </h3>
+                        <p className="text-sm text-muted mt-1">
+                          {h.kategori} | Rp{h.gaji_min}-{h.gaji_max} jt/bulan
+                        </p>
+                      </div>
+                      <p className="text-2xl font-extrabold text-primary shrink-0">
+                        {persen(h.skor_akhir)}%
+                      </p>
+                    </div>
+                    <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 mt-4">
+                      {[
+                        ["Skill", h.skor_skill],
+                        ["Minat", h.skor_minat],
+                        ["Gaji", h.skor_gaji],
+                        ["Demand", h.skor_demand],
+                      ].map(([label, nilai]) => (
+                        <div key={label} className="bg-wash rounded-xl px-3 py-2">
+                          <p className="text-xs text-muted">{label}</p>
+                          <p className="text-sm font-extrabold text-ink">
+                            {persen(nilai)}%
+                          </p>
+                        </div>
+                      ))}
+                    </div>
+                    <div className="flex flex-wrap gap-2 mt-4">
+                      <button
+                        type="button"
+                        onClick={() => setTerbuka(buka ? null : h.id)}
+                        className="text-sm font-bold text-primary hover:text-primary-deep"
+                      >
+                        {buka ? "Sembunyikan detail skill" : "Lihat detail skill"}
+                      </button>
+                      <Link
+                        to={"/roadmap?karier=" + h.id}
+                        className="text-sm font-bold text-primary hover:text-primary-deep"
+                      >
+                        Lihat Roadmap
+                      </Link>
+                    </div>
+                    {buka && (
+                      <div className="mt-4 grid sm:grid-cols-2 gap-4 text-sm">
                         <div>
-                          <h3 className="text-lg font-bold text-slate-900">{h.nama}</h3>
-                          <p className="text-sm text-slate-500">{h.kategori}</p>
+                          <p className="font-bold text-primary mb-2">Skill yang cocok</p>
+                          {h.skills_cocok.length > 0 ? (
+                            <ul className="list-disc list-inside text-ink space-y-1">
+                              {h.skills_cocok.map((s) => (
+                                <li key={s}>{s}</li>
+                              ))}
+                            </ul>
+                          ) : (
+                            <p className="text-muted">Belum ada yang cocok.</p>
+                          )}
+                        </div>
+                        <div>
+                          <p className="font-bold text-muted mb-2">Skill lain di profil ini</p>
+                          {h.skills_kurang.length > 0 ? (
+                            <ul className="list-disc list-inside text-ink space-y-1">
+                              {h.skills_kurang.slice(0, 8).map((s) => (
+                                <li key={s}>{s}</li>
+                              ))}
+                            </ul>
+                          ) : (
+                            <p className="text-muted">Semua skill sudah dikuasai.</p>
+                          )}
+                          <p className="text-xs text-muted mt-2">Sebagian adalah alternatif — tidak semuanya wajib dikuasai.</p>
                         </div>
                       </div>
-                    </div>
-                    <Link
-                      to={`/roadmap?karier=${h.id}`}
-                      className="px-4 py-2 text-sm font-medium text-indigo-600 bg-indigo-50 hover:bg-indigo-100 rounded-xl transition-colors"
-                    >
-                      Lihat Roadmap
-                    </Link>
+                    )}
                   </div>
-
-                  <div className="mb-3">
-                    <div className="flex justify-between text-sm mb-1">
-                      <span className="text-slate-500">Skor akhir (SAW)</span>
-                      <span className="font-bold text-slate-900">{(h.skor_akhir * 100).toFixed(1)}%</span>
-                    </div>
-                    <div className="w-full bg-slate-100 rounded-full h-2.5">
-                      <div className="bg-indigo-600 h-2.5 rounded-full transition-all" style={{ width: `${h.skor_akhir * 100}%` }} />
-                    </div>
-                  </div>
-
-                  <div className="grid grid-cols-2 md:grid-cols-4 gap-3 text-sm mb-4">
-                    <div className="bg-slate-50 rounded-xl p-3">
-                      <p className="text-slate-500 text-xs mb-1">Kecocokan skill</p>
-                      <p className="font-bold text-slate-900">{(h.skor_skill * 100).toFixed(0)}%</p>
-                    </div>
-                    <div className="bg-slate-50 rounded-xl p-3">
-                      <p className="text-slate-500 text-xs mb-1">Gaji (per bulan)</p>
-                      <p className="font-bold text-slate-900">Rp{h.gaji_min}–{h.gaji_max} jt</p>
-                    </div>
-                    <div className="bg-slate-50 rounded-xl p-3">
-                      <p className="text-slate-500 text-xs mb-1">Kebutuhan pasar</p>
-                      <p className="font-bold text-slate-900">{"★".repeat(h.demand)}{"☆".repeat(5 - h.demand)}</p>
-                    </div>
-                    <div className="bg-slate-50 rounded-xl p-3">
-                      <p className="text-slate-500 text-xs mb-1">Skor minat</p>
-                      <p className="font-bold text-slate-900">{(h.skor_minat * 100).toFixed(0)}%</p>
-                    </div>
-                  </div>
-
-                  {h.skills_cocok.length > 0 && (
-                    <div className="mb-2">
-                      <p className="text-xs font-medium text-slate-500 mb-1.5">Skill kamu yang cocok:</p>
-                      <div className="flex flex-wrap gap-1.5">
-                        {h.skills_cocok.map((s) => (
-                          <span key={s} className="text-xs px-2.5 py-1 rounded-full bg-emerald-50 text-emerald-700 border border-emerald-200">{s}</span>
-                        ))}
-                      </div>
-                    </div>
-                  )}
-                  {h.skills_kurang.length > 0 && (
-                    <div>
-                      <p className="text-xs font-medium text-slate-500 mb-1.5">Skill lain di profil ini:</p>
-                      <div className="flex flex-wrap gap-1.5">
-                        {h.skills_kurang.map((s) => (
-                          <span key={s} className="text-xs px-2.5 py-1 rounded-full bg-amber-50 text-amber-700 border border-amber-200">{s}</span>
-                        ))}
-                      </div>
-                      <p className="text-xs text-slate-400 mt-1.5">Sebagian adalah alternatif — tidak semuanya wajib dikuasai.</p>
-                    </div>
-                  )}
-                </div>
-              ))}
+                );
+              })}
             </div>
-          </div>
-        )}
-      </div>
+          )}
+          <DisclaimerData className="mt-6 pt-4 border-t border-line" />
+        </Kartu>
+      )}
     </div>
   );
-};
-
-export default Rekomendasi;
+}

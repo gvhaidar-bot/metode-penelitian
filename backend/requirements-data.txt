@@ -1,0 +1,7 @@
+# Kebutuhan opsional khusus olah data (bukan untuk menjalankan API)
+# Dipakai hanya oleh data/build_dataset.py (unduh + EDA dataset Kaggle).
+# Install terpisah bila perlu: pip install -r requirements-data.txt
+pandas>=2.0
+kaggle>=1.6
+SQLAlchemy>=2.0
+psycopg2-binary>=2.9

@@ -1,1 +1,33 @@
 @import "tailwindcss";
+
+@theme {
+  --font-sans: "Plus Jakarta Sans", ui-sans-serif, system-ui, sans-serif;
+
+  /* Palet mengikuti template desain acuan (fintech dashboard):
+     kanvas putih, kartu putih datar, teks tinta pekat,
+     aksen utama oranye hangat, lavender untuk grafik. */
+  --color-bg: #ffffff;
+  --color-card: #ffffff;
+  --color-ink: #1a1a24;
+  --color-muted: #8e93a7;
+  --color-faint: #c4c9d4;
+  --color-line: #ececf0;
+  --color-wash: #f4f4f6;
+  --color-primary: #f2994a;
+  --color-primary-deep: #dd8132;
+  --color-primary-wash: #fdf1e3;
+  --color-success: #52c468;
+  --color-success-wash: #eaf7ee;
+  --color-lavender: #c9b6f2;
+  --color-lavender-deep: #9b51e0;
+  --color-teal: #4fd1c5;
+  --color-amber: #f2c94c;
+  --color-coral: #eb6e6e;
+}
+
+body {
+  background-color: var(--color-bg);
+  color: var(--color-ink);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+}

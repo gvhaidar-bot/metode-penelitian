@@ -9,7 +9,7 @@ Simbol: `[ ]` = proses, `< >` = keputusan (decision), `→` = alur.
     |
 [ Pengguna memilih skill yang dimiliki ]
     |
-[ Pengguna menilai minat tiap kategori (1-5) ]
+[ Pengguna mengurutkan 5 kategori minat (ranking, tanpa angka) ]
     |
 [ Pengguna menekan tombol "Dapatkan Rekomendasi" ]
     |

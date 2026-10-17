@@ -14,7 +14,7 @@
 | ID | Use Case | Deskripsi |
 |----|----------|-----------|
 | UC-01 | Memilih skill | Pengguna memilih skill yang dimiliki dari daftar |
-| UC-02 | Menilai minat | Pengguna memberi nilai 1–5 untuk tiap kategori karier |
+| UC-02 | Mengurutkan minat | Pengguna mengurutkan 5 kategori karier dari paling diminati (ranking, tanpa angka) |
 | UC-03 | Mendapatkan rekomendasi | Sistem menghitung (CBF + SAW) dan menampilkan 5 karier teratas |
 | UC-04 | Melihat detail pekerjaan | Pengguna melihat profil lengkap suatu karier (skill, gaji, demand) |
 | UC-05 | Melihat roadmap belajar | Pengguna melihat tahapan belajar untuk karier tertentu |
