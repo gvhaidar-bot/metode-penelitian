@@ -1,11 +1,12 @@
 # Entity Relationship Diagram (ERD) — Basis Data Karier IT
 
-Seluruh data persisten aplikasi tinggal di PostgreSQL (12 tabel):
+Seluruh data persisten aplikasi tinggal di PostgreSQL (15 tabel):
 basis pengetahuan (karier, skill, roadmap, bobot, lowongan) dan data
-per akun (akun, sesi, skill profil, quest, riwayat). Backend tidak
-membaca file JSON/CSV saat berjalan; file di `backend/data` hanya
-bahan seed/dataset (`pekerjaan.json` -> `seed.sql`, `glints_jobs.csv`
--> `load_glints.py`).
+per akun (akun, sesi, skill profil, quest, riwayat). Skema 3NF murni —
+tidak ada kolom JSONB atau nilai multi-nilai dalam satu kolom.
+Backend tidak membaca file JSON/CSV saat berjalan; file di
+`backend/data` hanya bahan seed/dataset (`pekerjaan.json` ->
+`seed.sql`, `glints_jobs.csv` -> `load_glints.py`).
 
 ```mermaid
 erDiagram
@@ -19,6 +20,10 @@ erDiagram
     users ||--o{ profil_skill : memiliki
     users ||--o{ quest_progress : mengerjakan
     users ||--o{ riwayat : memiliki
+    riwayat ||--o{ riwayat_skill : menyimpan
+    riwayat ||--o{ riwayat_minat : menyimpan
+    riwayat ||--o{ riwayat_hasil : menyimpan
+    pekerjaan ||--o{ riwayat_hasil : dirangking
 
     kategori {
         int id PK
@@ -90,9 +95,22 @@ erDiagram
         int id PK
         int user_id FK
         datetime waktu
-        jsonb skills
-        jsonb minat
-        jsonb hasil
+    }
+    riwayat_skill {
+        int riwayat_id PK,FK
+        int urutan PK
+        string skill
+    }
+    riwayat_minat {
+        int riwayat_id PK,FK
+        int urutan PK
+        string kategori
+    }
+    riwayat_hasil {
+        int riwayat_id PK,FK
+        int urutan PK
+        string karier_id FK
+        float skor_akhir
     }
 ```
 
@@ -118,7 +136,10 @@ erDiagram
 | `sesi` | `token_hash` (SHA-256 token), `user_id` (FK), `exp` | Token mentah tidak tersimpan; sesi kadaluarsa 24 jam |
 | `profil_skill` | `user_id` (FK) + `skill` (PK komposit), `urutan` | Skill yang disimpan user (bebas, tidak harus ada di tabel `skill`) |
 | `quest_progress` | `user_id` + `karier_id` + `langkah` (PK komposit) | Satu baris = satu langkah roadmap yang sudah diselesaikan |
-| `riwayat` | `id`, `user_id` (FK), `waktu`, `skills`, `minat`, `hasil` (JSONB) | Riwayat rekomendasi, terbaru dulu, maks 50 per akun |
+| `riwayat` | `id`, `user_id` (FK), `waktu` | Satu baris = satu hasil rekomendasi; terbaru dulu, maks 50 per akun |
+| `riwayat_skill` | `riwayat_id` (FK) + `urutan` (PK komposit), `skill` | Skill yang dipakai pada rekomendasi itu (satu baris per skill) |
+| `riwayat_minat` | `riwayat_id` (FK) + `urutan` (PK komposit), `kategori` | Ranking minat pada rekomendasi itu, urutan = peringkat |
+| `riwayat_hasil` | `riwayat_id` (FK) + `urutan` (PK komposit), `karier_id` (FK), `skor_akhir` | Hasil ranking pada rekomendasi itu, urutan = peringkat (nama karier diambil dari tabel `pekerjaan`) |
 
 ## Catatan
 

@@ -20,7 +20,9 @@ from datetime import datetime, timedelta
 
 from werkzeug.security import check_password_hash, generate_password_hash
 
-from db import (ProfilSkill, QuestProgress, Riwayat, Sesi, Users, sesi_db)
+from db import (Pekerjaan, ProfilSkill, QuestProgress, Riwayat,
+                RiwayatHasil, RiwayatMinat, RiwayatSkill, Sesi, Users,
+                sesi_db)
 
 MASA_BERLAKU_DETIK = 24 * 3600
 EMAIL_RE = re.compile(r"^[^@\s]+@[^@\s]+\.[^@\s]+$")
@@ -185,7 +187,11 @@ def set_quest(email, karier_id, langkah, selesai):
 
 
 def tambah_riwayat(email, entri):
-    """Simpan satu hasil rekomendasi ke riwayat akun (maks 50)."""
+    """Simpan satu hasil rekomendasi ke riwayat akun (maks 50).
+
+    Satu entri = satu baris riwayat + baris-baris anak di
+    riwayat_skill / riwayat_minat / riwayat_hasil.
+    """
     email = (email or "").strip().lower()
     try:
         waktu = datetime.strptime(entri.get("waktu", ""), _FMT_WAKTU)
@@ -195,10 +201,17 @@ def tambah_riwayat(email, entri):
         rec = s.query(Users).filter_by(email=email).first()
         if not rec:
             return False
-        s.add(Riwayat(user_id=rec.id, waktu=waktu,
-                      skills=entri.get("skills", []),
-                      minat=entri.get("minat", []),
-                      hasil=entri.get("hasil", [])))
+        header = Riwayat(user_id=rec.id, waktu=waktu)
+        s.add(header)
+        s.flush()
+        for i, nama in enumerate(entri.get("skills", [])):
+            s.add(RiwayatSkill(riwayat_id=header.id, urutan=i, skill=nama))
+        for i, kat in enumerate(entri.get("minat", [])):
+            s.add(RiwayatMinat(riwayat_id=header.id, urutan=i, kategori=kat))
+        for i, h in enumerate(entri.get("hasil", [])):
+            s.add(RiwayatHasil(riwayat_id=header.id, urutan=i,
+                               karier_id=h.get("id"),
+                               skor_akhir=float(h.get("skor_akhir", 0))))
         s.commit()
         dipertahankan = [r.id for r in s.query(Riwayat)
                          .filter_by(user_id=rec.id)
@@ -216,9 +229,23 @@ def get_riwayat(email):
         rec = s.query(Users).filter_by(email=email).first()
         if not rec:
             return []
-        rows = (s.query(Riwayat).filter_by(user_id=rec.id)
-                .order_by(Riwayat.id.desc()))
-        return [{"waktu": r.waktu.strftime(_FMT_WAKTU),
-                 "skills": list(r.skills or []),
-                 "minat": list(r.minat or []),
-                 "hasil": list(r.hasil or [])} for r in rows]
+        hasil = []
+        for r in (s.query(Riwayat).filter_by(user_id=rec.id)
+                  .order_by(Riwayat.id.desc())):
+            skills = [x.skill for x in s.query(RiwayatSkill)
+                      .filter_by(riwayat_id=r.id).order_by(RiwayatSkill.urutan)]
+            minat = [x.kategori for x in s.query(RiwayatMinat)
+                     .filter_by(riwayat_id=r.id).order_by(RiwayatMinat.urutan)]
+            daftar_hasil = []
+            for x in (s.query(RiwayatHasil)
+                      .filter_by(riwayat_id=r.id).order_by(RiwayatHasil.urutan)):
+                pekerjaan = s.query(Pekerjaan).filter_by(id=x.karier_id).first()
+                daftar_hasil.append({
+                    "id": x.karier_id,
+                    "nama": pekerjaan.nama if pekerjaan else x.karier_id,
+                    "skor_akhir": float(x.skor_akhir),
+                })
+            hasil.append({"waktu": r.waktu.strftime(_FMT_WAKTU),
+                          "skills": skills, "minat": minat,
+                          "hasil": daftar_hasil})
+        return hasil

@@ -17,11 +17,10 @@ from pathlib import Path
 DATABASE_URL = os.environ.get("DATABASE_URL", "").strip()
 
 try:
-    from sqlalchemy import (Column, DECIMAL, DateTime, ForeignKey, Integer,
-                            String, Text, UniqueConstraint, create_engine)
-    from sqlalchemy.dialects.postgresql import JSONB
+    from sqlalchemy import (Column, DECIMAL, DateTime, Float, ForeignKey,
+                            Integer, String, Text, UniqueConstraint,
+                            create_engine)
     from sqlalchemy.orm import declarative_base, relationship, sessionmaker
-    from sqlalchemy.types import JSON
 
     Base = declarative_base()
 
@@ -104,12 +103,30 @@ try:
         user_id = Column(Integer, ForeignKey("users.id", ondelete="CASCADE"),
                          nullable=False)
         waktu = Column(DateTime, nullable=False, default=datetime.now)
-        skills = Column(JSON().with_variant(JSONB, "postgresql"),
-                        nullable=False, default=list)
-        minat = Column(JSON().with_variant(JSONB, "postgresql"),
-                       nullable=False, default=list)
-        hasil = Column(JSON().with_variant(JSONB, "postgresql"),
-                       nullable=False, default=list)
+
+    class RiwayatSkill(Base):
+        __tablename__ = "riwayat_skill"
+        riwayat_id = Column(Integer, ForeignKey("riwayat.id",
+                             ondelete="CASCADE"), primary_key=True)
+        urutan = Column(Integer, primary_key=True)
+        skill = Column(String(100), nullable=False)
+
+    class RiwayatMinat(Base):
+        __tablename__ = "riwayat_minat"
+        riwayat_id = Column(Integer, ForeignKey("riwayat.id",
+                             ondelete="CASCADE"), primary_key=True)
+        urutan = Column(Integer, primary_key=True)
+        kategori = Column(String(50), nullable=False)
+
+    class RiwayatHasil(Base):
+        __tablename__ = "riwayat_hasil"
+        riwayat_id = Column(Integer, ForeignKey("riwayat.id",
+                             ondelete="CASCADE"), primary_key=True)
+        urutan = Column(Integer, primary_key=True)
+        karier_id = Column(String(50), ForeignKey("pekerjaan.id",
+                           ondelete="CASCADE"), nullable=False)
+        skor_akhir = Column(Float, nullable=False)
+        pekerjaan = relationship("Pekerjaan")
 
     class BobotSaw(Base):
         __tablename__ = "bobot_saw"

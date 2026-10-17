@@ -72,12 +72,33 @@ CREATE TABLE IF NOT EXISTS quest_progress (
 CREATE TABLE IF NOT EXISTS riwayat (
   id SERIAL PRIMARY KEY,
   user_id INTEGER NOT NULL REFERENCES users(id) ON DELETE CASCADE,
-  waktu TIMESTAMP NOT NULL DEFAULT now(),
-  skills JSONB NOT NULL DEFAULT '[]'::jsonb,
-  minat JSONB NOT NULL DEFAULT '[]'::jsonb,
-  hasil JSONB NOT NULL DEFAULT '[]'::jsonb
+  waktu TIMESTAMP NOT NULL DEFAULT now()
 );
 CREATE INDEX IF NOT EXISTS idx_riwayat_user ON riwayat(user_id);
+
+-- Satu baris riwayat = satu hasil rekomendasi; skill/minat/hasil
+-- disimpan di tabel anak (satu baris per nilai) agar 3NF murni.
+CREATE TABLE IF NOT EXISTS riwayat_skill (
+  riwayat_id INTEGER NOT NULL REFERENCES riwayat(id) ON DELETE CASCADE,
+  urutan SMALLINT NOT NULL,
+  skill VARCHAR(100) NOT NULL,
+  PRIMARY KEY (riwayat_id, urutan)
+);
+
+CREATE TABLE IF NOT EXISTS riwayat_minat (
+  riwayat_id INTEGER NOT NULL REFERENCES riwayat(id) ON DELETE CASCADE,
+  urutan SMALLINT NOT NULL,
+  kategori VARCHAR(50) NOT NULL,
+  PRIMARY KEY (riwayat_id, urutan)
+);
+
+CREATE TABLE IF NOT EXISTS riwayat_hasil (
+  riwayat_id INTEGER NOT NULL REFERENCES riwayat(id) ON DELETE CASCADE,
+  urutan SMALLINT NOT NULL,
+  karier_id VARCHAR(50) NOT NULL REFERENCES pekerjaan(id) ON DELETE CASCADE,
+  skor_akhir DOUBLE PRECISION NOT NULL,
+  PRIMARY KEY (riwayat_id, urutan)
+);
 
 -- Bobot SAW (sebelumnya data/bobot.json). Total keempat nilai harus = 1.
 CREATE TABLE IF NOT EXISTS bobot_saw (
