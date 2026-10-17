@@ -51,6 +51,10 @@ karier yang direkomendasikan.
    per kategori (skala 1–5); sistem tidak menilai kemampuan secara langsung.
 4. Pengujian dilakukan secara black-box (13 test case), evaluasi relevansi
    rekomendasi berbasis skenario, dan analisis sensitivitas bobot SAW.
+5. Model profil memperlakukan seluruh skill sebagai daftar konjungtif
+   (AND), padahal sebagian skill bersifat alternatif (OR) — misalnya
+   PHP, Java, atau Python sebagai bahasa backend. Penyelarasan berupa
+   pengelompokan skill alternatif menjadi pekerjaan lanjutan.
 
 ## Manfaat Penelitian
 - **Teoritis:** menunjukkan penerapan gabungan Content-Based Filtering,

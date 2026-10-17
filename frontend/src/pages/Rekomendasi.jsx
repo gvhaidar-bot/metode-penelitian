@@ -208,12 +208,13 @@ const Rekomendasi = () => {
                   )}
                   {h.skills_kurang.length > 0 && (
                     <div>
-                      <p className="text-xs font-medium text-slate-500 mb-1.5">Perlu dipelajari:</p>
+                      <p className="text-xs font-medium text-slate-500 mb-1.5">Skill lain di profil ini:</p>
                       <div className="flex flex-wrap gap-1.5">
                         {h.skills_kurang.map((s) => (
                           <span key={s} className="text-xs px-2.5 py-1 rounded-full bg-amber-50 text-amber-700 border border-amber-200">{s}</span>
                         ))}
                       </div>
+                      <p className="text-xs text-slate-400 mt-1.5">Sebagian adalah alternatif — tidak semuanya wajib dikuasai.</p>
                     </div>
                   )}
                 </div>

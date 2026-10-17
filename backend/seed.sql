@@ -222,7 +222,7 @@ INSERT INTO roadmap (pekerjaan_id, urutan, langkah) VALUES
   ('frontend-dev', 4, 'Pelajari Tailwind CSS'),
   ('frontend-dev', 5, 'Pelajari Git & deployment'),
   ('frontend-dev', 6, 'Bangun portofolio'),
-  ('backend-dev', 1, 'Kuasai Node.js atau Python'),
+  ('backend-dev', 1, 'Kuasai satu bahasa backend (misal PHP, Python, atau Java)'),
   ('backend-dev', 2, 'Pelajari REST API & HTTP'),
   ('backend-dev', 3, 'Pelajari database SQL'),
   ('backend-dev', 4, 'Pelajari autentikasi (JWT)'),
