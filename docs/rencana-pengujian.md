@@ -4,13 +4,13 @@
 
 | ID | Fitur | Skenario | Input | Hasil yang diharapkan |
 |----|-------|----------|-------|----------------------|
-| TC-01 | POST /rekomendasi | Input valid | skills=[Python, SQL], minat total 100, top_n=5 | 200, 5 hasil terurut skor menurun |
-| TC-02 | POST /rekomendasi | Tanpa skill, profil kosong | skills=[], minat total 100 | 400, pesan "isi dulu skill" |
+| TC-01 | POST /rekomendasi | Input valid | skills=[Python, SQL], minat ranking 5 kategori, top_n=5 | 200, 5 hasil terurut skor menurun |
+| TC-02 | POST /rekomendasi | Tanpa skill, profil kosong | skills=[], minat ranking 5 kategori | 400, pesan "isi dulu skill" |
 | TC-02b | POST /rekomendasi | Skill dari profil | PUT /profil dulu, lalu skills=[] | 200, 5 hasil |
 | TC-03 | POST /rekomendasi | top_n=3 | skills=[HTML], top_n=3 | Tepat 3 hasil |
 | TC-04 | POST /rekomendasi | Body kosong | {} | 400 (minat tidak valid) |
-| TC-04b | POST /rekomendasi | Minat bukan 100 | skills=[Python], minat total 70 | 400, pesan menyebut 100 |
-| TC-05 | GET /pekerjaan | Daftar pekerjaan | — | 200, 14 item berisi skills & roadmap |
+| TC-04b | POST /rekomendasi | Minat tidak lengkap | skills=[Python], minat hanya 3 kategori | 400, pesan "Urutkan kelima kategori minat" |
+| TC-05 | GET /pekerjaan | Daftar pekerjaan | — | 200, 23 item berisi skills & roadmap |
 | TC-06 | GET /pekerjaan/{id} | ID valid | data-analyst | 200, detail + roadmap 6 quest |
 | TC-07 | GET /pekerjaan/{id} | ID tidak ada | tidak-ada | 404 |
 | TC-08 | GET /pekerjaan/{id}/roadmap | Roadmap valid | mobile-dev | 200, list quest berurutan |
@@ -26,6 +26,22 @@
 | TC-18 | GET /quest | Progress | — | 200, persen per karier |
 
 Status tiap TC diisi saat pengujian: Lolos / Gagal + catatan.
+
+### Hasil eksekusi (2026-10-18, versi database-only 23 karier + login wajib)
+
+Backend pytest: 29/29 lolos (TC-01..TC-08, TC-02b, TC-04b, TC-14..TC-18,
+autentikasi, lowongan Glints, relevansi, ROC).
+
+Uji klik manual TC-09–TC-13 oleh peneliti (18 Okt 2026, laptop,
+PostgreSQL lokal + Flask :8000 + Vite :5173):
+
+| ID | Status | Catatan |
+|----|--------|---------|
+| TC-09 | Lolos | Input Python+SQL, minat Data & AI peringkat 1 → 5 kartu terurut, Peringkat 1 Data Analyst 50% (Skill 43%, Minat 46%, Gaji 30%, Demand 100%), tombol "Lihat detail skill" + link "Lihat Roadmap", tanpa error |
+| TC-10 | Lolos | Profil dikosongkan → pesan "Isi dulu skill di halaman Skill Saya sebelum menghitung.", tanpa kartu hasil, tanpa crash; skill dipulihkan (Python, SQL) |
+| TC-11 | Lolos | Setelah 1 rekomendasi, entri riwayat bertambah 1 (6→7); entri terbaru cocok (waktu, Skill: Python, SQL, 3 besar); SELECT count(*) FROM riwayat = 7 = jumlah di halaman |
+| TC-12 | Lolos | Ganti karier → quest berubah; centang langkah pertama → progres bertambah + tercoret; refresh (F5) → tetap tersimpan; dikembalikan (uncheck) |
+| TC-13 | Lolos | 5 menu sidebar tampil berisi; Keluar → halaman masuk; login kembali berhasil |
 
 ### Hasil eksekusi (2026-10-13, rebuild: ranking minat + quest + profil server-side)
 

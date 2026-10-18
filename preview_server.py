@@ -1,7 +1,12 @@
-"""Preview single-origin: sajikan frontend/dist statis, teruskan API ke Flask :8000."""
+"""Preview single-origin: sajikan frontend/dist statis, teruskan API ke Flask :8000.
+
+Cara pakai: build dulu frontend (`npm run build` di folder frontend),
+lalu jalankan file ini dari repo mana pun (`python preview_server.py`).
+DIST dihitung relatif terhadap file ini, bukan path mesin tertentu.
+"""
 import http.server, http.client, urllib.parse, os
 
-DIST = os.path.expanduser("~/workspace/metpen-newest/frontend/dist")
+DIST = os.path.join(os.path.dirname(os.path.abspath(__file__)), "frontend", "dist")
 API_HOST, API_PORT = "127.0.0.1", 8000
 
 class Handler(http.server.SimpleHTTPRequestHandler):

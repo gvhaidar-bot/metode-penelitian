@@ -1,5 +1,15 @@
 # Validasi Data Profil Karier terhadap Dataset Riil
 
+> **STATUS ARSIP (ditambahkan 2026-10-18):** Dokumen ini adalah laporan
+> validasi 2026-10-11 terhadap data **sebelum merge** (14 karier).
+> Sistem saat ini memakai 23 karier dengan data yang diperkaya Glints;
+> angka kalibrasi di bawah (mis. Mobile Developer 7,5–11,5) **tidak
+> lagi** menggambarkan seed saat ini (mobile-dev kini 7,0–9,5).
+> Disimpan sebagai arsip pertanggungjawaban data; untuk data saat ini
+> lihat `backend/data/pekerjaan.json` dan `backend/seed.sql`. Catatan
+> TRUNCATE di akhir dokumen hanya mencakup 5 tabel lama; skema saat ini
+> 15 tabel.
+
 Tanggal: 2026-10-11. Tujuan: memvalidasi profil 14 karier (kurasi) terhadap
 data lowongan Indonesia dari Kaggle, sebagai bukti pertanggungjawaban data
 sekunder. Dataset operasional sistem TETAP 10 profil kurasi; dataset riil
