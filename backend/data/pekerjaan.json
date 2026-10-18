@@ -826,7 +826,7 @@
     ],
     "gaji_min": 6.0,
     "gaji_max": 8.15,
-    "demand": 1,
+    "demand": null,
     "roadmap": [
       {
         "judul": "Kuasai TCP/IP dan subnetting",
@@ -884,7 +884,7 @@
     ],
     "gaji_min": 10.0,
     "gaji_max": 20.0,
-    "demand": 1,
+    "demand": null,
     "roadmap": [
       {
         "judul": "Kuasai Linux dan jaringan dasar",
@@ -995,7 +995,7 @@
     ],
     "gaji_min": 6.0,
     "gaji_max": 12.0,
-    "demand": 1,
+    "demand": null,
     "roadmap": [
       {
         "judul": "Kuasai C# dasar",
@@ -1051,7 +1051,7 @@
     ],
     "gaji_min": 10.07,
     "gaji_max": 12.5,
-    "demand": 1,
+    "demand": null,
     "roadmap": [
       {
         "judul": "Kuasai SQL tingkat lanjut",
@@ -1218,7 +1218,7 @@
     ],
     "gaji_min": 4.5,
     "gaji_max": 6.41,
-    "demand": 1,
+    "demand": null,
     "roadmap": [
       {
         "judul": "Kuasai dasar komputer dan OS",
@@ -1274,7 +1274,7 @@
     ],
     "gaji_min": 8.0,
     "gaji_max": 16.0,
-    "demand": 1,
+    "demand": null,
     "roadmap": [
       {
         "judul": "Pelajari elektronika dasar",

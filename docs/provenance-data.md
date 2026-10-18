@@ -17,9 +17,9 @@ karier berasal. Ditulis agar dapat disitasi apa adanya di skripsi.
 | Gaji cloud-engineer (10–20) | dinaspajak.com (estimasi PT Universal Tekno Reksajaya 2026) | Rentang publikasi; Kaggle hanya 1 baris (8,29 jt). |
 | Gaji game-developer (6–12) | radarbaru.com (2026) | Rentang entry level; didukung masoemuniversity.ac.id (junior 5,5–9 jt). |
 | Gaji embedded-engineer (8–16) | dinaspajak.com (estimasi PT Universal Tekno Reksajaya 2026) | Rentang publikasi; didukung worldsalaries.com (rata-rata 13,4 jt/bln). |
-| Demand (1–5) | Jumlah lowongan Glints per karier (formula) | `demand = 1 + round(4 × log(1+n) / log(1+n_maks))`, n = jumlah lowongan terpetakan (n_maks = 79). Enam karier tak terpetakan mendapat 1 — keterbatasan sampel, bukan penilaian peneliti. |
+| Demand (1–5) | Jumlah lowongan Glints per karier (formula) | `demand = 1 + round(4 × log(1+n) / log(1+n_maks))`, n = jumlah lowongan terpetakan (n_maks = 79). Rumus berlaku untuk n ≥ 1; untuk n = 0 nilainya NULL (tidak diketahui) dan diberi skor demand netral 0,6 (setara 3/5) dalam SAW — tidak dihargai, tidak dihukum. |
 | Bobot SAW | Penilaian peneliti | Tersimpan di tabel `bobot_saw`. Belum divalidasi pakar/AHP. Catat sebagai keterbatasan. |
-| Demand (1–5) | Jumlah lowongan Glints per karier (formula) | `demand = 1 + round(4 × log(1+n) / log(1+n_maks))`, n = jumlah lowongan terpetakan (n_maks = 79). Enam karier tak terpetakan mendapat 1 — keterbatasan sampel, bukan penilaian peneliti. |
+| Demand (1–5) | Jumlah lowongan Glints per karier (formula) | `demand = 1 + round(4 × log(1+n) / log(1+n_maks))`, n = jumlah lowongan terpetakan (n_maks = 79). Rumus berlaku untuk n ≥ 1; untuk n = 0 nilainya NULL (tidak diketahui) dan diberi skor demand netral 0,6 (setara 3/5) dalam SAW — tidak dihargai, tidak dihukum. |
 
 ## Yang boleh diklaim di skripsi
 

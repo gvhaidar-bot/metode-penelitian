@@ -68,7 +68,7 @@ export default function DataKarier() {
                   <span className="font-extrabold text-ink">Rp{p.gaji_min}-{p.gaji_max} jt</span>/bln
                 </p>
                 <p className="text-muted">
-                  Demand <span className="font-extrabold text-ink">{p.demand}/5</span>
+                  Demand <span className="font-extrabold text-ink">{p.demand == null ? "Tidak diketahui" : `${p.demand}/5`}</span>
                 </p>
               </div>
               <div className="flex flex-wrap gap-1.5 mt-4">

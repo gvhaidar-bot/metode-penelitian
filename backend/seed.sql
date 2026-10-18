@@ -217,15 +217,15 @@ INSERT INTO pekerjaan (id, nama, kategori_id, gaji_min, gaji_max, demand) VALUES
   ('business-analyst', 'Business Analyst', (SELECT id FROM kategori WHERE nama = 'Desain & Manajemen'), 7.05, 10.5, 4),
   ('system-analyst', 'System Analyst', (SELECT id FROM kategori WHERE nama = 'Desain & Manajemen'), 5.5, 7.75, 3),
   ('fullstack-dev', 'Full Stack Developer', (SELECT id FROM kategori WHERE nama = 'Web'), 5.0, 7.0, 4),
-  ('network-engineer', 'Network Engineer', (SELECT id FROM kategori WHERE nama = 'Infrastruktur & Keamanan'), 6.0, 8.15, 1),
-  ('cloud-engineer', 'Cloud Engineer', (SELECT id FROM kategori WHERE nama = 'Infrastruktur & Keamanan'), 10.0, 20.0, 1),
+  ('network-engineer', 'Network Engineer', (SELECT id FROM kategori WHERE nama = 'Infrastruktur & Keamanan'), 6.0, 8.15, NULL),
+  ('cloud-engineer', 'Cloud Engineer', (SELECT id FROM kategori WHERE nama = 'Infrastruktur & Keamanan'), 10.0, 20.0, NULL),
   ('sysadmin', 'System Administrator', (SELECT id FROM kategori WHERE nama = 'Infrastruktur & Keamanan'), 3.75, 5.5, 2),
-  ('game-developer', 'Game Developer', (SELECT id FROM kategori WHERE nama = 'Mobile'), 6.0, 12.0, 1),
-  ('dba', 'Database Administrator', (SELECT id FROM kategori WHERE nama = 'Data & AI'), 10.07, 12.5, 1),
+  ('game-developer', 'Game Developer', (SELECT id FROM kategori WHERE nama = 'Mobile'), 6.0, 12.0, NULL),
+  ('dba', 'Database Administrator', (SELECT id FROM kategori WHERE nama = 'Data & AI'), 10.07, 12.5, NULL),
   ('data-scientist', 'Data Scientist', (SELECT id FROM kategori WHERE nama = 'Data & AI'), 5.85, 8.3, 3),
   ('product-manager', 'Product Manager', (SELECT id FROM kategori WHERE nama = 'Desain & Manajemen'), 5.7, 10.0, 4),
-  ('it-support', 'IT Support', (SELECT id FROM kategori WHERE nama = 'Infrastruktur & Keamanan'), 4.5, 6.41, 1),
-  ('embedded-engineer', 'Embedded Systems Engineer', (SELECT id FROM kategori WHERE nama = 'Infrastruktur & Keamanan'), 8.0, 16.0, 1)
+  ('it-support', 'IT Support', (SELECT id FROM kategori WHERE nama = 'Infrastruktur & Keamanan'), 4.5, 6.41, NULL),
+  ('embedded-engineer', 'Embedded Systems Engineer', (SELECT id FROM kategori WHERE nama = 'Infrastruktur & Keamanan'), 8.0, 16.0, NULL)
 ON CONFLICT (id) DO NOTHING;
 
 INSERT INTO pekerjaan_skill (pekerjaan_id, skill_id) VALUES

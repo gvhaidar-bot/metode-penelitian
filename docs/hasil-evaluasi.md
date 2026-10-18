@@ -2,7 +2,7 @@
 
 Metode: Content-Based Filtering + Cosine Similarity + SAW. Seluruh evaluasi memakai data sekunder.
 
-## Pengukuran saat ini (2026-10-18, data 23 karier)
+## Pengukuran saat ini (2026-10-18, data 23 karier, sesudah perbaikan demand NULL)
 
 Diukur dengan kode asli (endpoint `/rekomendasi` + `hitung_skor`) pada
 data 23 karier saat ini, database SQLite sementara seperti pola
@@ -10,6 +10,18 @@ data 23 karier saat ini, database SQLite sementara seperti pola
 (bukan skala 1–5): kategori target di posisi 1, sisanya dalam urutan
 `MINAT_LENGKAP` = Data & AI, Web, Mobile, Infrastruktur & Keamanan,
 Desain & Manajemen.
+
+> **Perbaikan demand NULL (2026-10-18).** Sebelumnya, 6 karier tanpa
+> lowongan Glints terpetakan (network-engineer, cloud-engineer,
+> game-developer, dba, it-support, embedded-engineer) diberi demand 1
+> (terendah) oleh rumus `1 + round(4 × log(1+n) / log(1+79))` untuk
+> n = 0 — "tidak diketahui" diperlakukan sebagai "paling rendah".
+> Sekarang keenamnya bernilai NULL dan diberi skor demand netral 0,6
+> (setara 3/5). Efeknya: keenam karier naik tepat +6,0 poin di semua
+> skenario (kontribusi demand 0,15 × 0,20 = 3% → 0,15 × 0,60 = 9%),
+> hit@3 tetap 4/4, dan hanya dua top-5 yang berubah (S1, S3 — lihat
+> bawah). Angka sebelum perbaikan diarsipkan di bagian
+> "Arsip: sebelum perbaikan demand NULL".
 
 ## B. Evaluasi Relevansi Rekomendasi (hit@3)
 
@@ -21,8 +33,11 @@ Desain & Manajemen.
   2. Data Engineer (50,1%; skill 42,6%, minat 45,7%, gaji 50,0%, demand 80,0%)
   3. QA Engineer (43,9%; skill 36,5%, minat 25,7%, gaji 40,0%, demand 100,0%)
   4. Data Scientist (43,6%; skill 37,8%, minat 45,7%, gaji 41,5%, demand 60,0%)
-  5. Machine Learning Engineer (38,2%; skill 19,6%, minat 45,7%, gaji 40,0%, demand 80,0%)
+  5. Database Administrator (39,0%; skill 20,4%, minat 45,7%, gaji 62,5%, demand 60,0% — demand netral, sebelumnya 20,0%)
 - **hit@3: 1**
+- Catatan: Database Administrator masuk 5 besar sesudah perbaikan
+  demand NULL (sebelumnya #7, 33,0%; Machine Learning Engineer
+  38,2% kini #6).
 - Catatan: Data Analyst dan Data Engineer seri di 50,1% (urutan
   ditentukan stable sort / urutan seed).
 
@@ -45,8 +60,12 @@ Desain & Manajemen.
   2. QA Engineer (32,4%; skill 0,0%, minat 45,7%, gaji 40,0%, demand 100,0%)
   3. Frontend Developer (31,1%; skill 0,0%, minat 45,7%, gaji 31,0%, demand 100,0%)
   4. Fullstack Developer (28,7%; skill 0,0%, minat 45,7%, gaji 35,0%, demand 80,0%)
-  5. Data Analyst (25,9%; skill 0,0%, minat 25,7%, gaji 30,0%, demand 100,0%)
+  5. Cloud Engineer (26,2%; skill 0,0%, minat 9,0%, gaji 100,0%, demand 60,0% — demand netral, sebelumnya 20,0%)
 - **hit@3: 1**
+- Catatan: Cloud Engineer masuk 5 besar sesudah perbaikan demand
+  NULL (sebelumnya #14, 20,2%; Data Analyst 25,9% kini #6) — lewat
+  gaji maksimum tertinggi (100,0%) + demand netral, walau skill 0,0%.
+  Pola yang sama dengan efek gaji-benefit pada catatan analis butir 1.
 - Catatan: uji silang langsung oleh peneliti pada hari yang sama
   (minat Data & AI peringkat 1, Web peringkat 3) juga menghasilkan
   Backend Developer #1 (43%) — kesimpulan sama walau ranking minat
@@ -69,9 +88,9 @@ Desain & Manajemen.
 
 | Skenario | Skill-heavy (0,60/0,20/0,10/0,10) | Seimbang (0,25/0,25/0,25/0,25) | Minat-heavy (0,25/0,45/0,15/0,15) |
 |---|---|---|---|
-| S1: Calon Data Analyst | 1,00 | 0,80 | 1,00 |
+| S1: Calon Data Analyst | 1,00 | 0,80 | 0,80 |
 | S2: Calon Frontend Developer | 1,00 | 1,00 | 1,00 |
-| S3: Calon Backend / Mobile (PHP) | 1,00 | 1,00 | 1,00 |
+| S3: Calon Backend / Mobile (PHP) | 0,80 | 1,00 | 0,80 |
 | S4: Calon UI/UX Designer | 0,80 | 1,00 | 0,80 |
 
 Interpretasi: overlap@5 = 1,00 berarti ranking 5 teratas identik dengan
@@ -101,6 +120,29 @@ dapat berbeda antar profil user.
    'Minat-heavy' menggeser satu posisi pada S4 (keduanya 0,80).
    Artinya pilihan baseline 0,45/0,25/0,15/0,15 cukup robust — hasil
    ini dapat dipakai sebagai bahan justifikasi bobot di bab pembahasan.
+4. **Perbaikan demand NULL tidak merusak hasil.** Sesudah perbaikan,
+   hit@3 tetap 4/4 dan overlap@5 tetap 0,80–1,00. Dua perubahan
+   top-5 (DBA masuk S1, Cloud Engineer masuk S3) keduanya dapat
+   dijelaskan dari komponen skornya, bukan anomali: DBA cocok lewat
+   SQL + minat Data & AI; Cloud Engineer lewat gaji maksimum
+   tertinggi + demand netral. Peringkat keenam karier naik di semua
+   skenario (mis. Cloud Engineer S3 #14 → #5, DBA S1 #7 → #5,
+   IT Support S1 #23 → #21) — sesuai tujuan perbaikan: karier
+   yang datanya tidak diketahui tidak lagi dihukum dengan nilai
+   terendah.
+
+## Arsip: sebelum perbaikan demand NULL (2026-10-18)
+
+> Angka di bawah diukur pada hari yang sama, sebelum 6 karier tanpa
+> lowongan Glints terpetakan diubah dari demand 1 menjadi NULL +
+> skor netral 0,6. Hanya S1 dan S3 yang top-5-nya berubah; S2 dan S4
+> identik dengan pengukuran saat ini di atas.
+
+### S1 (sebelum): 5. Machine Learning Engineer (38,2%; skill 19,6%, minat 45,7%, gaji 40,0%, demand 80,0%)
+### S3 (sebelum): 5. Data Analyst (25,9%; skill 0,0%, minat 25,7%, gaji 30,0%, demand 100,0%)
+
+Sensitivitas sebelum perbaikan: S1 = 1,00/0,80/1,00; S2 = 1,00/1,00/1,00;
+S3 = 1,00/1,00/1,00; S4 = 0,80/1,00/0,80 (skill-heavy/seimbang/minat-heavy).
 
 ## Arsip: pengukuran lama (data sebelum merge, 14 karier)
 

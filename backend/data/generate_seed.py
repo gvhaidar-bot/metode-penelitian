@@ -46,10 +46,11 @@ def main():
     out.append("INSERT INTO pekerjaan (id, nama, kategori_id, gaji_min, gaji_max, demand) VALUES")
     baris = []
     for p in items:
+        demand_sql = "NULL" if p["demand"] is None else str(p["demand"])
         baris.append(
             f"  ({q(p['id'])}, {q(p['nama'])}, "
             f"(SELECT id FROM kategori WHERE nama = {q(p['kategori'])}), "
-            f"{p['gaji_min']}, {p['gaji_max']}, {p['demand']})"
+            f"{p['gaji_min']}, {p['gaji_max']}, {demand_sql})"
         )
     out.append(",\n".join(baris))
     out.append("ON CONFLICT (id) DO NOTHING;")

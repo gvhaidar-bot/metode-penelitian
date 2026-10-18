@@ -41,7 +41,7 @@ try:
         kategori_id = Column(Integer, ForeignKey("kategori.id"), nullable=False)
         gaji_min = Column(DECIMAL(5, 1), nullable=False)
         gaji_max = Column(DECIMAL(5, 1), nullable=False)
-        demand = Column(Integer, nullable=False)
+        demand = Column(Integer, nullable=True)
         kategori = relationship("Kategori")
         relasi_skill = relationship("PekerjaanSkill", cascade="all, delete-orphan")
         roadmaps = relationship("Roadmap", cascade="all, delete-orphan",
@@ -191,7 +191,7 @@ def muat_dari_db():
                             for r in sorted(p.roadmaps, key=lambda r: r.urutan)],
                 "gaji_min": float(p.gaji_min),
                 "gaji_max": float(p.gaji_max),
-                "demand": int(p.demand),
+                "demand": int(p.demand) if p.demand is not None else None,
             } for p in rows]
     except Exception as e:
         print(f"[db] PostgreSQL tidak terjangkau ({e})")

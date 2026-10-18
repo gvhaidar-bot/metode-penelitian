@@ -88,7 +88,7 @@ export default function Metode() {
               ["Kecocokan skill (0,45)", "Hasil cosine similarity tahap 1, dipakai langsung."],
               ["Minat (0,25)", "Anda mengurutkan lima bidang dari yang paling diminati. Urutan diubah menjadi bobot memakai Rank Order Centroid, teknik pembobotan baku untuk mengubah ranking menjadi bobot di dalam SAW."],
               ["Gaji (0,15)", "Gaji maksimum karier dibagi gaji maksimum seluruh data."],
-              ["Demand (0,15)", "Tingkat kebutuhan industri skala 1-5, dibagi 5."],
+              ["Demand (0,15)", "Tingkat kebutuhan industri skala 1-5, dibagi 5. Karier yang tidak ada lowongan Glints terpetakan (demand tidak diketahui) diberi nilai tengah 3/5 — tidak dihargai, tidak dihukum."],
             ].map(([judul, desk]) => (
               <div key={judul} className="flex gap-3">
                 <span className="w-2 h-2 rounded-full bg-primary mt-1.5 shrink-0" />

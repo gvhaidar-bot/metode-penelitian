@@ -205,7 +205,11 @@ def hitung_skor(job: dict, skill_user: set, minat: list, max_gaji: float) -> dic
     # max_gaji dihitung per request dari data aktif agar tidak basi bila
     # data berubah tanpa restart server.
     skor_gaji = (job["gaji_max"] / max_gaji) if max_gaji > 0 else 0.0
-    skor_demand = job["demand"] / 5.0
+    # Demand yang tidak diketahui (NULL = tidak ada lowongan Glints
+    # terpetakan) diberi nilai netral 0,6 (setara demand 3/5): tidak
+    # dihargai, tidak dihukum. Sebelumnya NULL tidak mungkin karena
+    # kolom demand NOT NULL sehingga karier tanpa data mendapat 1.
+    skor_demand = (job["demand"] / 5.0) if job["demand"] is not None else 0.6
 
     skor_akhir = (
         BOBOT["skill"] * skor_skill

@@ -9,7 +9,7 @@ CREATE TABLE IF NOT EXISTS pekerjaan (
   kategori_id INTEGER NOT NULL REFERENCES kategori(id),
   gaji_min DECIMAL(5,1) NOT NULL CHECK (gaji_min >= 0),
   gaji_max DECIMAL(5,1) NOT NULL CHECK (gaji_max >= gaji_min),
-  demand SMALLINT NOT NULL CHECK (demand BETWEEN 1 AND 5)
+  demand SMALLINT CHECK (demand BETWEEN 1 AND 5)
 );
 CREATE INDEX IF NOT EXISTS idx_pekerjaan_kategori ON pekerjaan(kategori_id);
 

@@ -345,3 +345,28 @@ def test_roc_mempengaruhi_ranking(client):
                                       "Infrastruktur & Keamanan",
                                       "Desain & Manajemen"]})
     assert r1.get_json()["hasil"][0]["id"] != r2.get_json()["hasil"][0]["id"]
+
+
+# Demand NULL (tidak ada lowongan Glints terpetakan) -> nilai netral 0,6
+def test_demand_null_netral():
+    job = {"id": "x", "nama": "X", "kategori": "Web",
+           "skills": ["Python"], "gaji_min": 5.0, "gaji_max": 10.0,
+           "demand": None}
+    hasil = app_module.hitung_skor(job, {"Python"}, MINAT_LENGKAP, 10.0)
+    assert hasil["demand"] is None
+    assert hasil["skor_demand"] == 0.6
+
+
+def test_demand_null_lewat_endpoint(client):
+    r = client.get("/pekerjaan/cloud-engineer")
+    assert r.status_code == 200
+    assert r.get_json()["demand"] is None
+    tok = _token(client)
+    r = _rek(client, tok, {"skills": ["Linux", "AWS", "Docker", "CI/CD",
+                                      "Kubernetes"],
+                           "minat": MINAT_LENGKAP, "top_n": 20})
+    assert r.status_code == 200
+    cloud = [h for h in r.get_json()["hasil"] if h["id"] == "cloud-engineer"]
+    assert len(cloud) == 1
+    assert cloud[0]["demand"] is None
+    assert cloud[0]["skor_demand"] == 0.6
