@@ -19,7 +19,7 @@ CSV_PATH = os.path.join(DATA_DIR, "glints_jobs.csv")
 # Kata kunci judul lowongan -> id karier di pekerjaan.json.
 # Urutan penting: pola yang lebih spesifik dicek lebih dulu.
 PEMETAAN_JUDUL = [
-    ("frontend-dev", [r"front[\s-]?end", r"\breact\b", r"\bvue\b", r"angular", "web developer", "wordpress"]),
+    ("frontend-dev", [r"front[\s-]?end", r"\breact\b", r"\bvue\b", r"angular", "web developer", "website developer", "wordpress"]),
     ("backend-dev", [r"back[\s-]?end", "golang", "laravel", r"node\.?js", r"\.net\b", "django", "spring boot"]),
     ("mobile-dev", [r"\bmobile\b", "android", r"\bios\b", "flutter", "react native", "kotlin", "swift"]),
     ("data-analyst", ["data analyst", "data analis", "business intelligence", r"\bbi\b"]),
@@ -35,7 +35,7 @@ PEMETAAN_JUDUL = [
     ("game-developer", ["game developer", "game programmer", "unity developer"]),
     ("dba", ["database administrator", r"\bdba\b"]),
     ("data-scientist", ["data scientist", "data science"]),
-    ("product-manager", ["product manager", "product owner"]),
+    ("product-manager", ["product manager", "product owner", "product analyst"]),
     ("it-support", ["it support", "helpdesk", "technical support"]),
     ("embedded-engineer", ["embedded", "firmware engineer", "iot engineer"]),
     ("security-analyst", ["cyber", "information security", "penetration", "soc analyst"]),
@@ -44,7 +44,17 @@ PEMETAAN_JUDUL = [
     ("it-pm", ["project manager", "scrum master", "project coordinator"]),
 ]
 
-# Untuk judul generik ("Software Engineer"), tebak dari skill di requirements.
+# Fallback PALING AKHIR: judul generik tanpa kualifikasi spesifik.
+# Dicek SETELAH pola judul spesifik DAN tebakan skill (lihat
+# petakan_karier), agar bukti spesifik selalu menang: mis. lowongan
+# "Software Engineer" yang requirements-nya menyebut React tetap
+# terpetakan ke frontend-dev via PETUNJUK_SKILL, bukan ke sini.
+# "Software Engineer/Developer" generik dipetakan ke fullstack-dev
+# sebagai karier generalis; ini tebakan sadar, bukan kepastian.
+PEMETAAN_JUDUL_GENERIK = [
+    ("fullstack-dev", [r"software (engineer|developer)",
+                       "software development engineer"]),
+]
 PETUNJUK_SKILL = [
     ("frontend-dev", [r"\breact\b", r"\bvue\b", "angular", "javascript", "typescript"]),
     ("mobile-dev", ["flutter", "kotlin", "swift", r"\bandroid\b", r"\bios\b", "react native"]),
@@ -64,12 +74,20 @@ def _cocok(teks, pola_list):
 
 
 def petakan_karier(judul, requirements=""):
-    """Kembalikan id karier atau None bila tidak cocok."""
+    """Kembalikan id karier atau None bila tidak cocok.
+
+    Urutan: pola judul spesifik -> tebakan skill dari requirements ->
+    pola judul generik (fallback). Bukti spesifik selalu menang atas
+    judul generik.
+    """
     for karier_id, pola in PEMETAAN_JUDUL:
         if _cocok(judul, pola):
             return karier_id
     for karier_id, pola in PETUNJUK_SKILL:
         if _cocok(requirements, pola):
+            return karier_id
+    for karier_id, pola in PEMETAAN_JUDUL_GENERIK:
+        if _cocok(judul, pola):
             return karier_id
     return None
 

@@ -46,7 +46,7 @@ Desain & Manajemen.
 - Ekspektasi: frontend-dev di 3 teratas.
 - Top-5 sistem:
   1. Frontend Developer (54,6%; skill 52,2%, minat 45,7%, gaji 31,0%, demand 100,0%)
-  2. Fullstack Developer (51,2%; skill 50,0%, minat 45,7%, gaji 35,0%, demand 80,0%)
+  2. Full Stack Developer (54,2%; skill 50,0%, minat 45,7%, gaji 35,0%, demand 100,0% — demand naik 4→5 sesudah perbaikan pemetaan Glints)
   3. Backend Developer (40,6%; skill 14,9%, minat 45,7%, gaji 50,0%, demand 100,0%)
   4. UI/UX Designer (39,6%; skill 43,3%, minat 4,0%, gaji 27,5%, demand 100,0%)
   5. QA Engineer (39,1%; skill 14,9%, minat 45,7%, gaji 40,0%, demand 100,0%)
@@ -58,8 +58,8 @@ Desain & Manajemen.
 - Top-5 sistem:
   1. Backend Developer (50,3%; skill 36,5%, minat 45,7%, gaji 50,0%, demand 100,0%)
   2. QA Engineer (32,4%; skill 0,0%, minat 45,7%, gaji 40,0%, demand 100,0%)
-  3. Frontend Developer (31,1%; skill 0,0%, minat 45,7%, gaji 31,0%, demand 100,0%)
-  4. Fullstack Developer (28,7%; skill 0,0%, minat 45,7%, gaji 35,0%, demand 80,0%)
+  3. Full Stack Developer (31,7%; skill 0,0%, minat 45,7%, gaji 35,0%, demand 100,0% — demand naik 4→5 sesudah perbaikan pemetaan Glints)
+  4. Frontend Developer (31,1%; skill 0,0%, minat 45,7%, gaji 31,0%, demand 100,0%)
   5. Cloud Engineer (26,2%; skill 0,0%, minat 9,0%, gaji 100,0%, demand 60,0% — demand netral, sebelumnya 20,0%)
 - **hit@3: 1**
 - Catatan: Cloud Engineer masuk 5 besar sesudah perbaikan demand
@@ -130,6 +130,14 @@ dapat berbeda antar profil user.
    IT Support S1 #23 → #21) — sesuai tujuan perbaikan: karier
    yang datanya tidak diketahui tidak lagi dihukum dengan nilai
    terendah.
+5. **Perbaikan pemetaan Glints tidak merusak hasil.** Ditambah
+   fallback judul generik ("software engineer/developer" →
+   fullstack-dev, dicek setelah bukti spesifik), "website developer"
+   → frontend-dev, "product analyst" → product-manager: 22 lowongan
+   baru terpetakan (619 dari 1.133), nol lowongan lama yang pindah
+   karier. Satu-satunya perubahan demand: fullstack-dev 4 → 5
+   (n 38 → 57), menaikkan skornya +3,0 poin (S2 #2 54,2%, S3 #3
+   31,7%). hit@3 tetap 4/4, overlap@5 tidak berubah.
 
 ## Arsip: sebelum perbaikan demand NULL (2026-10-18)
 

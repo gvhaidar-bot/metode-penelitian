@@ -216,7 +216,7 @@ INSERT INTO pekerjaan (id, nama, kategori_id, gaji_min, gaji_max, demand) VALUES
   ('data-engineer', 'Data Engineer', (SELECT id FROM kategori WHERE nama = 'Data & AI'), 7.0, 10.0, 4),
   ('business-analyst', 'Business Analyst', (SELECT id FROM kategori WHERE nama = 'Desain & Manajemen'), 7.05, 10.5, 4),
   ('system-analyst', 'System Analyst', (SELECT id FROM kategori WHERE nama = 'Desain & Manajemen'), 5.5, 7.75, 3),
-  ('fullstack-dev', 'Full Stack Developer', (SELECT id FROM kategori WHERE nama = 'Web'), 5.0, 7.0, 4),
+  ('fullstack-dev', 'Full Stack Developer', (SELECT id FROM kategori WHERE nama = 'Web'), 5.0, 7.0, 5),
   ('network-engineer', 'Network Engineer', (SELECT id FROM kategori WHERE nama = 'Infrastruktur & Keamanan'), 6.0, 8.15, NULL),
   ('cloud-engineer', 'Cloud Engineer', (SELECT id FROM kategori WHERE nama = 'Infrastruktur & Keamanan'), 10.0, 20.0, NULL),
   ('sysadmin', 'System Administrator', (SELECT id FROM kategori WHERE nama = 'Infrastruktur & Keamanan'), 3.75, 5.5, 2),

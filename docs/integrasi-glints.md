@@ -31,15 +31,15 @@ Hasil pemetaan (dihasilkan `backend/data/build_glints.py`):
 | Karier | Lowongan | Median gaji (jt) |
 |---|---|---|
 | data-analyst | 79 | 5,0–6,0 |
-| frontend-dev | 73 | 4,8–6,25 |
+| frontend-dev | 74 | 5,0–6,5 |
 | qa-engineer | 49 | 6,3–8,0 |
 | uiux-designer | 49 | 4,0–5,5 |
 | backend-dev | 47 | 6,9–10,0 |
 | mobile-dev | 45 | 7,0–9,5 |
-| fullstack-dev | 38 | 5,0–7,0 |
+| fullstack-dev | 57 | 5,0–7,0 |
 | devops-engineer | 34 | 8,0–12,0 |
 | it-pm | 34 | 8,0–12,0 |
-| product-manager | 33 | 5,7–10,0 |
+| product-manager | 35 | 5,6–9,0 |
 | business-analyst | 32 | 7,05–10,5 |
 | data-engineer | 26 | 7,0–10,0 |
 | ml-engineer | 26 | 6,5–8,0 |
@@ -47,10 +47,20 @@ Hasil pemetaan (dihasilkan `backend/data/build_glints.py`):
 | system-analyst | 10 | 5,5–7,75 |
 | data-scientist | 8 | 5,85–8,3 |
 | sysadmin | 3 | 3,75–5,5 |
-| Tak terpetakan | 536 | — |
+| Tak terpetakan | 514 | — |
 
-Total terpetakan: 597 dari 1.133 (53%). Yang tak terpetakan umumnya
+Total terpetakan: 619 dari 1.133 (55%). Yang tak terpetakan umumnya
 berjudul generik tanpa petunjuk skill yang jelas di requirements.
+
+> **Pembaruan pemetaan (2026-10-18).** Ditambah: fallback judul
+> generik ("software engineer/developer" → fullstack-dev, dicek
+> setelah pola spesifik dan tebakan skill agar bukti spesifik selalu
+> menang), "website developer" → frontend-dev, "product analyst" →
+> product-manager. Hasil: +22 terpetakan (619), tanpa satu pun
+> lowongan lama yang pindah karier. Median gaji di tabel ini adalah
+> statistik teramati dari pemetaan saat ini; nilai gaji di
+> `pekerjaan.json` adalah nilai kurasi yang dipertahankan stabil
+> (tidak dihitung ulang tiap perubahan pemetaan).
 
 Statistik dihitung dari tabel `lowongan_glints` di PostgreSQL. Untuk
 menghitung ulang:

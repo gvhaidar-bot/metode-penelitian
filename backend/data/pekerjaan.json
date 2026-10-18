@@ -795,9 +795,9 @@
     ],
     "gaji_min": 5.0,
     "gaji_max": 7.0,
-    "demand": 4,
-    "gaji_sumber": "Glints n=38",
-    "demand_sumber": "Glints n=38"
+    "demand": 5,
+    "gaji_sumber": "Glints n=57",
+    "demand_sumber": "Glints n=57"
   },
   {
     "id": "network-engineer",
